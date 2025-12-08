@@ -271,6 +271,22 @@ class UploadMediaInput(BaseModel):
 
 @api_router.post("/users/gallery/upload")
 async def upload_media(input_data: UploadMediaInput, current_user: dict = Depends(get_current_user)):
+    # Validate file type from base64 header
+    allowed_image_types = ["image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp", "image/heic"]
+    allowed_video_types = ["video/mp4", "video/quicktime", "video/x-msvideo", "video/webm", "video/mpeg"]
+    
+    # Extract MIME type from base64 data URL
+    if input_data.data.startswith("data:"):
+        mime_type = input_data.data.split(";")[0].split(":")[1]
+    else:
+        raise HTTPException(status_code=400, detail="Invalid file format")
+    
+    # Validate file type
+    if input_data.type == "image" and mime_type not in allowed_image_types:
+        raise HTTPException(status_code=400, detail=f"Image type not allowed. Allowed: JPEG, PNG, GIF, WebP, HEIC")
+    if input_data.type == "video" and mime_type not in allowed_video_types:
+        raise HTTPException(status_code=400, detail=f"Video type not allowed. Allowed: MP4, MOV, AVI, WebM, MPEG")
+    
     # Check file size (limit to 10MB for images, 50MB for videos)
     import sys
     data_size = sys.getsizeof(input_data.data)
