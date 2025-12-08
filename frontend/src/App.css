@@ -1,23 +1,29 @@
 .bet-card {
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .bet-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
 }
 
 .btn-glow {
-  box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
 }
 
 .btn-glow:hover {
-  box-shadow: 0 0 30px rgba(0, 230, 118, 0.5);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+.gold-accent {
+  color: #D4AF37;
 }
 
 .amount-input {
   font-size: 3rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 768px) {
