@@ -346,6 +346,77 @@ export default function ProfilePage({ user, setUser, onLogout }) {
           </div>
         </Card>
 
+        {/* Gallery */}
+        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="gallery-card">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold flex items-center">
+              <Upload className="h-5 w-5 mr-2 text-primary" />
+              Media Gallery
+            </h3>
+            <div>
+              <input
+                ref={galleryInputRef}
+                type="file"
+                accept="image/*,video/*"
+                multiple
+                onChange={handleGalleryUpload}
+                className="hidden"
+                data-testid="gallery-upload-input"
+              />
+              <Button
+                onClick={() => galleryInputRef.current?.click()}
+                disabled={uploadingMedia}
+                size="sm"
+                className="bg-primary text-primary-foreground rounded-full"
+                data-testid="upload-media-button"
+              >
+                <Upload className="h-4 w-4 mr-2" />
+                {uploadingMedia ? 'Uploading...' : 'Upload'}
+              </Button>
+            </div>
+          </div>
+
+          {gallery.length === 0 ? (
+            <div className="text-center py-8">
+              <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-50" />
+              <p className="text-muted-foreground text-sm">No media yet. Upload photos or videos!</p>
+              <p className="text-xs text-muted-foreground mt-1">Images: max 10MB | Videos: max 50MB</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-3 gap-3" data-testid="gallery-grid">
+              {gallery.map((item) => (
+                <div key={item.item_id} className="relative group aspect-square rounded-xl overflow-hidden bg-muted" data-testid={`gallery-item-${item.item_id}`}>
+                  {item.type === 'image' ? (
+                    <img
+                      src={item.data}
+                      alt="Gallery item"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="relative w-full h-full">
+                      <video
+                        src={item.data}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                        <Play className="h-8 w-8 text-white" />
+                      </div>
+                    </div>
+                  )}
+                  <Button
+                    size="icon"
+                    onClick={() => handleDeleteGalleryItem(item.item_id)}
+                    className="absolute top-1 right-1 h-6 w-6 rounded-full bg-destructive/90 hover:bg-destructive opacity-0 group-hover:opacity-100 transition-opacity"
+                    data-testid={`delete-${item.item_id}`}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
+        </Card>
+
         {/* Logout */}
         <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="logout-card">
           <h3 className="text-lg font-bold mb-4 flex items-center">
