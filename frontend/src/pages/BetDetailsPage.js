@@ -420,9 +420,24 @@ export default function BetDetailsPage({ user }) {
             <p className="text-3xl font-bold" data-testid="winner-name">
               {bet.winner_id === bet.creator_id ? bet.creator?.name : bet.opponent?.name}
             </p>
-            <p className="text-xl font-mono text-primary mt-3">
-              Won ${(bet.amount * 2).toFixed(2)}
-            </p>
+            <div className="mt-4 space-y-2">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">Total Pool:</span>
+                <span className="font-mono">${(bet.amount * 2).toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">Platform Fee (3%):</span>
+                <span className="font-mono text-destructive">-${bet.platform_fee ? bet.platform_fee.toFixed(2) : ((bet.amount * 2) * 0.03).toFixed(2)}</span>
+              </div>
+              <div className="border-t border-white/10 pt-2 mt-2">
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold">Winner Payout:</span>
+                  <span className="text-2xl font-mono text-primary font-bold">
+                    ${bet.winner_payout ? bet.winner_payout.toFixed(2) : ((bet.amount * 2) * 0.97).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            </div>
           </Card>
         )}
       </div>
