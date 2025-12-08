@@ -73,8 +73,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
     : 0;
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    toast.success('Logged out successfully');
+    onLogout();
     navigate('/auth');
   };
 
