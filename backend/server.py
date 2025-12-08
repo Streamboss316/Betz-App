@@ -236,6 +236,50 @@ async def reset_password(input_data: ResetPasswordInput):
 async def get_profile(current_user: dict = Depends(get_current_user)):
     return User(**current_user)
 
+@api_router.get("/users/{user_id}/profile")
+async def get_user_public_profile(user_id: str, current_user: dict = Depends(get_current_user)):
+    user = await db.users.find_one({"user_id": user_id}, {"_id": 0, "password_hash": 0})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check if users are friends
+    friendship = await db.friendships.find_one({
+        "$or": [
+            {"user_id": current_user["user_id"], "friend_id": user_id, "status": "accepted"},
+            {"user_id": user_id, "friend_id": current_user["user_id"], "status": "accepted"}
+        ]
+    })
+    
+    are_friends = friendship is not None
+    privacy_settings = user.get("privacy_settings", {"profile_public": True, "activity_public": True})
+    
+    # If profile is private and not friends, return limited info
+    if not privacy_settings.get("profile_public", True) and not are_friends:
+        return {
+            "user_id": user["user_id"],
+            "name": user["name"],
+            "betz_id": user["betz_id"],
+            "avatar": user.get("avatar"),
+            "privacy_settings": privacy_settings,
+            "is_private": True,
+            "are_friends": False
+        }
+    
+    # Get gallery if activity is public or are friends
+    gallery = []
+    if privacy_settings.get("activity_public", True) or are_friends:
+        gallery = await db.gallery.find(
+            {"user_id": user_id},
+            {"_id": 0}
+        ).sort("created_at", -1).limit(20).to_list(20)
+    
+    return {
+        **user,
+        "are_friends": are_friends,
+        "is_private": False,
+        "gallery": gallery
+    }
+
 class ProfileUpdateInput(BaseModel):
     name: Optional[str] = None
     avatar: Optional[str] = None
