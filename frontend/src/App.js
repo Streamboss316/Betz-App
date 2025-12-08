@@ -90,7 +90,7 @@ function App() {
           <Route path="/" element={user ? <HomePage user={user} onLogout={logout} /> : <Navigate to="/auth" />} />
           <Route path="/place-bet" element={user ? <PlaceBetPage user={user} /> : <Navigate to="/auth" />} />
           <Route path="/bets/:betId" element={user ? <BetDetailsPage user={user} /> : <Navigate to="/auth" />} />
-          <Route path="/profile" element={user ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" />} />
+          <Route path="/profile" element={user ? <ProfilePage user={user} setUser={setUser} onLogout={logout} /> : <Navigate to="/auth" />} />
           <Route path="/friends" element={user ? <FriendsPage user={user} /> : <Navigate to="/auth" />} />
           <Route path="/wallet" element={user ? <WalletPage user={user} setUser={setUser} /> : <Navigate to="/auth" />} />
           <Route path="/messages" element={user ? <MessagesPage user={user} /> : <Navigate to="/auth" />} />
