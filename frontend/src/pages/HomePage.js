@@ -77,15 +77,17 @@ export default function HomePage({ user, onLogout }) {
       {/* Main Content */}
       <div className="p-6 pb-24 max-w-7xl mx-auto">
         {/* Balance Card */}
-        <Card className="bg-gradient-to-br from-primary/20 to-secondary/20 border-white/10 shadow-2xl p-8 rounded-2xl mb-6" data-testid="balance-card">
-          <div className="flex items-center justify-between mb-4">
+        <Card className="bg-gradient-to-br from-primary/10 to-accent/5 border border-primary/20 shadow-lg p-8 rounded-3xl mb-6" data-testid="balance-card">
+          <div className="flex items-center justify-between mb-6">
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground/70 mb-1">Available Balance</p>
-              <h2 className="text-5xl font-black font-mono tracking-tight text-foreground" data-testid="balance-amount">
+              <p className="text-xs font-medium tracking-wide text-muted-foreground mb-2">Available Balance</p>
+              <h2 className="text-5xl font-bold font-mono tracking-tight text-white" data-testid="balance-amount">
                 ${user.balance?.toFixed(2) || '0.00'}
               </h2>
             </div>
-            <Wallet className="h-12 w-12 text-primary" />
+            <div className="h-14 w-14 rounded-full bg-primary/20 flex items-center justify-center">
+              <Wallet className="h-7 w-7 text-primary" />
+            </div>
           </div>
           
           <div className="flex gap-4 mt-6">
