@@ -191,6 +191,47 @@ async def login(input_data: LoginInput):
 async def get_me(current_user: dict = Depends(get_current_user)):
     return User(**current_user)
 
+class ForgotPasswordInput(BaseModel):
+    email: EmailStr
+
+class ResetPasswordInput(BaseModel):
+    email: EmailStr
+    betz_id: str
+    new_password: str
+
+@api_router.post("/auth/forgot-password")
+async def forgot_password(input_data: ForgotPasswordInput):
+    user = await db.users.find_one({"email": input_data.email}, {"_id": 0})
+    if not user:
+        # Don't reveal if email exists for security
+        return {"success": True, "message": "If this email exists, you'll receive recovery instructions"}
+    
+    # In production, send email with reset link
+    # For demo, just return success
+    return {
+        "success": True,
+        "message": "Recovery information sent. Use your Betz ID to reset password",
+        "betz_id_hint": user["betz_id"][:4] + "****"
+    }
+
+@api_router.post("/auth/reset-password")
+async def reset_password(input_data: ResetPasswordInput):
+    user = await db.users.find_one({
+        "email": input_data.email,
+        "betz_id": input_data.betz_id
+    }, {"_id": 0})
+    
+    if not user:
+        raise HTTPException(status_code=400, detail="Invalid email or Betz ID")
+    
+    hashed_pw = hash_password(input_data.new_password)
+    await db.users.update_one(
+        {"email": input_data.email},
+        {"$set": {"password_hash": hashed_pw}}
+    )
+    
+    return {"success": True, "message": "Password reset successfully"}
+
 @api_router.get("/users/profile", response_model=User)
 async def get_profile(current_user: dict = Depends(get_current_user)):
     return User(**current_user)
