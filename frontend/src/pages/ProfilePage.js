@@ -72,6 +72,12 @@ export default function ProfilePage({ user, setUser }) {
     ? ((user.win_count / (user.win_count + user.loss_count)) * 100).toFixed(1)
     : 0;
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    toast.success('Logged out successfully');
+    navigate('/auth');
+  };
+
   return (
     <div className="min-h-screen bg-background pb-8">
       <header className="sticky top-0 z-40 bg-black/60 backdrop-blur-md border-b border-white/5 h-16 flex items-center px-6">
