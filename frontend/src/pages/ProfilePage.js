@@ -72,6 +72,22 @@ export default function ProfilePage({ user, setUser, onLogout }) {
     }
   };
 
+  useEffect(() => {
+    loadGallery();
+  }, []);
+
+  const loadGallery = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await axios.get(`${API}/users/gallery`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setGallery(res.data);
+    } catch (error) {
+      console.error('Failed to load gallery');
+    }
+  };
+
   const winRate = user.win_count + user.loss_count > 0
     ? ((user.win_count / (user.win_count + user.loss_count)) * 100).toFixed(1)
     : 0;
@@ -79,6 +95,113 @@ export default function ProfilePage({ user, setUser, onLogout }) {
   const handleLogout = () => {
     onLogout();
     navigate('/auth');
+  };
+
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image must be less than 5MB');
+      return;
+    }
+
+    setLoading(true);
+    const reader = new FileReader();
+    
+    reader.onload = async (event) => {
+      const base64 = event.target.result;
+      const token = localStorage.getItem('token');
+
+      try {
+        await axios.put(`${API}/users/profile`, 
+          { avatar: base64 },
+          { headers: { Authorization: `Bearer ${token}` }}
+        );
+
+        const userRes = await axios.get(`${API}/auth/me`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setUser(userRes.data);
+        toast.success('Profile picture updated');
+      } catch (error) {
+        toast.error('Failed to update profile picture');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  const handleGalleryUpload = async (e) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingMedia(true);
+
+    for (let file of files) {
+      const isImage = file.type.startsWith('image/');
+      const isVideo = file.type.startsWith('video/');
+
+      if (!isImage && !isVideo) {
+        toast.error(`${file.name} is not an image or video`);
+        continue;
+      }
+
+      if (isImage && file.size > 10 * 1024 * 1024) {
+        toast.error(`${file.name} is too large (max 10MB for images)`);
+        continue;
+      }
+
+      if (isVideo && file.size > 50 * 1024 * 1024) {
+        toast.error(`${file.name} is too large (max 50MB for videos)`);
+        continue;
+      }
+
+      const reader = new FileReader();
+      
+      reader.onload = async (event) => {
+        const base64 = event.target.result;
+        const token = localStorage.getItem('token');
+
+        try {
+          await axios.post(`${API}/users/gallery/upload`, {
+            type: isImage ? 'image' : 'video',
+            data: base64
+          }, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+
+          toast.success(`${file.name} uploaded successfully`);
+          loadGallery();
+        } catch (error) {
+          toast.error(`Failed to upload ${file.name}`);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    setUploadingMedia(false);
+  };
+
+  const handleDeleteGalleryItem = async (itemId) => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.delete(`${API}/users/gallery/${itemId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      toast.success('Deleted from gallery');
+      loadGallery();
+    } catch (error) {
+      toast.error('Failed to delete');
+    }
   };
 
   return (
