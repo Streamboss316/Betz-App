@@ -101,8 +101,10 @@ export default function ProfilePage({ user, setUser, onLogout }) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith('image/')) {
-      toast.error('Please select an image file');
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/heic'];
+    
+    if (!allowedTypes.includes(file.type)) {
+      toast.error('Invalid image format. Please use: JPEG, PNG, GIF, WebP, or HEIC');
       return;
     }
 
