@@ -99,6 +99,7 @@ function App() {
           <Route path="/wallet" element={user ? <WalletPage user={user} setUser={setUser} /> : <Navigate to="/auth" />} />
           <Route path="/messages" element={user ? <MessagesPage user={user} /> : <Navigate to="/auth" />} />
           <Route path="/notifications" element={user ? <NotificationsPage user={user} /> : <Navigate to="/auth" />} />
+          <Route path="/user/:userId" element={user ? <ViewUserProfile /> : <Navigate to="/auth" />} />
           <Route path="/admin/login" element={!adminToken ? <AdminLoginPage onAdminLogin={adminLogin} /> : <Navigate to="/admin/dashboard" />} />
           <Route path="/admin/dashboard" element={adminToken ? <AdminDashboard onLogout={adminLogout} /> : <Navigate to="/admin/login" />} />
           <Route path="/admin/settings" element={adminToken ? <AdminSettings /> : <Navigate to="/admin/login" />} />
