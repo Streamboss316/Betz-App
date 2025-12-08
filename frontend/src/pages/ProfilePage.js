@@ -231,7 +231,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
             <input
               ref={avatarInputRef}
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,image/heic"
               onChange={handleAvatarChange}
               className="hidden"
               data-testid="avatar-upload-input"
