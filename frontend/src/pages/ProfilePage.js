@@ -33,10 +33,10 @@ export default function ProfilePage({ user, setUser, onLogout }) {
     const token = localStorage.getItem('token');
 
     try {
-      await axios.put(`${API}/users/profile`, null, {
-        params: { name },
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await axios.put(`${API}/users/profile`, 
+        { name },
+        { headers: { Authorization: `Bearer ${token}` }}
+      );
 
       const userRes = await axios.get(`${API}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` }
