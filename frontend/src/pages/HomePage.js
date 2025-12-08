@@ -54,8 +54,8 @@ export default function HomePage({ user, onLogout }) {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-black/60 backdrop-blur-md border-b border-white/5 h-16 flex items-center justify-between px-6">
-        <h1 className="text-2xl font-black font-heading tracking-tighter uppercase text-primary" data-testid="home-title">BETZ</h1>
+      <header className="sticky top-0 z-40 bg-black/70 backdrop-blur-xl border-b border-border/50 h-16 flex items-center justify-between px-6">
+        <h1 className="text-2xl font-bold tracking-tight text-white" data-testid="home-title">BETZ</h1>
         <div className="flex items-center gap-4">
           <Link to="/notifications">
             <Button variant="ghost" size="icon" className="rounded-full relative" data-testid="notifications-icon">
