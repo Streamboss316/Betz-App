@@ -99,6 +99,21 @@ class Notification(BaseModel):
     read: bool = False
     created_at: str
 
+class ReviewInput(BaseModel):
+    bet_id: str
+    reviewed_user_id: str
+    ratings: List[int]  # Array of 4 ratings (1-4)
+
+class Review(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    review_id: str
+    bet_id: str
+    reviewer_id: str
+    reviewed_user_id: str
+    ratings: List[int]
+    overall_percentage: int
+    created_at: str
+
 class Friendship(BaseModel):
     model_config = ConfigDict(extra="ignore")
     friendship_id: str
