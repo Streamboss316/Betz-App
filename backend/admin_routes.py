@@ -12,7 +12,7 @@ admin_router = APIRouter(prefix="/api/admin")
 # Admin credentials - in production, store securely
 ADMIN_EMAIL = "admin@betz.app"
 # Pre-generated hash for password: admin123
-ADMIN_PASSWORD_HASH = "$2b$12$LQ7JXqVzKxX8f5VqQ5H.ZeY3X1vwXKECFKPXq7jLxTJVxQJ5GXrJW"
+ADMIN_PASSWORD_HASH = "$2b$12$nl0xNjCPE8rRtWUNbNjkS.25voFhUyOePdgByGXxyAg3OTv5As5sC"
 
 JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key')
 ALGORITHM = "HS256"
