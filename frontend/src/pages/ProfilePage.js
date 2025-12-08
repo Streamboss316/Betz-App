@@ -381,11 +381,22 @@ export default function ProfilePage({ user, setUser, onLogout }) {
             </div>
           </div>
 
+          <div className="mb-4 p-3 bg-muted/30 rounded-lg text-xs space-y-2">
+            <div>
+              <p className="font-semibold text-foreground mb-1">Allowed Image Formats:</p>
+              <p className="text-muted-foreground">JPEG, JPG, PNG, GIF, WebP, HEIC • Max 10MB per image</p>
+            </div>
+            <div>
+              <p className="font-semibold text-foreground mb-1">Allowed Video Formats:</p>
+              <p className="text-muted-foreground">MP4, MOV, AVI, WebM, MPEG • Max 50MB per video</p>
+            </div>
+          </div>
+
           {gallery.length === 0 ? (
             <div className="text-center py-8">
               <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-50" />
               <p className="text-muted-foreground text-sm">No media yet. Upload photos or videos!</p>
-              <p className="text-xs text-muted-foreground mt-1">Images: max 10MB | Videos: max 50MB</p>
+              <p className="text-xs text-muted-foreground mt-1">Click the Upload button above to get started</p>
             </div>
           ) : (
             <div className="grid grid-cols-3 gap-3" data-testid="gallery-grid">
