@@ -138,10 +138,9 @@ export default function ForgotPasswordPage() {
 
               <div>
                 <Label htmlFor="new-password">New Password</Label>
-                <Input
+                <PasswordInput
                   id="new-password"
                   data-testid="new-password-input"
-                  type="password"
                   placeholder="••••••••"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
@@ -152,10 +151,9 @@ export default function ForgotPasswordPage() {
 
               <div>
                 <Label htmlFor="confirm-password">Confirm Password</Label>
-                <Input
+                <PasswordInput
                   id="confirm-password"
                   data-testid="confirm-password-input"
-                  type="password"
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
