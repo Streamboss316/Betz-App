@@ -236,13 +236,17 @@ async def reset_password(input_data: ResetPasswordInput):
 async def get_profile(current_user: dict = Depends(get_current_user)):
     return User(**current_user)
 
+class ProfileUpdateInput(BaseModel):
+    name: Optional[str] = None
+    avatar: Optional[str] = None
+
 @api_router.put("/users/profile", response_model=User)
-async def update_profile(name: Optional[str] = None, avatar: Optional[str] = None, current_user: dict = Depends(get_current_user)):
+async def update_profile(input_data: ProfileUpdateInput, current_user: dict = Depends(get_current_user)):
     update_data = {}
-    if name:
-        update_data["name"] = name
-    if avatar:
-        update_data["avatar"] = avatar
+    if input_data.name:
+        update_data["name"] = input_data.name
+    if input_data.avatar:
+        update_data["avatar"] = input_data.avatar
     
     if update_data:
         await db.users.update_one({"user_id": current_user["user_id"]}, {"$set": update_data})
@@ -250,6 +254,66 @@ async def update_profile(name: Optional[str] = None, avatar: Optional[str] = Non
         return User(**updated_user)
     
     return User(**current_user)
+
+class GalleryItem(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    item_id: str
+    user_id: str
+    type: str  # 'image' or 'video'
+    data: str  # base64 encoded
+    thumbnail: Optional[str] = None
+    created_at: str
+
+class UploadMediaInput(BaseModel):
+    type: str  # 'image' or 'video'
+    data: str  # base64 encoded
+    thumbnail: Optional[str] = None
+
+@api_router.post("/users/gallery/upload")
+async def upload_media(input_data: UploadMediaInput, current_user: dict = Depends(get_current_user)):
+    # Check file size (limit to 10MB for images, 50MB for videos)
+    import sys
+    data_size = sys.getsizeof(input_data.data)
+    
+    if input_data.type == "image" and data_size > 10 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="Image too large (max 10MB)")
+    if input_data.type == "video" and data_size > 50 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="Video too large (max 50MB)")
+    
+    gallery_item = {
+        "item_id": str(uuid.uuid4()),
+        "user_id": current_user["user_id"],
+        "type": input_data.type,
+        "data": input_data.data,
+        "thumbnail": input_data.thumbnail,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.gallery.insert_one(gallery_item)
+    return {"success": True, "item_id": gallery_item["item_id"]}
+
+@api_router.get("/users/gallery")
+async def get_gallery(user_id: Optional[str] = None, current_user: dict = Depends(get_current_user)):
+    target_user_id = user_id if user_id else current_user["user_id"]
+    
+    items = await db.gallery.find(
+        {"user_id": target_user_id},
+        {"_id": 0}
+    ).sort("created_at", -1).to_list(100)
+    
+    return items
+
+@api_router.delete("/users/gallery/{item_id}")
+async def delete_gallery_item(item_id: str, current_user: dict = Depends(get_current_user)):
+    result = await db.gallery.delete_one({
+        "item_id": item_id,
+        "user_id": current_user["user_id"]
+    })
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Gallery item not found")
+    
+    return {"success": True}
 
 @api_router.get("/users/search")
 async def search_users(query: str, current_user: dict = Depends(get_current_user)):
