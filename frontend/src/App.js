@@ -23,6 +23,7 @@ const API = `${BACKEND_URL}/api`;
 
 function App() {
   const [user, setUser] = useState(null);
+  const [adminToken, setAdminToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
