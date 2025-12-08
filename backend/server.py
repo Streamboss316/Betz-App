@@ -797,7 +797,10 @@ async def get_transactions(current_user: dict = Depends(get_current_user)):
     
     return transactions
 
+from admin_routes import admin_router
+
 app.include_router(api_router)
+app.include_router(admin_router)
 
 app.add_middleware(
     CORSMiddleware,
