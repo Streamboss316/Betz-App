@@ -362,7 +362,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
               <input
                 ref={galleryInputRef}
                 type="file"
-                accept="image/*,video/*"
+                accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,image/heic,video/mp4,video/quicktime,video/x-msvideo,video/webm,video/mpeg"
                 multiple
                 onChange={handleGalleryUpload}
                 className="hidden"
