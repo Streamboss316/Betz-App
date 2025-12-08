@@ -4,35 +4,35 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#09090B',
-        foreground: '#FAFAFA',
-        card: '#18181B',
-        'card-foreground': '#FAFAFA',
-        popover: '#09090B',
-        'popover-foreground': '#FAFAFA',
-        primary: '#00E676',
-        'primary-foreground': '#000000',
-        secondary: '#2979FF',
-        'secondary-foreground': '#FFFFFF',
-        muted: '#27272A',
-        'muted-foreground': '#A1A1AA',
-        accent: '#FFEA00',
+        background: '#0A0A0F',
+        foreground: '#FFFFFF',
+        card: '#16161D',
+        'card-foreground': '#FFFFFF',
+        popover: '#0A0A0F',
+        'popover-foreground': '#FFFFFF',
+        primary: '#8B5CF6',
+        'primary-foreground': '#FFFFFF',
+        secondary: '#D4AF37',
+        'secondary-foreground': '#000000',
+        muted: '#1F1F28',
+        'muted-foreground': '#9CA3AF',
+        accent: '#D4AF37',
         'accent-foreground': '#000000',
-        destructive: '#FF1744',
+        destructive: '#EF4444',
         'destructive-foreground': '#FFFFFF',
-        border: '#27272A',
-        input: '#27272A',
-        ring: '#00E676'
+        border: '#2D2D3A',
+        input: '#1F1F28',
+        ring: '#8B5CF6'
       },
       fontFamily: {
-        sans: ['Manrope', 'sans-serif'],
-        heading: ['Chivo', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace']
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        heading: ['Inter', 'sans-serif'],
+        mono: ['SF Mono', 'Monaco', 'Consolas', 'monospace']
       },
       borderRadius: {
-        lg: '1rem',
-        md: '0.75rem',
-        sm: '0.5rem'
+        lg: '1.25rem',
+        md: '1rem',
+        sm: '0.75rem'
       }
     }
   },
