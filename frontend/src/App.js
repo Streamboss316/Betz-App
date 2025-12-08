@@ -28,6 +28,12 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const adminTkn = localStorage.getItem('admin_token');
+    
+    if (adminTkn) {
+      setAdminToken(adminTkn);
+    }
+    
     if (token) {
       axios.get(`${API}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` }
