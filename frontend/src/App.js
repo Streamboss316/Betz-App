@@ -86,6 +86,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/auth" element={!user ? <AuthPage onLogin={login} /> : <Navigate to="/" />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/" element={user ? <HomePage user={user} onLogout={logout} /> : <Navigate to="/auth" />} />
           <Route path="/place-bet" element={user ? <PlaceBetPage user={user} /> : <Navigate to="/auth" />} />
           <Route path="/bets/:betId" element={user ? <BetDetailsPage user={user} /> : <Navigate to="/auth" />} />
