@@ -145,14 +145,17 @@ export default function ProfilePage({ user, setUser, onLogout }) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
+    const allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/heic'];
+    const allowedVideoTypes = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/webm', 'video/mpeg'];
+
     setUploadingMedia(true);
 
     for (let file of files) {
-      const isImage = file.type.startsWith('image/');
-      const isVideo = file.type.startsWith('video/');
+      const isImage = allowedImageTypes.includes(file.type);
+      const isVideo = allowedVideoTypes.includes(file.type);
 
       if (!isImage && !isVideo) {
-        toast.error(`${file.name} is not an image or video`);
+        toast.error(`${file.name}: Invalid format. Use JPEG, PNG, GIF, WebP, HEIC for images or MP4, MOV, AVI, WebM, MPEG for videos`);
         continue;
       }
 
