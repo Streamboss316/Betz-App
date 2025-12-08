@@ -21,6 +21,18 @@ export default function AuthPage({ onLogin }) {
     phone: ''
   });
   const [loading, setLoading] = useState(false);
+  const [showBiometricPrompt, setShowBiometricPrompt] = useState(false);
+  const [biometricEnabled, setBiometricEnabled] = useState(false);
+  const [biometricEmail, setBiometricEmail] = useState('');
+
+  useEffect(() => {
+    const enabled = localStorage.getItem('biometric_enabled') === 'true';
+    const email = localStorage.getItem('biometric_user_email');
+    setBiometricEnabled(enabled);
+    if (email) {
+      setBiometricEmail(email);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
