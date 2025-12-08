@@ -110,9 +110,9 @@ export default function HomePage({ user, onLogout }) {
         <Button
           data-testid="place-bet-button"
           onClick={() => navigate('/place-bet')}
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-16 text-xl font-bold uppercase tracking-wide btn-glow mb-6"
+          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-glow mb-6"
         >
-          <DollarSign className="mr-2 h-6 w-6" />
+          <DollarSign className="mr-2 h-5 w-5" />
           Place Bet
         </Button>
 
