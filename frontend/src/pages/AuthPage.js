@@ -209,10 +209,42 @@ export default function AuthPage({ onLogin }) {
             </div>
           )}
 
+          {isLogin && biometricEnabled && biometricEmail && (
+            <>
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-white/10"></div>
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">Or</span>
+                </div>
+              </div>
+
+              <Button
+                type="button"
+                onClick={handleBiometricLogin}
+                disabled={loading}
+                variant="outline"
+                className="w-full border-primary/50 hover:bg-primary/10 rounded-2xl h-14"
+                data-testid="biometric-login-button"
+              >
+                <Fingerprint className="mr-2 h-5 w-5 text-primary" />
+                Sign in with Face ID
+              </Button>
+            </>
+          )}
+
           <p className="text-center text-sm text-muted-foreground mt-6">
             Must be 18+ to use BETZ
           </p>
         </Card>
+
+        {showBiometricPrompt && (
+          <BiometricPrompt
+            userEmail={formData.email}
+            onClose={() => setShowBiometricPrompt(false)}
+          />
+        )}
       </div>
     </div>
   );
