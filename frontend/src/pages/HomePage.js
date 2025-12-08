@@ -90,18 +90,18 @@ export default function HomePage({ user, onLogout }) {
             </div>
           </div>
           
-          <div className="flex gap-4 mt-6">
-            <div className="flex-1">
-              <p className="text-xs text-muted-foreground">Wins</p>
+          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-1">Wins</p>
               <p className="text-2xl font-bold text-primary font-mono" data-testid="win-count">{user.win_count || 0}</p>
             </div>
-            <div className="flex-1">
-              <p className="text-xs text-muted-foreground">Losses</p>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-1">Losses</p>
               <p className="text-2xl font-bold text-destructive font-mono" data-testid="loss-count">{user.loss_count || 0}</p>
             </div>
-            <div className="flex-1">
-              <p className="text-xs text-muted-foreground">Betz ID</p>
-              <p className="text-sm font-mono text-accent font-bold" data-testid="betz-id">{user.betz_id}</p>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-1">Betz ID</p>
+              <p className="text-sm font-mono text-accent font-semibold" data-testid="betz-id">{user.betz_id}</p>
             </div>
           </div>
         </Card>
