@@ -20,8 +20,12 @@ import AdminSettings from './pages/AdminSettings';
 import AdminUsers from './pages/AdminUsers';
 import AdminBets from './pages/AdminBets';
 import AdminRevenue from './pages/AdminRevenue';
+import AdminDPPage from './pages/AdminDPPage';
+import AdminDemoMode from './pages/AdminDemoMode';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ViewUserProfile from './pages/ViewUserProfile';
+import ReviewPage from './pages/ReviewPage';
+import DPDashboard from './pages/DPDashboard';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
