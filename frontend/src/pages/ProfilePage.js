@@ -7,7 +7,7 @@ import { Card } from '../components/ui/card';
 import { Label } from '../components/ui/label';
 import { Switch } from '../components/ui/switch';
 import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar';
-import { ArrowLeft, User, Shield, Trophy } from 'lucide-react';
+import { ArrowLeft, User, Shield, Trophy, LogOut } from 'lucide-react';
 import { toast } from 'sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
