@@ -238,6 +238,12 @@ export default function AuthPage({ onLogin }) {
           <p className="text-center text-sm text-muted-foreground mt-6">
             Must be 18+ to use BETZ
           </p>
+          
+          <div className="mt-4 text-center">
+            <a href="/admin/login" className="text-xs text-muted-foreground hover:text-primary">
+              Admin? Login here →
+            </a>
+          </div>
         </Card>
 
         {showBiometricPrompt && (
