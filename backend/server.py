@@ -718,12 +718,16 @@ async def accept_bet(bet_id: str, current_user: dict = Depends(get_current_user)
     if current_user["balance"] < bet["amount"]:
         raise HTTPException(status_code=400, detail="Insufficient balance")
     
+    # If bet is $1000 or less, go straight to active (no DP needed)
+    # If bet is greater than $1000, status = accepted (DP required)
+    new_status = "active" if bet["amount"] <= 1000 else "accepted"
+    
     await db.bets.update_one(
         {"bet_id": bet_id},
-        {"$set": {"status": "accepted", "updated_at": datetime.now(timezone.utc).isoformat()}}
+        {"$set": {"status": new_status, "updated_at": datetime.now(timezone.utc).isoformat()}}
     )
     
-    return {"success": True}
+    return {"success": True, "requires_dp": bet["amount"] > 1000}
 
 @api_router.put("/bets/{bet_id}/reject")
 async def reject_bet(bet_id: str, current_user: dict = Depends(get_current_user)):
