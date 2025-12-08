@@ -30,6 +30,10 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer()
 
+@api_router.get("/")
+async def root():
+    return {"message": "BETZ API - High Stakes Racing Bets"}
+
 class User(BaseModel):
     model_config = ConfigDict(extra="ignore")
     user_id: str
