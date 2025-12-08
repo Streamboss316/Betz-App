@@ -148,7 +148,10 @@ export default function FriendsPage({ user }) {
                 {friends.map((friend) => (
                   <Card key={friend.user_id} className="bg-card border-white/10 p-4 rounded-xl" data-testid={`friend-${friend.user_id}`}>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
+                      <div 
+                        className="flex items-center gap-3 flex-1 cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => navigate(`/user/${friend.user_id}`)}
+                      >
                         <Avatar className="h-12 w-12">
                           <AvatarImage src={friend.avatar} />
                           <AvatarFallback className="bg-primary text-primary-foreground">{getInitials(friend.name)}</AvatarFallback>
