@@ -104,6 +104,7 @@ export default function AuthPage({ onLogin }) {
             BETZ
           </h1>
           <p className="text-muted-foreground text-sm font-medium">High-Stakes Racing</p>
+          <p className="text-xs text-accent mt-2">USER LOGIN</p>
         </div>
 
         <Card className="bg-card border-white/10 shadow-2xl p-8 rounded-2xl" data-testid="auth-card">
