@@ -21,6 +21,7 @@ import AdminUsers from './pages/AdminUsers';
 import AdminBets from './pages/AdminBets';
 import AdminRevenue from './pages/AdminRevenue';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ViewUserProfile from './pages/ViewUserProfile';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
