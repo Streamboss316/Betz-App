@@ -1,50 +1,79 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import '@/App.css';
+import { Toaster } from './components/ui/sonner';
+import { toast } from 'sonner';
+
+import AuthPage from './pages/AuthPage';
+import HomePage from './pages/HomePage';
+import PlaceBetPage from './pages/PlaceBetPage';
+import BetDetailsPage from './pages/BetDetailsPage';
+import ProfilePage from './pages/ProfilePage';
+import FriendsPage from './pages/FriendsPage';
+import WalletPage from './pages/WalletPage';
+import MessagesPage from './pages/MessagesPage';
+import NotificationsPage from './pages/NotificationsPage';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    helloWorldApi();
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.get(`${API}/auth/me`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(res => {
+        setUser(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        localStorage.removeItem('token');
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
+    }
   }, []);
 
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+  const login = (token, userData) => {
+    localStorage.setItem('token', token);
+    setUser(userData);
+  };
 
-function App() {
+  const logout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+    toast.success('Logged out successfully');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-primary text-2xl font-heading">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
+      <Toaster position="top-center" richColors />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/auth" element={!user ? <AuthPage onLogin={login} /> : <Navigate to="/" />} />
+          <Route path="/" element={user ? <HomePage user={user} onLogout={logout} /> : <Navigate to="/auth" />} />
+          <Route path="/place-bet" element={user ? <PlaceBetPage user={user} /> : <Navigate to="/auth" />} />
+          <Route path="/bets/:betId" element={user ? <BetDetailsPage user={user} /> : <Navigate to="/auth" />} />
+          <Route path="/profile" element={user ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" />} />
+          <Route path="/friends" element={user ? <FriendsPage user={user} /> : <Navigate to="/auth" />} />
+          <Route path="/wallet" element={user ? <WalletPage user={user} setUser={setUser} /> : <Navigate to="/auth" />} />
+          <Route path="/messages" element={user ? <MessagesPage user={user} /> : <Navigate to="/auth" />} />
+          <Route path="/notifications" element={user ? <NotificationsPage user={user} /> : <Navigate to="/auth" />} />
         </Routes>
       </BrowserRouter>
     </div>
