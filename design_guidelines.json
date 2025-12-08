@@ -1,0 +1,132 @@
+{
+  "identity": {
+    "name": "Betz",
+    "persona": "The Night Racer's Banker",
+    "tone": "High-stakes, Adrenaline, Trustworthy, Slick",
+    "aesthetic": "Dark Mode Fintech meets Underground Racing",
+    "principles": [
+      "Fusion: Cash App Simplicity + Racing Aggression",
+      "Emotion: Every interaction feels like a gear shift—precise and satisfying",
+      "Content: Data is the hero (Odds, Amounts, Wins)",
+      "Contrast: Neon on Void Black"
+    ]
+  },
+  "typography": {
+    "primary_font": "Manrope",
+    "heading_font": "Chivo",
+    "mono_font": "JetBrains Mono",
+    "scale": {
+      "h1": "text-4xl md:text-6xl font-black tracking-tighter uppercase",
+      "h2": "text-3xl md:text-4xl font-bold tracking-tight",
+      "h3": "text-2xl font-bold tracking-tight",
+      "body": "text-base leading-relaxed text-muted-foreground",
+      "caption": "text-xs uppercase tracking-widest text-muted-foreground/70",
+      "data": "font-mono font-medium tracking-tight"
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap');"
+    ]
+  },
+  "colors": {
+    "mode": "dark",
+    "palette": {
+      "background": "#09090B",
+      "foreground": "#FAFAFA",
+      "card": "#18181B",
+      "card_foreground": "#FAFAFA",
+      "popover": "#09090B",
+      "popover_foreground": "#FAFAFA",
+      "primary": "#00E676",
+      "primary_foreground": "#000000",
+      "secondary": "#2979FF",
+      "secondary_foreground": "#FFFFFF",
+      "muted": "#27272A",
+      "muted_foreground": "#A1A1AA",
+      "accent": "#FFEA00",
+      "accent_foreground": "#000000",
+      "destructive": "#FF1744",
+      "destructive_foreground": "#FFFFFF",
+      "border": "#27272A",
+      "input": "#27272A",
+      "ring": "#00E676"
+    },
+    "gradients": {
+      "hero": "bg-gradient-to-b from-zinc-900 to-black",
+      "glow_green": "shadow-[0_0_20px_rgba(0,230,118,0.3)]",
+      "glow_blue": "shadow-[0_0_20px_rgba(41,121,255,0.3)]"
+    }
+  },
+  "layout": {
+    "spacing_scale": "Generous (2x standard)",
+    "container_padding": "p-6 md:p-12",
+    "grid_system": {
+      "dashboard": "grid-cols-1 md:grid-cols-12 gap-4 md:gap-6",
+      "feed": "grid-cols-1 md:grid-cols-3 gap-6"
+    },
+    "border_radius": {
+      "default": "rounded-xl",
+      "card": "rounded-2xl",
+      "button": "rounded-full"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-primary/20 transition-all duration-300 font-bold uppercase tracking-wide rounded-full px-8 py-6",
+      "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-lg hover:shadow-secondary/20 transition-all duration-300 font-bold rounded-full px-6 py-4",
+      "ghost": "hover:bg-white/10 text-foreground transition-colors rounded-full px-4 py-2",
+      "destructive": "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-lg hover:shadow-destructive/20 rounded-full"
+    },
+    "cards": {
+      "default": "bg-card border border-white/10 shadow-xl backdrop-blur-sm",
+      "glass": "bg-black/40 border border-white/10 backdrop-blur-xl shadow-2xl",
+      "interactive": "hover:border-primary/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+    },
+    "inputs": {
+      "default": "bg-input/50 border-transparent focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all rounded-lg h-12 text-lg",
+      "money": "font-mono text-4xl bg-transparent border-none text-center focus:ring-0 placeholder:text-muted-foreground/20"
+    },
+    "navigation": {
+      "bottom_bar": "fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-lg border-t border-white/10 h-20 flex items-center justify-around z-50",
+      "header": "sticky top-0 z-40 bg-black/60 backdrop-blur-md border-b border-white/5 h-16 flex items-center justify-between px-6"
+    }
+  },
+  "visual_enhancers": {
+    "textures": "Use subtle noise overlays on solid backgrounds to prevent banding.",
+    "motion": {
+      "hover": "transition-transform duration-200 ease-out hover:scale-105",
+      "tap": "active:scale-95",
+      "page_transition": "animate-in fade-in slide-in-from-bottom-4 duration-500"
+    },
+    "glassmorphism": "Use for sticky headers, modals, and the 'Place Bet' overlay.",
+    "borders": "1px solid rgba(255,255,255,0.1) is mandatory for all cards to define edges in dark mode."
+  },
+  "assets": {
+    "icons": "Lucide React (default)",
+    "images": {
+      "hero_bg": "https://images.unsplash.com/photo-1735012314104-ec73105044ab?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHw0fHxkcmFnJTIwcmFjaW5nJTIwY2FycyUyMG5pZ2h0JTIwbmVvbnxlbnwwfHx8fDE3NjUxNTYzMzV8MA&ixlib=rb-4.1.0&q=85",
+      "racing_vibe": "https://images.unsplash.com/photo-1626966371825-89713ebd6a32?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHwxfHxkcmFnJTIwcmFjaW5nJTIwY2FycyUyMG5pZ2h0JTIwbmVvbnxlbnwwfHx8fDE3NjUxNTYzMzV8MA&ixlib=rb-4.1.0&q=85",
+      "city_night": "https://images.unsplash.com/photo-1759866459841-1ad374757c91?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBjaXR5JTIwc2t5bGluZSUyMG5pZ2h0JTIwYWJzdHJhY3R8ZW58MHx8fHwxNzY1MTU2MzM4fDA&ixlib=rb-4.1.0&q=85",
+      "avatars": [
+        "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHw0fHxkaXZlcnNlJTIweW91bmclMjBhZHVsdCUyMHBvcnRyYWl0cyUyMHByb2Zlc3Npb25hbHxlbnwwfHx8fDE3NjUxNTYzMzZ8MA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1613397998937-49d4aad1591b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwzfHxkaXZlcnNlJTIweW91bmclMjBhZHVsdCUyMHBvcnRyYWl0cyUyMHByb2Zlc3Npb25hbHxlbnwwfHx8fDE3NjUxNTYzMzZ8MA&ixlib=rb-4.1.0&q=85"
+      ]
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. INSTALL FONTS: Add the Google Fonts import to index.css immediately.",
+    "2. CONFIGURE TAILWIND: Update tailwind.config.js with the colors defined in this JSON. Extend the theme, do not overwrite.",
+    "3. DARK MODE DEFAULT: Ensure the 'dark' class is applied to the html/body tag by default.",
+    "4. COMPONENT OVERRIDES: When using Shadcn components, override the default 'rounded-md' with 'rounded-xl' or 'rounded-2xl' to match the 'Slick' aesthetic.",
+    "5. DATA-TESTID: Add data-testid to all interactive elements (buttons, inputs, cards).",
+    "6. NO GRADIENT TEXT: Avoid gradient text for accessibility. Use gradients for backgrounds/borders only.",
+    "7. MOBILE FIRST: Design the 'Place Bet' flow for thumb-reachability (bottom sheet or low-positioned inputs)."
+  ],
+  "universal_guidelines": [
+    "Do not use generic centered layouts.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "Every interaction needs micro-animations.",
+    "Use 2-3x more spacing than feels comfortable.",
+    "NEVER use AI assistant Emoji characters."
+  ]
+}
