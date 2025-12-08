@@ -145,6 +145,20 @@ export default function AuthPage({ onLogin }) {
             </Button>
           </form>
 
+          {isLogin && (
+            <div className="text-center mt-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => window.location.href = '/forgot-password'}
+                className="text-primary hover:text-primary/90"
+                data-testid="forgot-password-link"
+              >
+                Forgot Password?
+              </Button>
+            </div>
+          )}
+
           <p className="text-center text-sm text-muted-foreground mt-6">
             Must be 18+ to use BETZ
           </p>
