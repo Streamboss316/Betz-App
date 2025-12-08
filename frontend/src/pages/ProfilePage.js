@@ -216,12 +216,30 @@ export default function ProfilePage({ user, setUser, onLogout }) {
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         {/* Profile Header */}
         <Card className="bg-card border-white/10 p-8 rounded-2xl text-center" data-testid="profile-header-card">
-          <Avatar className="h-24 w-24 mx-auto mb-4 border-4 border-primary/50">
-            <AvatarImage src={user.avatar} />
-            <AvatarFallback className="bg-primary text-primary-foreground text-3xl font-bold">
-              {getInitials(user.name)}
-            </AvatarFallback>
-          </Avatar>
+          <div className="relative inline-block mb-4">
+            <Avatar className="h-24 w-24 border-4 border-primary/50">
+              <AvatarImage src={user.avatar} />
+              <AvatarFallback className="bg-primary text-primary-foreground text-3xl font-bold">
+                {getInitials(user.name)}
+              </AvatarFallback>
+            </Avatar>
+            <input
+              ref={avatarInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              className="hidden"
+              data-testid="avatar-upload-input"
+            />
+            <Button
+              size="icon"
+              onClick={() => avatarInputRef.current?.click()}
+              className="absolute bottom-0 right-0 h-8 w-8 rounded-full bg-primary hover:bg-primary/90"
+              data-testid="change-avatar-button"
+            >
+              <Camera className="h-4 w-4" />
+            </Button>
+          </div>
           <h2 className="text-2xl font-black font-heading mb-1" data-testid="profile-name">{user.name}</h2>
           <p className="text-accent font-mono font-bold text-lg mb-4" data-testid="profile-betz-id">{user.betz_id}</p>
           
