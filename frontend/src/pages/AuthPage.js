@@ -47,11 +47,48 @@ export default function AuthPage({ onLogin }) {
       const res = await axios.post(`${API}${endpoint}`, payload);
       onLogin(res.data.access_token, res.data.user);
       toast.success(isLogin ? 'Welcome back!' : 'Account created successfully!');
+      
+      // Show biometric prompt for new registrations or first-time logins
+      if (!isLogin || (!localStorage.getItem('biometric_prompt_shown') && !localStorage.getItem('biometric_enabled'))) {
+        setTimeout(() => {
+          setShowBiometricPrompt(true);
+        }, 1000);
+      }
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Authentication failed');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleBiometricLogin = async () => {
+    setLoading(true);
+    toast.info('Authenticating with Face ID...');
+    
+    // Simulate biometric authentication
+    setTimeout(async () => {
+      try {
+        // Get stored credentials
+        const password = localStorage.getItem('biometric_password_hash');
+        if (!password) {
+          toast.error('Please login with password first');
+          setLoading(false);
+          return;
+        }
+
+        const res = await axios.post(`${API}/auth/login`, {
+          email: biometricEmail,
+          password: password
+        });
+        
+        onLogin(res.data.access_token, res.data.user);
+        toast.success('Welcome back!');
+      } catch (error) {
+        toast.error('Biometric authentication failed');
+      } finally {
+        setLoading(false);
+      }
+    }, 1500);
   };
 
   return (
