@@ -138,9 +138,9 @@ export default function AuthPage({ onLogin }) {
               type="submit"
               data-testid="submit-button"
               disabled={loading}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-glow"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-glow"
             >
-              {loading ? 'Processing...' : isLogin ? 'Login' : 'Create Account'}
+              {loading ? 'Processing...' : isLogin ? 'Sign In' : 'Create Account'}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </form>
