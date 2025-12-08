@@ -10,9 +10,9 @@ import bcrypt
 admin_router = APIRouter(prefix="/api/admin")
 
 # Admin credentials - in production, store securely
-ADMIN_EMAIL = "admin@betz.app"
+ADMIN_EMAIL = "streamboss316@gmail.com"
 # Pre-generated hash for password: sanaa3030
-ADMIN_PASSWORD_HASH = "$2b$12$j443vSy.sYtwAUEsquIlC.WOZPmAZZZZDEkB0HQyqzawIearHwWE6"
+ADMIN_PASSWORD_HASH = "$2b$12$GBoeQgBEpvKXwkXGKv5dX.nuUuwHb0HGpDj8ozXds0dsHiCCDCgMm"
 
 JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key')
 ALGORITHM = "HS256"
