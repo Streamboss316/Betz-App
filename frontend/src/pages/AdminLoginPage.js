@@ -49,6 +49,7 @@ export default function AdminLoginPage({ onAdminLogin }) {
             ADMIN PANEL
           </h1>
           <p className="text-muted-foreground text-base">BETZ Platform Control</p>
+          <p className="text-xs text-destructive mt-2 font-semibold">⚠️ ADMIN ACCESS ONLY</p>
         </div>
 
         <Card className="bg-card border-white/10 shadow-2xl p-8 rounded-2xl" data-testid="admin-login-card">
