@@ -201,6 +201,26 @@ export default function ProfilePage({ user, setUser }) {
             </Button>
           </div>
         </Card>
+
+        {/* Logout */}
+        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="logout-card">
+          <h3 className="text-lg font-bold mb-4 flex items-center">
+            <LogOut className="h-5 w-5 mr-2 text-destructive" />
+            Sign Out
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">
+            Sign out of your BETZ account on this device
+          </p>
+          <Button
+            data-testid="logout-button"
+            onClick={handleLogout}
+            variant="outline"
+            className="w-full border-destructive text-destructive hover:bg-destructive hover:text-white rounded-full h-12 font-bold"
+          >
+            <LogOut className="mr-2 h-5 w-5" />
+            Sign Out
+          </Button>
+        </Card>
       </div>
     </div>
   );
