@@ -101,6 +101,9 @@ function App() {
           <Route path="/admin/login" element={!adminToken ? <AdminLoginPage onAdminLogin={adminLogin} /> : <Navigate to="/admin/dashboard" />} />
           <Route path="/admin/dashboard" element={adminToken ? <AdminDashboard onLogout={adminLogout} /> : <Navigate to="/admin/login" />} />
           <Route path="/admin/settings" element={adminToken ? <AdminSettings /> : <Navigate to="/admin/login" />} />
+          <Route path="/admin/users" element={adminToken ? <AdminUsers /> : <Navigate to="/admin/login" />} />
+          <Route path="/admin/bets" element={adminToken ? <AdminBets /> : <Navigate to="/admin/login" />} />
+          <Route path="/admin/revenue" element={adminToken ? <AdminRevenue /> : <Navigate to="/admin/login" />} />
         </Routes>
       </BrowserRouter>
     </div>
