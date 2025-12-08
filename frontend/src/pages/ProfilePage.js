@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-export default function ProfilePage({ user, setUser }) {
+export default function ProfilePage({ user, setUser, onLogout }) {
   const navigate = useNavigate();
   const [name, setName] = useState(user.name);
   const [profilePublic, setProfilePublic] = useState(user.privacy_settings?.profile_public ?? true);
