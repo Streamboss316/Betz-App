@@ -565,6 +565,11 @@ async def declare_winner(bet_id: str, winner_id: str, current_user: dict = Depen
     if bet["status"] == "completed":
         raise HTTPException(status_code=400, detail="Bet already completed")
     
+    # Calculate 3% platform fee
+    total_pool = bet["amount"] * 2
+    platform_fee = total_pool * 0.03
+    winner_payout = total_pool - platform_fee
+    
     if bet.get("dp_id"):
         if current_user["user_id"] != bet["dp_id"]:
             await db.bets.update_one(
@@ -589,16 +594,18 @@ async def declare_winner(bet_id: str, winner_id: str, current_user: dict = Depen
                 {"$set": {
                     "winner_id": winner_id,
                     "status": "completed",
+                    "platform_fee": platform_fee,
+                    "winner_payout": winner_payout,
                     "updated_at": datetime.now(timezone.utc).isoformat()
                 }}
             )
             
             loser_id = bet["creator_id"] if winner_id == bet["opponent_id"] else bet["opponent_id"]
-            total_amount = bet["amount"] * 2
             
+            # Add winner payout (after 3% fee)
             await db.users.update_one(
                 {"user_id": winner_id},
-                {"$inc": {"balance": total_amount, "win_count": 1}}
+                {"$inc": {"balance": winner_payout, "win_count": 1}}
             )
             
             await db.users.update_one(
@@ -606,23 +613,37 @@ async def declare_winner(bet_id: str, winner_id: str, current_user: dict = Depen
                 {"$inc": {"loss_count": 1}}
             )
             
-            return {"success": True, "status": "completed"}
+            # Track platform fees for accounting
+            fee_record = {
+                "fee_id": str(uuid.uuid4()),
+                "bet_id": bet_id,
+                "amount": platform_fee,
+                "winner_id": winner_id,
+                "loser_id": loser_id,
+                "total_pool": total_pool,
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+            await db.platform_fees.insert_one(fee_record)
+            
+            return {"success": True, "status": "completed", "platform_fee": platform_fee, "winner_payout": winner_payout}
     else:
         await db.bets.update_one(
             {"bet_id": bet_id},
             {"$set": {
                 "winner_id": winner_id,
                 "status": "completed",
+                "platform_fee": platform_fee,
+                "winner_payout": winner_payout,
                 "updated_at": datetime.now(timezone.utc).isoformat()
             }}
         )
         
         loser_id = bet["creator_id"] if winner_id == bet["opponent_id"] else bet["opponent_id"]
-        total_amount = bet["amount"] * 2
         
+        # Add winner payout (after 3% fee)
         await db.users.update_one(
             {"user_id": winner_id},
-            {"$inc": {"balance": total_amount, "win_count": 1}}
+            {"$inc": {"balance": winner_payout, "win_count": 1}}
         )
         
         await db.users.update_one(
@@ -630,7 +651,19 @@ async def declare_winner(bet_id: str, winner_id: str, current_user: dict = Depen
             {"$inc": {"loss_count": 1}}
         )
         
-        return {"success": True, "status": "completed"}
+        # Track platform fees for accounting
+        fee_record = {
+            "fee_id": str(uuid.uuid4()),
+            "bet_id": bet_id,
+            "amount": platform_fee,
+            "winner_id": winner_id,
+            "loser_id": loser_id,
+            "total_pool": total_pool,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.platform_fees.insert_one(fee_record)
+        
+        return {"success": True, "status": "completed", "platform_fee": platform_fee, "winner_payout": winner_payout}
 
 @api_router.get("/messages/{other_user_id}")
 async def get_messages(other_user_id: str, current_user: dict = Depends(get_current_user)):
