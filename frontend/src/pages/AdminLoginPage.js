@@ -69,10 +69,9 @@ export default function AdminLoginPage({ onAdminLogin }) {
 
             <div>
               <Label htmlFor="password">Admin Password</Label>
-              <Input
+              <PasswordInput
                 id="password"
                 data-testid="admin-password-input"
-                type="password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
