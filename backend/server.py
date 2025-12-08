@@ -114,6 +114,98 @@ class Review(BaseModel):
     overall_percentage: int
     created_at: str
 
+class ReviewQuestion(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    question_id: str
+    text: str
+    order: int
+
+@api_router.post("/bets/{bet_id}/review")
+async def submit_review(bet_id: str, input_data: ReviewInput, current_user: dict = Depends(get_current_user)):
+    bet = await db.bets.find_one({"bet_id": bet_id}, {"_id": 0})
+    if not bet or bet["status"] != "completed":
+        raise HTTPException(status_code=400, detail="Can only review completed bets")
+    
+    if current_user["user_id"] not in [bet["creator_id"], bet["opponent_id"]]:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Check if already reviewed
+    existing = await db.reviews.find_one({
+        "bet_id": bet_id,
+        "reviewer_id": current_user["user_id"]
+    })
+    if existing:
+        raise HTTPException(status_code=400, detail="Already reviewed this user")
+    
+    # Calculate overall percentage (average of 4 ratings, each 1-4 becomes 25%-100%)
+    ratings = input_data.ratings[:4]  # Ensure max 4 ratings
+    avg_rating = sum(ratings) / len(ratings)
+    overall_percentage = int((avg_rating / 4) * 100)
+    
+    review_doc = {
+        "review_id": str(uuid.uuid4()),
+        "bet_id": bet_id,
+        "reviewer_id": current_user["user_id"],
+        "reviewed_user_id": input_data.reviewed_user_id,
+        "ratings": ratings,
+        "overall_percentage": overall_percentage,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.reviews.insert_one(review_doc)
+    
+    # Update user's trust score
+    all_reviews = await db.reviews.find(
+        {"reviewed_user_id": input_data.reviewed_user_id},
+        {"_id": 0}
+    ).to_list(1000)
+    
+    if all_reviews:
+        avg_trust_score = sum(r["overall_percentage"] for r in all_reviews) / len(all_reviews)
+        await db.users.update_one(
+            {"user_id": input_data.reviewed_user_id},
+            {"$set": {"trust_score": round(avg_trust_score), "review_count": len(all_reviews)}}
+        )
+    
+    return {"success": True, "overall_percentage": overall_percentage}
+
+@api_router.get("/users/{user_id}/reviews")
+async def get_user_reviews(user_id: str):
+    reviews = await db.reviews.find(
+        {"reviewed_user_id": user_id},
+        {"_id": 0}
+    ).sort("created_at", -1).to_list(100)
+    
+    # Get reviewer info
+    reviewer_ids = [r["reviewer_id"] for r in reviews]
+    users = await db.users.find(
+        {"user_id": {"$in": reviewer_ids}},
+        {"_id": 0, "password_hash": 0}
+    ).to_list(100)
+    user_map = {u["user_id"]: u for u in users}
+    
+    for review in reviews:
+        review["reviewer"] = user_map.get(review["reviewer_id"], {})
+    
+    return reviews
+
+@api_router.get("/review-questions")
+async def get_review_questions():
+    questions = await db.review_questions.find({}, {"_id": 0}).sort("order", 1).to_list(10)
+    
+    # Default questions if none exist
+    if not questions:
+        default_questions = [
+            {"question_id": "q1", "text": "Was this person fair and honest?", "order": 1},
+            {"question_id": "q2", "text": "Did they agree with the outcome gracefully?", "order": 2},
+            {"question_id": "q3", "text": "Were they trustworthy throughout?", "order": 3},
+            {"question_id": "q4", "text": "Would you bet with them again?", "order": 4}
+        ]
+        await db.review_questions.insert_many(default_questions)
+        return default_questions
+    
+    return questions
+
 class Friendship(BaseModel):
     model_config = ConfigDict(extra="ignore")
     friendship_id: str
