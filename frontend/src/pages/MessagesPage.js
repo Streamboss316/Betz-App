@@ -103,21 +103,37 @@ export default function MessagesPage({ user }) {
               <div
                 key={friend.user_id}
                 data-testid={`friend-${friend.user_id}`}
-                onClick={() => setSelectedFriend(friend)}
-                className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all ${
+                className={`flex items-center justify-between gap-3 p-3 rounded-xl cursor-pointer transition-all ${
                   selectedFriend?.user_id === friend.user_id
                     ? 'bg-primary/20 border border-primary'
                     : 'hover:bg-muted/30'
                 }`}
               >
-                <Avatar className="h-12 w-12">
-                  <AvatarImage src={friend.avatar} />
-                  <AvatarFallback className="bg-muted">{getInitials(friend.name)}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-semibold">{friend.name}</p>
-                  <p className="text-sm text-muted-foreground">{friend.betz_id}</p>
+                <div 
+                  className="flex items-center gap-3 flex-1"
+                  onClick={() => setSelectedFriend(friend)}
+                >
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={friend.avatar} />
+                    <AvatarFallback className="bg-muted">{getInitials(friend.name)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-semibold">{friend.name}</p>
+                    <p className="text-sm text-muted-foreground">{friend.betz_id}</p>
+                  </div>
                 </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 rounded-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/user/${friend.user_id}`);
+                  }}
+                  title="View Profile"
+                >
+                  <ArrowLeft className="h-4 w-4 rotate-180" />
+                </Button>
               </div>
             ))
           )}
