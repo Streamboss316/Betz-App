@@ -62,6 +62,15 @@ function App() {
     toast.success('Logged out successfully');
   };
 
+  const adminLogin = (token) => {
+    setAdminToken(token);
+  };
+
+  const adminLogout = () => {
+    localStorage.removeItem('admin_token');
+    setAdminToken(null);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
