@@ -19,6 +19,10 @@ export default function ProfilePage({ user, setUser, onLogout }) {
   const [profilePublic, setProfilePublic] = useState(user.privacy_settings?.profile_public ?? true);
   const [activityPublic, setActivityPublic] = useState(user.privacy_settings?.activity_public ?? true);
   const [loading, setLoading] = useState(false);
+  const [gallery, setGallery] = useState([]);
+  const [uploadingMedia, setUploadingMedia] = useState(false);
+  const avatarInputRef = useRef(null);
+  const galleryInputRef = useRef(null);
 
   const getInitials = (name) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
