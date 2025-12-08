@@ -49,10 +49,10 @@ export default function AuthPage({ onLogin }) {
     >
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-6xl font-black font-heading tracking-tighter uppercase text-primary mb-2" data-testid="auth-title">
+          <h1 className="text-5xl font-bold tracking-tight text-white mb-1" data-testid="auth-title">
             BETZ
           </h1>
-          <p className="text-muted-foreground text-base">High-Stakes Racing Bets</p>
+          <p className="text-muted-foreground text-sm font-medium">High-Stakes Racing</p>
         </div>
 
         <Card className="bg-card border-white/10 shadow-2xl p-8 rounded-2xl" data-testid="auth-card">
