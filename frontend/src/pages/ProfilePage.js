@@ -508,6 +508,113 @@ export default function ProfilePage({ user, setUser, onLogout }) {
               />
             </div>
             <div>
+              <Label htmlFor="bio">Bio (Optional)</Label>
+              <textarea
+                id="bio"
+                data-testid="bio-input"
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                placeholder="Tell us about your racing journey..."
+                className="w-full bg-input/50 border border-white/10 rounded-lg p-3 min-h-[100px] text-foreground placeholder:text-muted-foreground resize-none"
+                maxLength={500}
+              />
+              <p className="text-xs text-muted-foreground mt-1">{bio.length}/500 characters</p>
+            </div>
+            <div>
+              <Label htmlFor="location">Location (Optional)</Label>
+              <Input
+                id="location"
+                data-testid="location-input"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="e.g., Los Angeles, CA"
+                className="bg-input/50 border-white/10 rounded-lg h-12"
+              />
+            </div>
+            
+            {/* Car Details Section */}
+            <div className="pt-4 border-t border-white/10">
+              <h4 className="font-semibold text-sm mb-3 text-primary">Car Details (Optional)</h4>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label htmlFor="car-make">Make</Label>
+                  <Input
+                    id="car-make"
+                    data-testid="car-make-input"
+                    value={carMake}
+                    onChange={(e) => setCarMake(e.target.value)}
+                    placeholder="e.g., Nissan"
+                    className="bg-input/50 border-white/10 rounded-lg h-12"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="car-model">Model</Label>
+                  <Input
+                    id="car-model"
+                    data-testid="car-model-input"
+                    value={carModel}
+                    onChange={(e) => setCarModel(e.target.value)}
+                    placeholder="e.g., GT-R"
+                    className="bg-input/50 border-white/10 rounded-lg h-12"
+                  />
+                </div>
+              </div>
+              <div className="mt-3">
+                <Label htmlFor="car-year">Year</Label>
+                <Input
+                  id="car-year"
+                  data-testid="car-year-input"
+                  value={carYear}
+                  onChange={(e) => setCarYear(e.target.value)}
+                  placeholder="e.g., 2023"
+                  className="bg-input/50 border-white/10 rounded-lg h-12"
+                />
+              </div>
+              <div className="mt-3">
+                <Label htmlFor="car-mods">Modifications</Label>
+                <textarea
+                  id="car-mods"
+                  data-testid="car-mods-input"
+                  value={carMods}
+                  onChange={(e) => setCarMods(e.target.value)}
+                  placeholder="List your car modifications..."
+                  className="w-full bg-input/50 border border-white/10 rounded-lg p-3 min-h-[80px] text-foreground placeholder:text-muted-foreground resize-none"
+                  maxLength={300}
+                />
+                <p className="text-xs text-muted-foreground mt-1">{carMods.length}/300 characters</p>
+              </div>
+            </div>
+
+            {/* Social Links Section */}
+            <div className="pt-4 border-t border-white/10">
+              <h4 className="font-semibold text-sm mb-3 text-primary">Social Links (Optional)</h4>
+              <div className="space-y-3">
+                <div>
+                  <Label htmlFor="instagram">Instagram</Label>
+                  <Input
+                    id="instagram"
+                    data-testid="instagram-input"
+                    value={instagram}
+                    onChange={(e) => setInstagram(e.target.value)}
+                    placeholder="@yourusername"
+                    className="bg-input/50 border-white/10 rounded-lg h-12"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="youtube">YouTube</Label>
+                  <Input
+                    id="youtube"
+                    data-testid="youtube-input"
+                    value={youtube}
+                    onChange={(e) => setYoutube(e.target.value)}
+                    placeholder="@yourchannel"
+                    className="bg-input/50 border-white/10 rounded-lg h-12"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
               <Label>Email</Label>
               <Input
                 value={user.email}
