@@ -98,6 +98,17 @@ export default function GlobalHeader({ user }) {
       </div>
 
       <div className="flex items-center gap-3">
+        {isDemoMode && (
+          <Button
+            variant="outline"
+            onClick={handleExitDemoMode}
+            className="border-accent/50 text-accent hover:bg-accent/10 rounded-full text-xs"
+            data-testid="exit-demo-button"
+          >
+            Exit Demo
+          </Button>
+        )}
+
         {/* Public Chat */}
         <Button 
           variant="ghost" 
