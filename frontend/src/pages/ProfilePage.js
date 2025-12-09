@@ -484,6 +484,40 @@ export default function ProfilePage({ user, setUser, onLogout }) {
                 <p className="text-xs text-muted-foreground">Win Rate</p>
               </div>
             </div>
+
+            {/* Bio Section */}
+            {user.bio && (
+              <div className="mt-6 p-4 bg-muted/30 rounded-xl" data-testid="profile-bio-section">
+                <h4 className="font-semibold text-sm mb-2 text-primary">About</h4>
+                <p className="text-sm text-foreground leading-relaxed">{user.bio}</p>
+              </div>
+            )}
+
+            {/* Car Details Section */}
+            {(user.car_make || user.car_model) && (
+              <div className="mt-4 p-4 bg-primary/10 border border-primary/30 rounded-xl" data-testid="profile-car-section">
+                <h4 className="font-semibold text-sm mb-3 text-primary flex items-center gap-2">
+                  🏎️ Car Details
+                </h4>
+                <div className="space-y-2">
+                  {(user.car_make || user.car_model || user.car_year) && (
+                    <div>
+                      <p className="text-lg font-bold text-foreground">
+                        {user.car_year && `${user.car_year} `}
+                        {user.car_make && `${user.car_make} `}
+                        {user.car_model}
+                      </p>
+                    </div>
+                  )}
+                  {user.car_mods && (
+                    <div>
+                      <p className="text-xs text-muted-foreground font-semibold mb-1">Modifications:</p>
+                      <p className="text-sm text-foreground">{user.car_mods}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </Card>
 
