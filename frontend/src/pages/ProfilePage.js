@@ -87,8 +87,15 @@ export default function ProfilePage({ user, setUser, onLogout }) {
     const token = localStorage.getItem('token');
 
     try {
-      await axios.put(`${API}/users/privacy`, null, {
-        params: { profile_public: profilePublic, activity_public: activityPublic },
+      await axios.put(`${API}/users/profile`, {
+        privacy_settings: {
+          profile_public: profilePublic,
+          show_gallery_preview: showGalleryPreview,
+          show_contact: showContact,
+          show_location: showLocation,
+          allow_bet_requests: allowBetRequests
+        }
+      }, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
