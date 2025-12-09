@@ -37,10 +37,17 @@ export default function AdminDemoMode() {
     const token = localStorage.getItem('admin_token');
     
     try {
-      // Login as that user (all demo users have password: demo123)
+      // Determine password based on email
+      const passwordMap = {
+        'demo@betz.com': 'demo123',
+        'test@betz.com': 'test123',
+        'speed@betz.com': 'speed123'
+      };
+      const password = passwordMap[userEmail] || 'demo123';
+      
       const res = await axios.post(`${API}/auth/login`, {
         email: userEmail,
-        password: 'demo123'
+        password: password
       });
       
       // Save user token
@@ -54,6 +61,24 @@ export default function AdminDemoMode() {
       window.location.href = '/';
     } catch (error) {
       toast.error('Failed to login as user');
+    }
+  };
+
+  const handleResetDemoData = async () => {
+    if (!window.confirm('This will reset all demo data including users, bets, and messages. Continue?')) {
+      return;
+    }
+    
+    const token = localStorage.getItem('admin_token');
+    try {
+      const res = await axios.post(`${API}/admin/demo/reset`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      toast.success(res.data.message);
+      loadUsers(); // Reload users list
+    } catch (error) {
+      toast.error('Failed to reset demo data');
     }
   };
 
@@ -88,15 +113,27 @@ export default function AdminDemoMode() {
         </Card>
 
         <Card className="bg-card border-white/10 p-6 rounded-2xl mb-6">
-          <h3 className="text-lg font-bold mb-2">How to Test Complete Flow:</h3>
-          <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
-            <li>Login as <span className="text-primary font-semibold">Johnny</span> (Creator) - Place a bet against Sam</li>
-            <li>Login as <span className="text-secondary font-semibold">Sam</span> (Opponent) - Accept bet, view stipulation</li>
-            <li>Login as <span className="text-accent font-semibold">Mike</span> (DP) - Lock bet, declare winner</li>
-            <li>Return to admin panel to view the complete process</li>
-          </ol>
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex-1">
+              <h3 className="text-lg font-bold mb-2">How to Test Complete Flow:</h3>
+              <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
+                <li>Login as <span className="text-primary font-semibold">Demo Racer</span> - Explore profile, place bets</li>
+                <li>Login as <span className="text-accent font-semibold">Test Driver</span> - Accept bets, send messages</li>
+                <li>Login as <span className="text-primary font-semibold">Speed Master</span> - View as DP, declare winners</li>
+                <li>Return to admin panel to manage everything</li>
+              </ol>
+            </div>
+            <Button
+              variant="destructive"
+              onClick={handleResetDemoData}
+              className="ml-4 whitespace-nowrap"
+              data-testid="reset-demo-button"
+            >
+              Reset Demo Data
+            </Button>
+          </div>
           <p className="text-xs text-accent mt-4 p-3 bg-accent/10 rounded-lg border border-accent/20">
-            <strong>Note:</strong> When testing is complete, click "Exit Demo Mode" from the user profile to return to admin panel
+            <strong>Note:</strong> Click "Reset Demo Data" to restore sample users, bets, and interactions for testing
           </p>
         </Card>
 
