@@ -80,10 +80,23 @@ export default function ViewUserProfile() {
             </AvatarFallback>
           </Avatar>
           <h2 className="text-2xl font-bold mb-1" data-testid="profile-name">{profile.name}</h2>
+          {profile.display_name && (
+            <p className="text-primary font-semibold text-lg" data-testid="profile-display-name">"{profile.display_name}"</p>
+          )}
+          {profile.racing_team && !profile.is_private && (
+            <p className="text-sm text-muted-foreground mb-2" data-testid="profile-racing-team">
+              🏁 {profile.racing_team}
+            </p>
+          )}
           <p className="text-accent font-mono font-semibold text-lg mb-4" data-testid="profile-betz-id">{profile.betz_id}</p>
           
           {profile.are_friends && (
             <Badge className="bg-primary/20 text-primary mb-4">Friend</Badge>
+          )}
+          {profile.trust_score > 0 && !profile.is_private && (
+            <Badge className="bg-accent/20 text-accent border border-accent/50 mb-4">
+              ⭐ {profile.trust_score}% Trust Score
+            </Badge>
           )}
 
           {profile.is_private ? (
