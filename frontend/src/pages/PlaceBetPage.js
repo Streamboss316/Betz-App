@@ -106,6 +106,59 @@ export default function PlaceBetPage({ user }) {
     }
   };
 
+  const checkContactIsMember = async () => {
+    if (!inviteContact) return;
+    
+    const token = localStorage.getItem('token');
+    try {
+      const contactData = inviteType === 'phone' 
+        ? { phone: inviteContact } 
+        : { email: inviteContact };
+      
+      const res = await axios.post(`${API}/users/check-contact`, contactData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      if (res.data.exists) {
+        // User is already a member!
+        setSelectedOpponent(res.data.user);
+        setInviteContact('');
+        setShowInviteMode(false);
+        toast.success(`${res.data.user.name} is a member! Selected as opponent.`);
+      } else {
+        // Not a member - send invite
+        await sendMembershipInvite();
+      }
+    } catch (error) {
+      toast.error('Failed to check contact');
+    }
+  };
+
+  const sendMembershipInvite = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const inviteData = inviteType === 'phone' 
+        ? { phone: inviteContact } 
+        : { email: inviteContact };
+      
+      const res = await axios.post(`${API}/invites/send`, inviteData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      if (res.data.success) {
+        toast.success(res.data.message);
+        // If they're already a member, select them
+        if (res.data.user) {
+          setSelectedOpponent(res.data.user);
+          setInviteContact('');
+          setShowInviteMode(false);
+        }
+      }
+    } catch (error) {
+      toast.error('Failed to send invite');
+    }
+  };
+
   const handleCreateBet = async () => {
     if (!amount || parseFloat(amount) <= 0) {
       toast.error('Enter a valid amount');
@@ -117,8 +170,8 @@ export default function PlaceBetPage({ user }) {
       return;
     }
 
-    if (!selectedOpponent && !inviteContact) {
-      toast.error('Select an opponent or enter invite contact');
+    if (!selectedOpponent) {
+      toast.error('Please select an opponent. If they are not a member, send them an invite first.');
       return;
     }
 
@@ -127,6 +180,7 @@ export default function PlaceBetPage({ user }) {
     
     try {
       const betData = {
+        opponent_id: selectedOpponent.user_id,
         amount: parseFloat(amount),
         stipulation: stipulation || ""
       };
@@ -136,27 +190,11 @@ export default function PlaceBetPage({ user }) {
         betData.dp_id = selectedDP.user_id;
       }
 
-      // Add opponent info based on whether it's existing user or invite
-      if (selectedOpponent) {
-        betData.opponent_id = selectedOpponent.user_id;
-      } else if (inviteContact) {
-        // User doesn't have app - send invite
-        if (inviteType === 'phone') {
-          betData.opponent_phone = inviteContact;
-        } else {
-          betData.opponent_email = inviteContact;
-        }
-      }
-
       const res = await axios.post(`${API}/bets/create`, betData, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      if (inviteContact) {
-        toast.success(`Invite sent to ${inviteContact}! They'll receive a link to download BETZ.`);
-      } else {
-        toast.success('Bet request sent!');
-      }
+      toast.success('Bet request sent!');
       navigate(`/bets/${res.data.bet_id}`);
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Failed to create bet');
