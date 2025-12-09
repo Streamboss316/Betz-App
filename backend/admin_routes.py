@@ -270,3 +270,237 @@ async def update_platform_settings(settings: PlatformSettings, admin: dict = Dep
     await db.platform_settings.delete_many({})
     await db.platform_settings.insert_one(settings.model_dump())
     return {"success": True, "message": "Platform settings updated"}
+
+
+@admin_router.post("/demo/reset")
+async def reset_demo_data(admin: dict = Depends(verify_admin_token)):
+    """Reset and repopulate demo data with sample users, bets, and interactions"""
+    import uuid
+    
+    # Clear existing demo data (keep admin)
+    await db.bets.delete_many({})
+    await db.messages.delete_many({})
+    await db.chat_messages.delete_many({})
+    await db.notifications.delete_many({})
+    await db.friendships.delete_many({})
+    await db.reviews.delete_many({})
+    await db.gallery_photos.delete_many({})
+    
+    # Delete all users except the ones we'll recreate
+    await db.users.delete_many({})
+    
+    # Helper function for password hashing
+    import bcrypt
+    def hash_password(password: str) -> str:
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    
+    def generate_betz_id() -> str:
+        return f"BETZ{str(uuid.uuid4())[:8].upper()}"
+    
+    # Create demo users
+    demo_users = [
+        {
+            "user_id": str(uuid.uuid4()),
+            "email": "demo@betz.com",
+            "phone": "+1234567890",
+            "password_hash": hash_password("demo123"),
+            "betz_id": generate_betz_id(),
+            "name": "Demo Racer",
+            "display_name": "DemoKing",
+            "avatar": None,
+            "balance": 5000.0,
+            "win_count": 15,
+            "loss_count": 5,
+            "win_streak": 3,
+            "trust_score": 85,
+            "review_count": 10,
+            "racing_team": "Demo Racing Team",
+            "bio": "Professional street racer with 10+ years experience. Love high-stakes racing!",
+            "location": "Los Angeles, CA",
+            "car_make": "Nissan",
+            "car_model": "GT-R",
+            "car_year": "2023",
+            "car_mods": "Twin turbo, custom exhaust, racing suspension, Stage 3 tune",
+            "instagram": "@demoracer",
+            "youtube": "@DemoRacing",
+            "privacy_settings": {
+                "profile_public": True,
+                "show_gallery_preview": True,
+                "show_contact": True,
+                "show_location": True,
+                "allow_bet_requests": True
+            },
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "last_active": datetime.now(timezone.utc).isoformat()
+        },
+        {
+            "user_id": str(uuid.uuid4()),
+            "email": "test@betz.com",
+            "phone": "+0987654321",
+            "password_hash": hash_password("test123"),
+            "betz_id": generate_betz_id(),
+            "name": "Test Driver",
+            "display_name": "TurboTest",
+            "avatar": None,
+            "balance": 3000.0,
+            "win_count": 8,
+            "loss_count": 7,
+            "win_streak": 1,
+            "trust_score": 72,
+            "review_count": 5,
+            "racing_team": "Test Racing Crew",
+            "bio": "Weekend warrior. Love the thrill of street racing!",
+            "location": "Miami, FL",
+            "car_make": "Toyota",
+            "car_model": "Supra",
+            "car_year": "2021",
+            "car_mods": "Stage 2 tune, lowered coilovers, cold air intake",
+            "instagram": "@testdriver",
+            "youtube": "@TestRacing",
+            "privacy_settings": {
+                "profile_public": False,
+                "show_gallery_preview": False,
+                "show_contact": False,
+                "show_location": False,
+                "allow_bet_requests": True
+            },
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "last_active": datetime.now(timezone.utc).isoformat()
+        },
+        {
+            "user_id": str(uuid.uuid4()),
+            "email": "speed@betz.com",
+            "phone": "+1122334455",
+            "password_hash": hash_password("speed123"),
+            "betz_id": generate_betz_id(),
+            "name": "Speed Master",
+            "display_name": "SpeedDemon",
+            "avatar": None,
+            "balance": 7500.0,
+            "win_count": 22,
+            "loss_count": 3,
+            "win_streak": 5,
+            "trust_score": 95,
+            "review_count": 18,
+            "racing_team": "Elite Speed Squad",
+            "bio": "Undefeated in last 5 races. Come challenge me if you dare!",
+            "location": "Las Vegas, NV",
+            "car_make": "Lamborghini",
+            "car_model": "Huracán",
+            "car_year": "2024",
+            "car_mods": "Supercharged, carbon fiber body, custom ECU",
+            "instagram": "@speedmaster_lv",
+            "youtube": "@SpeedMasterRacing",
+            "privacy_settings": {
+                "profile_public": True,
+                "show_gallery_preview": True,
+                "show_contact": True,
+                "show_location": True,
+                "allow_bet_requests": True
+            },
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "last_active": datetime.now(timezone.utc).isoformat()
+        }
+    ]
+    
+    # Insert demo users
+    await db.users.insert_many(demo_users)
+    
+    # Create friendships between demo users
+    demo_user_ids = [u["user_id"] for u in demo_users]
+    for i, user_id in enumerate(demo_user_ids):
+        for other_id in demo_user_ids[i+1:]:
+            friendship_doc = {
+                "friendship_id": str(uuid.uuid4()),
+                "user_id": user_id,
+                "friend_id": other_id,
+                "status": "accepted",
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+            await db.friendships.insert_one(friendship_doc)
+    
+    # Create sample bets
+    sample_bets = [
+        {
+            "bet_id": str(uuid.uuid4()),
+            "creator_id": demo_users[0]["user_id"],
+            "opponent_id": demo_users[1]["user_id"],
+            "amount": 500.0,
+            "status": "active",
+            "stipulation": "Quarter mile drag race on Sunset Blvd",
+            "punk_out_amount": 100.0,
+            "dp_id": demo_users[2]["user_id"],
+            "dp_status": "accepted",
+            "winner_id": None,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        },
+        {
+            "bet_id": str(uuid.uuid4()),
+            "creator_id": demo_users[1]["user_id"],
+            "opponent_id": demo_users[2]["user_id"],
+            "amount": 1000.0,
+            "status": "pending",
+            "stipulation": "Highway 101 race, first to finish line wins",
+            "punk_out_amount": 200.0,
+            "dp_id": None,
+            "dp_status": None,
+            "winner_id": None,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }
+    ]
+    
+    await db.bets.insert_many(sample_bets)
+    
+    # Create sample notifications
+    notifications = [
+        {
+            "notification_id": str(uuid.uuid4()),
+            "user_id": demo_users[1]["user_id"],
+            "type": "bet_request",
+            "content": f"{demo_users[0]['name']} wants to bet $500 with you",
+            "bet_id": sample_bets[0]["bet_id"],
+            "read": False,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        },
+        {
+            "notification_id": str(uuid.uuid4()),
+            "user_id": demo_users[2]["user_id"],
+            "type": "bet_request",
+            "content": f"{demo_users[1]['name']} wants to bet $1,000 with you",
+            "bet_id": sample_bets[1]["bet_id"],
+            "read": False,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+    ]
+    
+    await db.notifications.insert_many(notifications)
+    
+    # Create sample chat messages
+    chat_messages = [
+        {
+            "message_id": str(uuid.uuid4()),
+            "content": f"Welcome to BETZ! {demo_users[0]['name']} just joined.",
+            "sender_id": demo_users[0]["user_id"],
+            "sender_name": demo_users[0]["name"],
+            "created_at": datetime.now(timezone.utc).isoformat()
+        },
+        {
+            "message_id": str(uuid.uuid4()),
+            "content": "Who wants to race tonight? I'm feeling lucky!",
+            "sender_id": demo_users[2]["user_id"],
+            "sender_name": demo_users[2]["name"],
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+    ]
+    
+    await db.chat_messages.insert_many(chat_messages)
+    
+    return {
+        "success": True,
+        "message": "Demo data reset successfully",
+        "users_created": len(demo_users),
+        "bets_created": len(sample_bets),
+        "friendships_created": len(demo_user_ids) * (len(demo_user_ids) - 1) // 2
+    }
