@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Card } from '../components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar';
-import { ArrowLeft, Send, MessageSquare, Search } from 'lucide-react';
+import { ArrowLeft, Send, MessageSquare, Search, Trash2, AtSign } from 'lucide-react';
 import { toast } from 'sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -19,6 +19,9 @@ export default function MessagesPage({ user }) {
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showMentions, setShowMentions] = useState(false);
+  const [mentionSearch, setMentionSearch] = useState('');
+  const inputRef = useRef(null);
 
   useEffect(() => {
     loadFriends();
@@ -70,11 +73,84 @@ export default function MessagesPage({ user }) {
       });
 
       setNewMessage('');
+      setShowMentions(false);
       loadMessages(selectedFriend.user_id);
     } catch (error) {
       toast.error('Failed to send message');
     }
   };
+
+  const handleDeleteMessage = async (messageId) => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.delete(`${API}/messages/${messageId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      toast.success('Message deleted');
+      loadMessages(selectedFriend.user_id);
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Failed to delete message');
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setNewMessage(value);
+    
+    // Check for @ mention
+    const lastChar = value[value.length - 1];
+    if (lastChar === '@') {
+      setShowMentions(true);
+      setMentionSearch('');
+    } else if (showMentions) {
+      // Get text after last @
+      const lastAtIndex = value.lastIndexOf('@');
+      const searchText = value.substring(lastAtIndex + 1);
+      setMentionSearch(searchText);
+    }
+  };
+
+  const insertMention = (friend) => {
+    const lastAtIndex = newMessage.lastIndexOf('@');
+    const beforeMention = newMessage.substring(0, lastAtIndex);
+    const afterMention = '';
+    setNewMessage(`${beforeMention}@${friend.name} `);
+    setShowMentions(false);
+    inputRef.current?.focus();
+  };
+
+  const renderMessageContent = (content) => {
+    // Match @Name patterns and make them clickable
+    const mentionRegex = /@(\w+(?:\s+\w+)*)/g;
+    const parts = content.split(mentionRegex);
+    
+    return parts.map((part, index) => {
+      if (index % 2 === 1) {
+        // This is a mention
+        return (
+          <span 
+            key={index} 
+            className="text-accent font-semibold cursor-pointer hover:underline"
+            onClick={() => {
+              // Find friend by name
+              const mentionedFriend = friends.find(f => f.name === part);
+              if (mentionedFriend) {
+                navigate(`/user/${mentionedFriend.user_id}`);
+              }
+            }}
+          >
+            @{part}
+          </span>
+        );
+      }
+      return part;
+    });
+  };
+
+  // Filter friends for mention dropdown
+  const filteredMentions = friends.filter(friend => 
+    friend.name.toLowerCase().includes(mentionSearch.toLowerCase())
+  );
 
   const getInitials = (name) => {
     return name?.split(' ').map(n => n[0]).join('').toUpperCase() || '?';
