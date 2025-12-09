@@ -13,6 +13,7 @@ from datetime import datetime, timezone, timedelta
 import jwt
 import bcrypt
 from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionResponse, CheckoutStatusResponse, CheckoutSessionRequest
+from achievements import check_user_achievements, get_achievement_details, get_all_achievements, ACHIEVEMENTS
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
