@@ -153,6 +153,86 @@ export default function ViewUserProfile() {
                 </div>
               </div>
 
+              {/* Location & Social Links */}
+              <div className="mt-6 text-center">
+                {profile.location && profile.privacy_settings?.show_location !== false && (
+                  <p className="text-sm text-muted-foreground mb-2" data-testid="profile-location">
+                    📍 {profile.location}
+                  </p>
+                )}
+                {profile.website_url && (
+                  <a 
+                    href={profile.website_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-accent hover:underline block mb-2"
+                    data-testid="profile-website"
+                  >
+                    🔗 {profile.website_url}
+                  </a>
+                )}
+                {(profile.instagram || profile.youtube) && (
+                  <div className="flex gap-2 justify-center mt-2">
+                    {profile.instagram && (
+                      <a
+                        href={`https://instagram.com/${profile.instagram.replace('@', '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full hover:opacity-80"
+                        data-testid="profile-instagram"
+                      >
+                        📷 {profile.instagram}
+                      </a>
+                    )}
+                    {profile.youtube && (
+                      <a
+                        href={`https://youtube.com/${profile.youtube.replace('@', '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs bg-red-600 text-white px-3 py-1 rounded-full hover:opacity-80"
+                        data-testid="profile-youtube"
+                      >
+                        ▶️ {profile.youtube}
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Bio Section */}
+              {profile.bio && (
+                <div className="mt-6 p-4 bg-muted/30 rounded-xl text-left" data-testid="profile-bio-section">
+                  <h4 className="font-semibold text-sm mb-2 text-primary">About</h4>
+                  <p className="text-sm text-foreground leading-relaxed">{profile.bio}</p>
+                </div>
+              )}
+
+              {/* Car Details Section */}
+              {(profile.car_make || profile.car_model) && (
+                <div className="mt-4 p-4 bg-primary/10 border border-primary/30 rounded-xl text-left" data-testid="profile-car-section">
+                  <h4 className="font-semibold text-sm mb-3 text-primary flex items-center gap-2">
+                    🏎️ Car Details
+                  </h4>
+                  <div className="space-y-2">
+                    {(profile.car_make || profile.car_model || profile.car_year) && (
+                      <div>
+                        <p className="text-lg font-bold text-foreground">
+                          {profile.car_year && `${profile.car_year} `}
+                          {profile.car_make && `${profile.car_make} `}
+                          {profile.car_model}
+                        </p>
+                      </div>
+                    )}
+                    {profile.car_mods && (
+                      <div>
+                        <p className="text-xs text-muted-foreground font-semibold mb-1">Modifications:</p>
+                        <p className="text-sm text-foreground">{profile.car_mods}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* Send Bet Button */}
               <Button
                 onClick={() => navigate(`/place-bet?opponent=${profile.user_id}`)}
