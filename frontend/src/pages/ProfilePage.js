@@ -719,11 +719,11 @@ export default function ProfilePage({ user, setUser, onLogout }) {
             <Shield className="h-5 w-5 mr-2 text-primary" />
             Privacy Settings
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
               <div>
                 <p className="font-semibold">Public Profile</p>
-                <p className="text-sm text-muted-foreground">Others can view your profile</p>
+                <p className="text-sm text-muted-foreground">Non-friends can view your full profile</p>
               </div>
               <Switch
                 data-testid="profile-public-switch"
@@ -733,13 +733,46 @@ export default function ProfilePage({ user, setUser, onLogout }) {
             </div>
             <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
               <div>
-                <p className="font-semibold">Public Activity</p>
-                <p className="text-sm text-muted-foreground">Others can see your bets</p>
+                <p className="font-semibold">Gallery Preview</p>
+                <p className="text-sm text-muted-foreground">Show 3 photos to non-friends</p>
               </div>
               <Switch
-                data-testid="activity-public-switch"
-                checked={activityPublic}
-                onCheckedChange={setActivityPublic}
+                data-testid="gallery-preview-switch"
+                checked={showGalleryPreview}
+                onCheckedChange={setShowGalleryPreview}
+              />
+            </div>
+            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+              <div>
+                <p className="font-semibold">Show Contact Info</p>
+                <p className="text-sm text-muted-foreground">Display email & phone to non-friends</p>
+              </div>
+              <Switch
+                data-testid="show-contact-switch"
+                checked={showContact}
+                onCheckedChange={setShowContact}
+              />
+            </div>
+            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+              <div>
+                <p className="font-semibold">Show Location</p>
+                <p className="text-sm text-muted-foreground">Display your location to non-friends</p>
+              </div>
+              <Switch
+                data-testid="show-location-switch"
+                checked={showLocation}
+                onCheckedChange={setShowLocation}
+              />
+            </div>
+            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+              <div>
+                <p className="font-semibold">Allow Bet Requests</p>
+                <p className="text-sm text-muted-foreground">Others can send you bet requests</p>
+              </div>
+              <Switch
+                data-testid="allow-bet-requests-switch"
+                checked={allowBetRequests}
+                onCheckedChange={setAllowBetRequests}
               />
             </div>
             <Button
