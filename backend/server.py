@@ -1740,6 +1740,21 @@ async def send_message(receiver_id: str, content: str, current_user: dict = Depe
     await db.messages.insert_one(message_doc)
     return Message(**message_doc)
 
+@api_router.delete("/messages/{message_id}")
+async def delete_message(message_id: str, current_user: dict = Depends(get_current_user)):
+    """Delete a direct message (only sender can delete)"""
+    message = await db.messages.find_one({"message_id": message_id})
+    
+    if not message:
+        raise HTTPException(status_code=404, detail="Message not found")
+    
+    # Only sender can delete their own message
+    if message["sender_id"] != current_user["user_id"]:
+        raise HTTPException(status_code=403, detail="Can only delete your own messages")
+    
+    await db.messages.delete_one({"message_id": message_id})
+    return {"success": True, "message": "Message deleted"}
+
 # Public Chat Room
 @api_router.get("/chat/public")
 async def get_public_messages(limit: int = 100, current_user: dict = Depends(get_current_user)):
