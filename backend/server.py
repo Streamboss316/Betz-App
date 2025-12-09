@@ -1596,15 +1596,25 @@ async def confirm_winner(bet_id: str, current_user: dict = Depends(get_current_u
         
         loser_id = bet["creator_id"] if winner_id == bet["opponent_id"] else bet["opponent_id"]
         
-        # Add winner payout (after 3% fee)
-        await db.users.update_one(
-            {"user_id": winner_id},
-            {"$inc": {"balance": winner_payout, "win_count": 1}}
-        )
+        # Get current user stats for streak tracking
+        winner_user = await db.users.find_one({"user_id": winner_id}, {"_id": 0})
+        loser_user = await db.users.find_one({"user_id": loser_id}, {"_id": 0})
+        
+        # Update winner stats with streak and highest win
+        new_win_streak = winner_user.get("win_streak", 0) + 1
+        new_highest_win = max(winner_user.get("highest_win", 0), winner_payout)
         
         await db.users.update_one(
+            {"user_id": winner_id},
+            {"$inc": {"balance": winner_payout, "win_count": 1},
+             "$set": {"win_streak": new_win_streak, "highest_win": new_highest_win}}
+        )
+        
+        # Reset loser's win streak
+        await db.users.update_one(
             {"user_id": loser_id},
-            {"$inc": {"loss_count": 1}}
+            {"$inc": {"loss_count": 1},
+             "$set": {"win_streak": 0}}
         )
         
         # Track platform fees
