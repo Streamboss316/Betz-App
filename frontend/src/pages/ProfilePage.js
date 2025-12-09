@@ -57,7 +57,15 @@ export default function ProfilePage({ user, setUser, onLogout }) {
           name, 
           display_name: displayName,
           racing_team: racingTeam,
-          website_url: websiteUrl
+          website_url: websiteUrl,
+          bio,
+          location,
+          car_make: carMake,
+          car_model: carModel,
+          car_year: carYear,
+          car_mods: carMods,
+          instagram,
+          youtube
         },
         { headers: { Authorization: `Bearer ${token}` }}
       );
