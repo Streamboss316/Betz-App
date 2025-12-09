@@ -421,16 +421,47 @@ export default function ProfilePage({ user, setUser, onLogout }) {
                   </p>
                 )}
                 <p className="text-accent font-mono font-bold text-lg mb-1" data-testid="profile-betz-id">{user.betz_id}</p>
+                {user.location && (
+                  <p className="text-sm text-muted-foreground mb-1" data-testid="profile-location">
+                    📍 {user.location}
+                  </p>
+                )}
                 {user.website_url && (
                   <a 
                     href={user.website_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-accent hover:underline"
+                    className="text-xs text-accent hover:underline block mb-1"
                     data-testid="profile-website"
                   >
-                    {user.website_url}
+                    🔗 {user.website_url}
                   </a>
+                )}
+                {(user.instagram || user.youtube) && (
+                  <div className="flex gap-2 justify-center md:justify-start mt-2">
+                    {user.instagram && (
+                      <a
+                        href={`https://instagram.com/${user.instagram.replace('@', '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full hover:opacity-80"
+                        data-testid="profile-instagram"
+                      >
+                        📷 {user.instagram}
+                      </a>
+                    )}
+                    {user.youtube && (
+                      <a
+                        href={`https://youtube.com/${user.youtube.replace('@', '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs bg-red-600 text-white px-3 py-1 rounded-full hover:opacity-80"
+                        data-testid="profile-youtube"
+                      >
+                        ▶️ {user.youtube}
+                      </a>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
