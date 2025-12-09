@@ -942,6 +942,64 @@ async def get_my_invites(current_user: dict = Depends(get_current_user)):
     ).sort("created_at", -1).to_list(100)
     return invites
 
+# Achievements System
+@api_router.get("/achievements")
+async def get_all_achievements_endpoint():
+    """Get list of all possible achievements"""
+    return get_all_achievements()
+
+@api_router.get("/users/{user_id}/achievements")
+async def get_user_achievements(user_id: str, current_user: dict = Depends(get_current_user)):
+    """Get achievements earned by a user"""
+    user = await db.users.find_one({"user_id": user_id}, {"_id": 0})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Calculate additional stats for achievements
+    user_data = user.copy()
+    
+    # Get friend count
+    friend_count = await db.friendships.count_documents({
+        "$or": [
+            {"user_id": user_id, "status": "accepted"},
+            {"friend_id": user_id, "status": "accepted"}
+        ]
+    })
+    user_data["friend_count"] = friend_count
+    
+    # Get bets created count
+    bets_created = await db.bets.count_documents({"creator_id": user_id})
+    user_data["bets_created"] = bets_created
+    
+    # Get highest win amount
+    highest_win_bet = await db.bets.find_one(
+        {"winner_id": user_id},
+        {"_id": 0, "winner_payout": 1},
+        sort=[("winner_payout", -1)]
+    )
+    user_data["highest_win"] = highest_win_bet.get("winner_payout", 0) if highest_win_bet else 0
+    
+    # Check which achievements user has earned
+    earned_achievement_ids = check_user_achievements(user_data)
+    
+    # Get full details for earned achievements
+    earned_achievements = []
+    for achievement_id in earned_achievement_ids:
+        details = get_achievement_details(achievement_id)
+        if details:
+            earned_achievements.append(details)
+    
+    return {
+        "earned": earned_achievements,
+        "total_possible": len(ACHIEVEMENTS),
+        "earned_count": len(earned_achievements)
+    }
+
+@api_router.get("/users/me/achievements")
+async def get_my_achievements(current_user: dict = Depends(get_current_user)):
+    """Get current user's achievements"""
+    return await get_user_achievements(current_user["user_id"], current_user)
+
 @api_router.get("/bets")
 async def get_bets(status: Optional[str] = None, current_user: dict = Depends(get_current_user)):
     query = {
