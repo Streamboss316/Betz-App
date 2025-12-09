@@ -807,6 +807,15 @@ async def create_bet(input_data: CreateBetInput, current_user: dict = Depends(ge
     if current_user["balance"] < input_data.amount:
         raise HTTPException(status_code=400, detail="Insufficient balance")
     
+    # MUST have opponent_id - can only bet with existing members
+    if not input_data.opponent_id:
+        raise HTTPException(status_code=400, detail="Can only create bets with existing members. Send them an invite first.")
+    
+    # Verify opponent exists
+    opponent = await db.users.find_one({"user_id": input_data.opponent_id}, {"_id": 0})
+    if not opponent:
+        raise HTTPException(status_code=404, detail="Opponent not found. They must join BETZ first.")
+    
     # Get punk out percentage from platform settings (default 10%)
     settings = await db.platform_settings.find_one({}, {"_id": 0})
     punk_out_percentage = settings.get("punk_out_percentage", 10.0) if settings else 10.0
@@ -815,52 +824,18 @@ async def create_bet(input_data: CreateBetInput, current_user: dict = Depends(ge
     total_bet = input_data.amount * 2
     punk_out_amount = total_bet * (punk_out_percentage / 100)
     
-    # Check if opponent exists or needs invite
-    opponent_id = input_data.opponent_id
-    invited_contact = None
-    
-    if not opponent_id:
-        # User doesn't have app - create invite
-        if input_data.opponent_phone:
-            invited_contact = input_data.opponent_phone
-            contact_type = "phone"
-        elif input_data.opponent_email:
-            invited_contact = input_data.opponent_email
-            contact_type = "email"
-        else:
-            raise HTTPException(status_code=400, detail="Must provide opponent_id, phone, or email")
-        
-        # Create a placeholder opponent_id for invited user
-        opponent_id = f"invited_{str(uuid.uuid4())[:8]}"
-        
-        # Store invite
-        invite_doc = {
-            "invite_id": str(uuid.uuid4()),
-            "invited_by": current_user["user_id"],
-            "contact": invited_contact,
-            "contact_type": contact_type,
-            "placeholder_id": opponent_id,
-            "status": "pending",
-            "created_at": datetime.now(timezone.utc).isoformat()
-        }
-        await db.invites.insert_one(invite_doc)
-        
-        # TODO: Send actual SMS/Email with download link
-        # For now, we'll just store it
-    
     bet_id = str(uuid.uuid4())
     bet_doc = {
         "bet_id": bet_id,
         "creator_id": current_user["user_id"],
-        "opponent_id": opponent_id,
+        "opponent_id": input_data.opponent_id,
         "amount": input_data.amount,
-        "status": "pending_invite" if invited_contact else "pending",
+        "status": "pending",
         "stipulation": input_data.stipulation,
         "punk_out_amount": punk_out_amount,
         "dp_id": input_data.dp_id,
         "dp_status": "pending" if input_data.dp_id else None,
         "winner_id": None,
-        "invited_contact": invited_contact,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "updated_at": datetime.now(timezone.utc).isoformat()
     }
@@ -873,18 +848,17 @@ async def create_bet(input_data: CreateBetInput, current_user: dict = Depends(ge
         {"$inc": {"balance": -input_data.amount}}
     )
     
-    # Only send notification if opponent is existing user
-    if not invited_contact:
-        notif_doc = {
-            "notification_id": str(uuid.uuid4()),
-            "user_id": opponent_id,
-            "type": "bet_request",
-            "content": f"{current_user['name']} wants to bet ${input_data.amount:.2f} with you",
-            "bet_id": bet_id,
-            "read": False,
-            "created_at": datetime.now(timezone.utc).isoformat()
-        }
-        await db.notifications.insert_one(notif_doc)
+    # Send notification to opponent
+    notif_doc = {
+        "notification_id": str(uuid.uuid4()),
+        "user_id": input_data.opponent_id,
+        "type": "bet_request",
+        "content": f"{current_user['name']} wants to bet ${input_data.amount:.2f} with you",
+        "bet_id": bet_id,
+        "read": False,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.notifications.insert_one(notif_doc)
     
     # Send DP notification if DP is assigned
     if input_data.dp_id:
@@ -900,6 +874,72 @@ async def create_bet(input_data: CreateBetInput, current_user: dict = Depends(ge
         await db.notifications.insert_one(dp_notif_doc)
     
     return Bet(**bet_doc)
+
+@api_router.post("/invites/send")
+async def send_invite(invite_data: InviteUser, current_user: dict = Depends(get_current_user)):
+    """Send membership invite to non-member via phone or email"""
+    if not invite_data.phone and not invite_data.email:
+        raise HTTPException(status_code=400, detail="Provide phone or email")
+    
+    contact = invite_data.phone if invite_data.phone else invite_data.email
+    contact_type = "phone" if invite_data.phone else "email"
+    
+    # Check if already a member
+    query = {"phone": contact} if contact_type == "phone" else {"email": contact}
+    existing_user = await db.users.find_one(query, {"_id": 0})
+    if existing_user:
+        return {
+            "success": False,
+            "message": "This person is already a member!",
+            "user": {
+                "user_id": existing_user["user_id"],
+                "name": existing_user["name"],
+                "betz_id": existing_user["betz_id"]
+            }
+        }
+    
+    # Check if invite already sent
+    existing_invite = await db.invites.find_one({
+        "contact": contact,
+        "status": "pending"
+    })
+    if existing_invite:
+        return {
+            "success": True,
+            "message": f"Invite already sent to {contact}. Waiting for them to join.",
+            "invite_id": existing_invite["invite_id"]
+        }
+    
+    # Create new invite
+    invite_doc = {
+        "invite_id": str(uuid.uuid4()),
+        "invited_by": current_user["user_id"],
+        "inviter_name": current_user["name"],
+        "contact": contact,
+        "contact_type": contact_type,
+        "status": "pending",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.invites.insert_one(invite_doc)
+    
+    # TODO: Send actual SMS/Email with download link
+    # For demo: Log invite
+    print(f"📧 INVITE SENT: {current_user['name']} invited {contact} to join BETZ")
+    
+    return {
+        "success": True,
+        "message": f"Invite sent to {contact}!",
+        "invite_id": invite_doc["invite_id"]
+    }
+
+@api_router.get("/invites")
+async def get_my_invites(current_user: dict = Depends(get_current_user)):
+    """Get invites sent by current user"""
+    invites = await db.invites.find(
+        {"invited_by": current_user["user_id"]},
+        {"_id": 0}
+    ).sort("created_at", -1).to_list(100)
+    return invites
 
 @api_router.get("/bets")
 async def get_bets(status: Optional[str] = None, current_user: dict = Depends(get_current_user)):
