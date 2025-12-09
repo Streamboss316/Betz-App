@@ -87,26 +87,15 @@ export default function PublicChatPage({ user }) {
     }
   };
 
-  const handleUserClick = async (clickedUser) => {
-    const isOnline = onlineUserIds.has(clickedUser.user_id);
-    
-    if (isOnline) {
-      // User is online - go to direct messages
-      navigate('/messages');
-      toast.success(`Opening chat with ${clickedUser.name}`);
-    } else {
-      // User is offline - send email
-      if (!clickedUser.email) {
-        toast.error('Email not available for this user');
-        return;
-      }
-      
-      const subject = encodeURIComponent(`Message from ${user.name} on BETZ`);
-      const body = encodeURIComponent(`Hi ${clickedUser.name},\n\n${user.name} tried to reach you on BETZ Chat while you were offline.\n\nLogin to BETZ to continue the conversation!`);
-      
-      window.location.href = `mailto:${clickedUser.email}?subject=${subject}&body=${body}`;
-      toast.success('Opening email client...');
+  const handleUserClick = async (clickedUser, isOnline) => {
+    // Only allow clicking if user is online
+    if (!isOnline) {
+      return; // Do nothing if user is offline
     }
+    
+    // User is online - go to direct messages
+    navigate('/messages');
+    toast.success(`Opening chat with ${clickedUser.name}`);
   };
 
   const handleSendMessage = async () => {
@@ -266,8 +255,12 @@ export default function PublicChatPage({ user }) {
               return (
                 <div
                   key={member.user_id}
-                  className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/30 cursor-pointer transition-all"
-                  onClick={() => handleUserClick(member)}
+                  className={`flex items-center gap-3 p-3 rounded-xl transition-all ${
+                    isOnline 
+                      ? 'hover:bg-muted/30 cursor-pointer' 
+                      : 'opacity-60 cursor-not-allowed'
+                  }`}
+                  onClick={() => handleUserClick(member, isOnline)}
                   data-testid={`member-${member.user_id}`}
                 >
                   <div className="relative">
