@@ -665,10 +665,24 @@ export default function PlaceBetPage({ user }) {
                   />
 
                   {inviteContact && (
-                    <div className="p-4 bg-primary/10 border border-primary rounded-lg">
-                      <p className="text-sm font-semibold mb-1">Invite will be sent to:</p>
-                      <p className="text-lg font-mono text-primary">{inviteContact}</p>
-                    </div>
+                    <>
+                      <div className="p-4 bg-accent/10 border border-accent/30 rounded-lg">
+                        <p className="text-sm font-semibold mb-1">Contact to check/invite:</p>
+                        <p className="text-lg font-mono text-accent">{inviteContact}</p>
+                      </div>
+                      
+                      <Button
+                        onClick={checkContactIsMember}
+                        className="w-full rounded-lg"
+                        data-testid="check-member-button"
+                      >
+                        Check if Member / Send Invite
+                      </Button>
+                      
+                      <div className="text-xs text-muted-foreground text-center">
+                        We'll check if they're a member. If not, we'll send them an invite to join BETZ.
+                      </div>
+                    </>
                   )}
                 </div>
               )}
