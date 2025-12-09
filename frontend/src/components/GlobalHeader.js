@@ -56,6 +56,19 @@ export default function GlobalHeader({ user }) {
     }
   };
 
+  const handleExitDemoMode = () => {
+    const adminToken = localStorage.getItem('admin_return_token');
+    if (adminToken) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('demo_mode_active');
+      localStorage.setItem('admin_token', adminToken);
+      localStorage.removeItem('admin_return_token');
+      window.location.href = '/admin/demo-mode';
+    }
+  };
+
+  const isDemoMode = localStorage.getItem('demo_mode_active') === 'true';
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10 h-16 flex items-center justify-between px-6">
       <div className="flex items-center gap-4">
@@ -77,6 +90,11 @@ export default function GlobalHeader({ user }) {
         >
           BETZ
         </h1>
+        {isDemoMode && (
+          <Badge className="bg-accent/20 text-accent border-accent/50 animate-pulse">
+            DEMO MODE
+          </Badge>
+        )}
       </div>
 
       <div className="flex items-center gap-3">
