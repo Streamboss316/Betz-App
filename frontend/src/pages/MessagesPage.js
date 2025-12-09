@@ -275,22 +275,35 @@ export default function MessagesPage({ user }) {
                   return (
                     <div
                       key={idx}
-                      className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}
+                      className={`flex ${isMe ? 'justify-end' : 'justify-start'} group`}
                       data-testid={`message-${idx}`}
                     >
-                      <div
-                        className={`max-w-md p-4 rounded-2xl ${
-                          isMe
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-card border border-white/10'
-                        }`}
-                      >
-                        <p>{msg.content}</p>
-                        <p className={`text-xs mt-1 ${
-                          isMe ? 'text-primary-foreground/70' : 'text-muted-foreground'
-                        }`}>
-                          {new Date(msg.created_at).toLocaleTimeString()}
-                        </p>
+                      <div className="relative">
+                        <div
+                          className={`max-w-md p-4 rounded-2xl ${
+                            isMe
+                              ? 'bg-primary text-primary-foreground'
+                              : 'bg-card border border-white/10'
+                          }`}
+                        >
+                          <p>{renderMessageContent(msg.content)}</p>
+                          <p className={`text-xs mt-1 ${
+                            isMe ? 'text-primary-foreground/70' : 'text-muted-foreground'
+                          }`}>
+                            {new Date(msg.created_at).toLocaleTimeString()}
+                          </p>
+                        </div>
+                        {isMe && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute -right-10 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8"
+                            onClick={() => handleDeleteMessage(msg.message_id)}
+                            data-testid={`delete-message-${idx}`}
+                          >
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        )}
                       </div>
                     </div>
                   );
@@ -300,15 +313,53 @@ export default function MessagesPage({ user }) {
 
             {/* Message Input */}
             <div className="border-t border-white/5 p-4">
+              {/* Mention Dropdown */}
+              {showMentions && filteredMentions.length > 0 && (
+                <div className="mb-2 bg-card border border-white/10 rounded-lg max-h-40 overflow-y-auto">
+                  {filteredMentions.slice(0, 5).map((friend) => (
+                    <div
+                      key={friend.user_id}
+                      className="flex items-center gap-2 p-2 hover:bg-muted/30 cursor-pointer"
+                      onClick={() => insertMention(friend)}
+                    >
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage src={friend.avatar} />
+                        <AvatarFallback className="bg-muted text-xs">{getInitials(friend.name)}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm font-semibold">{friend.name}</p>
+                        <p className="text-xs text-muted-foreground">{friend.betz_id}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
               <div className="flex gap-3">
-                <Input
-                  data-testid="message-input"
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  placeholder="Type a message..."
-                  className="flex-1 bg-input/50 border-white/10 rounded-full h-12"
-                />
+                <div className="relative flex-1">
+                  <Input
+                    ref={inputRef}
+                    data-testid="message-input"
+                    value={newMessage}
+                    onChange={handleInputChange}
+                    onKeyPress={(e) => e.key === 'Enter' && !showMentions && handleSendMessage()}
+                    placeholder="Type a message... (use @ to mention)"
+                    className="bg-input/50 border-white/10 rounded-full h-12 pr-10"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full"
+                    onClick={() => {
+                      setNewMessage(newMessage + '@');
+                      setShowMentions(true);
+                      inputRef.current?.focus();
+                    }}
+                    title="Mention friend"
+                  >
+                    <AtSign className="h-4 w-4 text-muted-foreground" />
+                  </Button>
+                </div>
                 <Button
                   data-testid="send-message-button"
                   onClick={handleSendMessage}
