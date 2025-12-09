@@ -246,6 +246,25 @@ export default function ViewUserProfile() {
                 </div>
               )}
 
+              {/* Contact Info - if privacy allows */}
+              {profile.privacy_settings?.show_contact && (profile.email || profile.phone) && (
+                <div className="mt-4 p-4 bg-muted/20 border border-white/10 rounded-xl text-left">
+                  <h4 className="font-semibold text-sm mb-2 text-primary">Contact Info</h4>
+                  <div className="space-y-1 text-sm">
+                    {profile.email && (
+                      <p className="text-muted-foreground">
+                        📧 {profile.email}
+                      </p>
+                    )}
+                    {profile.phone && (
+                      <p className="text-muted-foreground">
+                        📱 {profile.phone}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* Send Bet Button */}
               <Button
                 onClick={() => navigate(`/place-bet?opponent=${profile.user_id}`)}
