@@ -31,6 +31,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ViewUserProfile from './pages/ViewUserProfile';
 import ReviewPage from './pages/ReviewPage';
 import DPDashboard from './pages/DPDashboard';
+import AchievementsPage from './pages/AchievementsPage';
 import GlobalHeader from './components/GlobalHeader';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -231,6 +232,7 @@ function App() {
           <Route path="/admin/demo" element={adminToken ? <AdminDemoMode /> : <Navigate to="/admin/login" />} />
           <Route path="/review/:betId" element={user ? <ReviewPage user={user} /> : <Navigate to="/auth" />} />
           <Route path="/dp-dashboard" element={user ? <DPDashboard user={user} /> : <Navigate to="/auth" />} />
+          <Route path="/achievements" element={user ? <AchievementsPage user={user} /> : <Navigate to="/auth" />} />
         </Routes>
       </BrowserRouter>
 
