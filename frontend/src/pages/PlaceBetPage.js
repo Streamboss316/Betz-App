@@ -733,10 +733,10 @@ export default function PlaceBetPage({ user }) {
               <Button
                 data-testid="send-bet-button"
                 onClick={handleCreateBet}
-                disabled={loading || (!selectedOpponent && !inviteContact)}
+                disabled={loading || !selectedOpponent}
                 className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 font-bold uppercase btn-glow"
               >
-                {loading ? 'Sending...' : (showInviteMode ? 'Send Bet & Invite' : 'Send Bet')}
+                {loading ? 'Sending...' : 'Send Bet Request'}
               </Button>
             </div>
           </div>
