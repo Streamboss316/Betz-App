@@ -8,43 +8,43 @@
 
 @layer base {
   :root {
-    /* Professional Dark Purple Base */
-    --background: 260 30% 8%;
+    /* Premium Dark Background - Deeper, richer */
+    --background: 260 35% 6%;
     --foreground: 0 0% 98%;
     
-    /* Sophisticated Cards */
-    --card: 260 25% 12%;
+    /* Elevated Cards - Subtle contrast */
+    --card: 260 30% 10%;
     --card-foreground: 0 0% 98%;
-    --popover: 260 25% 12%;
+    --popover: 260 30% 10%;
     --popover-foreground: 0 0% 98%;
     
-    /* Refined Purple - Less saturated, more professional */
-    --primary: 265 50% 55%;
+    /* Premium Purple - Like Stripe/Twitch */
+    --primary: 265 60% 58%;
     --primary-foreground: 0 0% 100%;
     
-    /* Elegant Gold - Muted, sophisticated */
-    --secondary: 45 55% 58%;
+    /* Luxe Gold - Premium feel */
+    --secondary: 43 85% 65%;
     --secondary-foreground: 260 30% 10%;
     
-    /* Subtle Muted tones */
-    --muted: 260 15% 18%;
-    --muted-foreground: 0 0% 65%;
+    /* Sophisticated Muted */
+    --muted: 260 20% 15%;
+    --muted-foreground: 0 0% 60%;
     
-    /* Professional Gold Accent */
-    --accent: 45 60% 60%;
+    /* Refined Gold Accent - Stands out */
+    --accent: 43 90% 68%;
     --accent-foreground: 260 30% 10%;
     
-    /* Clean Destructive */
-    --destructive: 0 70% 58%;
+    /* Modern Destructive */
+    --destructive: 0 72% 60%;
     --destructive-foreground: 0 0% 100%;
     
-    /* Refined Borders */
-    --border: 260 20% 20%;
-    --input: 260 20% 18%;
-    --ring: 265 50% 55%;
+    /* Subtle Borders - Almost invisible */
+    --border: 260 25% 18%;
+    --input: 260 25% 14%;
+    --ring: 265 60% 58%;
     
-    /* Less rounded - more professional */
-    --radius: 0.5rem;
+    /* Modern rounded corners */
+    --radius: 0.75rem;
   }
 }
 
@@ -83,60 +83,79 @@ code {
     padding-right: inherit;
 
 
-/* Professional Fintech Utilities */
+/* Premium Fintech Utilities */
 @layer utilities {
-  /* Remove gaming glow effects */
+  /* Premium Glassmorphism Effect */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+  
+  /* Premium Card - Elevated, clean */
+  .premium-card {
+    background: hsl(260, 30%, 10%);
+    border: 1px solid hsl(260, 25%, 18%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .premium-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 1px rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    border-color: hsl(260, 25%, 22%);
+  }
+  
+  /* Premium Button */
+  .btn-premium {
+    background: linear-gradient(135deg, hsl(265, 60%, 58%) 0%, hsl(265, 58%, 52%) 100%);
+    box-shadow: 0 4px 12px rgba(147, 112, 219, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+  }
+  
+  .btn-premium:hover {
+    box-shadow: 0 6px 20px rgba(147, 112, 219, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, hsl(265, 60%, 62%) 0%, hsl(265, 58%, 56%) 100%);
+  }
+  
+  .btn-premium:active {
+    transform: translateY(0);
+  }
+  
+  /* Gold Button */
+  .btn-gold {
+    background: linear-gradient(135deg, hsl(43, 90%, 68%) 0%, hsl(43, 85%, 62%) 100%);
+    box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    color: hsl(260, 30%, 10%);
+    font-weight: 600;
+  }
+  
+  .btn-gold:hover {
+    box-shadow: 0 6px 20px rgba(218, 165, 32, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+    transform: translateY(-2px);
+  }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Premium glow for interactive elements */
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(147, 112, 219, 0.3);
+  }
+  
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(218, 165, 32, 0.3);
+  }
+  
+  /* Remove old effects */
   .btn-glow {
     box-shadow: none !important;
-  }
-  
-  /* Professional button shadows */
-  .btn-professional {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    transition: all 0.15s ease;
-  }
-  
-  .btn-professional:hover {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
-    transform: translateY(-1px);
-  }
-  
-  /* Clean card shadows */
-  .card-professional {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  }
-  
-  /* Professional elevated cards */
-  .card-elevated {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-  
-  /* Subtle gradients - professional */
-  .gradient-professional {
-    background: linear-gradient(135deg, hsl(265, 50%, 55%) 0%, hsl(265, 45%, 48%) 100%);
-  }
-  
-  .gradient-gold {
-    background: linear-gradient(135deg, hsl(45, 60%, 60%) 0%, hsl(45, 55%, 52%) 100%);
-  }
-  
-  /* Remove excessive animations */
-  .animate-pulse {
-    animation: none !important;
-  }
-  
-  /* Professional subtle pulse for important items only */
-  .pulse-subtle {
-    animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-  
-  @keyframes pulse-subtle {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.95;
-    }
   }
 }
 
