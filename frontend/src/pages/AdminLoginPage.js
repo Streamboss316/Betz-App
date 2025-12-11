@@ -85,7 +85,7 @@ export default function AdminLoginPage({ onAdminLogin }) {
               type="submit"
               data-testid="admin-login-button"
               disabled={loading}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium"
+              className="w-full btn-premium text-white hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium"
             >
               {loading ? 'Logging in...' : 'Access Admin Panel'}
             </Button>

@@ -186,7 +186,7 @@ export default function WalletPage({ user, setUser }) {
                 setShowDepositMethods(!showDepositMethods);
                 setShowWithdrawalMethods(false);
               }}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-base font-bold"
+              className="btn-premium text-white hover:bg-primary/90 rounded-full h-14 text-base font-bold"
               data-testid="show-deposit-button"
             >
               <ArrowDownToLine className="mr-2 h-5 w-5" />
@@ -197,7 +197,7 @@ export default function WalletPage({ user, setUser }) {
                 setShowWithdrawalMethods(!showWithdrawalMethods);
                 setShowDepositMethods(false);
               }}
-              className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full h-14 text-base font-bold"
+              className="btn-gold hover:bg-accent/90 rounded-full h-14 text-base font-bold"
               data-testid="show-withdrawal-button"
             >
               <ArrowUpFromLine className="mr-2 h-5 w-5" />
@@ -242,7 +242,7 @@ export default function WalletPage({ user, setUser }) {
                 data-testid="deposit-button"
                 onClick={handleDeposit}
                 disabled={loading || polling}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12 font-bold"
+                className="w-full btn-premium text-white hover:bg-primary/90 rounded-full h-12 font-bold"
               >
                 {loading ? 'Processing...' : polling ? 'Verifying Payment...' : (
                   <>
@@ -380,7 +380,7 @@ export default function WalletPage({ user, setUser }) {
                 data-testid="withdraw-button"
                 onClick={handleWithdrawal}
                 disabled={loading}
-                className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-full h-12 font-bold"
+                className="w-full btn-gold hover:bg-accent/90 rounded-full h-12 font-bold"
               >
                 {loading ? 'Processing...' : (
                   <>

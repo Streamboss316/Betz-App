@@ -113,7 +113,7 @@ export default function ForgotPasswordPage() {
                 type="submit"
                 data-testid="send-reset-button"
                 disabled={loading}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium"
+                className="w-full btn-premium text-white hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium"
               >
                 {loading ? 'Processing...' : 'Send Recovery Info'}
               </Button>
@@ -166,7 +166,7 @@ export default function ForgotPasswordPage() {
                 type="submit"
                 data-testid="reset-password-button"
                 disabled={loading}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium"
+                className="w-full btn-premium text-white hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium"
               >
                 {loading ? 'Resetting...' : 'Reset Password'}
               </Button>

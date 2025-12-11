@@ -214,7 +214,7 @@ export default function AdminSettings() {
           data-testid="save-settings-button"
           onClick={handleSave}
           disabled={saving}
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase btn-premium"
+          className="w-full btn-premium text-white hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase btn-premium"
         >
           {saving ? 'Saving...' : (
             <>

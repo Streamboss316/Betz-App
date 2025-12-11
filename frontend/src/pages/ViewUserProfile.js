@@ -75,7 +75,7 @@ export default function ViewUserProfile() {
         <Card className="premium-card p-8 rounded-2xl text-center" data-testid="profile-header-card">
           <Avatar className="h-24 w-24 mx-auto mb-4 border-4 border-primary/50">
             <AvatarImage src={profile.avatar} />
-            <AvatarFallback className="bg-primary text-primary-foreground text-3xl font-bold">
+            <AvatarFallback className="btn-premium text-white text-3xl font-bold">
               {getInitials(profile.name)}
             </AvatarFallback>
           </Avatar>
@@ -124,7 +124,7 @@ export default function ViewUserProfile() {
             <div className="mt-6 space-y-3">
               <Button
                 onClick={() => navigate(`/place-bet?opponent=${profile.user_id}`)}
-                className="w-full bg-primary text-primary-foreground rounded-full h-12 font-bold"
+                className="w-full btn-premium text-white rounded-full h-12 font-bold"
                 data-testid="send-bet-button"
                 disabled={!profile.can_send_bet}
               >
@@ -268,7 +268,7 @@ export default function ViewUserProfile() {
               {/* Send Bet Button */}
               <Button
                 onClick={() => navigate(`/place-bet?opponent=${profile.user_id}`)}
-                className="w-full mt-6 bg-primary text-primary-foreground rounded-full h-12 font-bold"
+                className="w-full mt-6 btn-premium text-white rounded-full h-12 font-bold"
                 data-testid="send-bet-button"
               >
                 <DollarSign className="h-5 w-5 mr-2" />
@@ -317,7 +317,7 @@ export default function ViewUserProfile() {
             <p className="text-muted-foreground mb-4">Want to see more?</p>
             <Button
               onClick={() => navigate('/friends')}
-              className="bg-primary text-primary-foreground rounded-full"
+              className="btn-premium text-white rounded-full"
             >
               Add Friend
             </Button>

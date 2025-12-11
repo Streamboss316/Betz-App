@@ -111,7 +111,7 @@ export default function ReviewPage({ user }) {
         <Card className="premium-card p-6 rounded-2xl text-center" data-testid="reviewed-user-card">
           <Avatar className="h-20 w-20 mx-auto mb-3 border-4 border-primary/50">
             <AvatarImage src={reviewedUser?.avatar} />
-            <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">
+            <AvatarFallback className="btn-premium text-white text-2xl font-bold">
               {getInitials(reviewedUser?.name)}
             </AvatarFallback>
           </Avatar>
@@ -173,7 +173,7 @@ export default function ReviewPage({ user }) {
           data-testid="submit-review-button"
           onClick={handleSubmitReview}
           disabled={submitting || ratings.some(r => r === 0)}
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-premium"
+          className="w-full btn-premium text-white hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-premium"
         >
           {submitting ? 'Submitting...' : 'Submit Review'}
         </Button>

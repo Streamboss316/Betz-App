@@ -255,7 +255,7 @@ export default function MessagesPage({ user }) {
             <header className="h-16 border-b border-white/5 flex items-center px-6">
               <Avatar className="h-10 w-10">
                 <AvatarImage src={selectedFriend.avatar} />
-                <AvatarFallback className="bg-primary text-primary-foreground">{getInitials(selectedFriend.name)}</AvatarFallback>
+                <AvatarFallback className="btn-premium text-white">{getInitials(selectedFriend.name)}</AvatarFallback>
               </Avatar>
               <div className="ml-3">
                 <p className="font-bold" data-testid="chat-friend-name">{selectedFriend.name}</p>
@@ -282,7 +282,7 @@ export default function MessagesPage({ user }) {
                         <div
                           className={`max-w-md p-4 rounded-2xl ${
                             isMe
-                              ? 'bg-primary text-primary-foreground'
+                              ? 'btn-premium text-white'
                               : 'bg-card border border-white/10'
                           }`}
                         >
@@ -364,7 +364,7 @@ export default function MessagesPage({ user }) {
                   data-testid="send-message-button"
                   onClick={handleSendMessage}
                   size="icon"
-                  className="bg-primary text-primary-foreground rounded-full h-12 w-12 btn-premium"
+                  className="btn-premium text-white rounded-full h-12 w-12 btn-premium"
                 >
                   <Send className="h-5 w-5" />
                 </Button>

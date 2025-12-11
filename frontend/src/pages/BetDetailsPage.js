@@ -285,7 +285,7 @@ export default function BetDetailsPage({ user }) {
             <div className="text-center p-4 bg-muted/30 rounded-xl">
               <Avatar className="h-16 w-16 mx-auto mb-2">
                 <AvatarImage src={bet.creator?.avatar} />
-                <AvatarFallback className="bg-primary text-primary-foreground">{getInitials(bet.creator?.name)}</AvatarFallback>
+                <AvatarFallback className="btn-premium text-white">{getInitials(bet.creator?.name)}</AvatarFallback>
               </Avatar>
               <div className="flex items-center justify-center gap-1.5">
                 <p className="font-bold" data-testid="creator-name">{bet.creator?.name}</p>
@@ -357,7 +357,7 @@ export default function BetDetailsPage({ user }) {
               <Button
                 data-testid="accept-bet-button"
                 onClick={handleShowAgreement}
-                className="flex-1 bg-primary text-primary-foreground rounded-full btn-premium"
+                className="flex-1 btn-premium text-white rounded-full btn-premium"
               >
                 Review & Accept
               </Button>
@@ -384,7 +384,7 @@ export default function BetDetailsPage({ user }) {
                 <Button
                   data-testid="update-stipulation-button"
                   onClick={handleUpdateStipulation}
-                  className="w-full bg-primary text-primary-foreground rounded-full"
+                  className="w-full btn-premium text-white rounded-full"
                 >
                   Update Stipulation
                 </Button>
@@ -423,7 +423,7 @@ export default function BetDetailsPage({ user }) {
                 <Button
                   data-testid="set-punk-out-button"
                   onClick={handleSetPunkOut}
-                  className="bg-primary text-primary-foreground rounded-full px-6"
+                  className="btn-premium text-white rounded-full px-6"
                 >
                   Set
                 </Button>
@@ -471,7 +471,7 @@ export default function BetDetailsPage({ user }) {
             <div className="flex items-center gap-3">
               <Avatar className="h-12 w-12">
                 <AvatarImage src={bet.dp?.avatar} />
-                <AvatarFallback className="bg-accent text-accent-foreground">{getInitials(bet.dp?.name)}</AvatarFallback>
+                <AvatarFallback className="btn-gold">{getInitials(bet.dp?.name)}</AvatarFallback>
               </Avatar>
               <div>
                 <p className="font-bold" data-testid="dp-name">{bet.dp?.name}</p>
@@ -482,7 +482,7 @@ export default function BetDetailsPage({ user }) {
               <Button
                 data-testid="lock-bet-button"
                 onClick={handleLockBet}
-                className="w-full mt-4 bg-primary text-primary-foreground rounded-full btn-premium"
+                className="w-full mt-4 btn-premium text-white rounded-full btn-premium"
               >
                 Lock Bet
               </Button>
@@ -580,7 +580,7 @@ export default function BetDetailsPage({ user }) {
                 <Button
                   data-testid="accept-punk-out-button"
                   onClick={handleAcceptPunkOut}
-                  className="flex-1 bg-primary text-primary-foreground rounded-full"
+                  className="flex-1 btn-premium text-white rounded-full"
                 >
                   Accept
                 </Button>
@@ -599,7 +599,7 @@ export default function BetDetailsPage({ user }) {
               <Button
                 data-testid="declare-creator-winner-button"
                 onClick={() => handleDeclareWinner(bet.creator_id)}
-                className="bg-primary text-primary-foreground rounded-full"
+                className="btn-premium text-white rounded-full"
               >
                 {bet.creator?.name}
               </Button>
@@ -770,7 +770,7 @@ export default function BetDetailsPage({ user }) {
             <Button
               onClick={handleAccept}
               disabled={!agreedToStipulation}
-              className="flex-1 bg-primary text-primary-foreground rounded-full btn-premium"
+              className="flex-1 btn-premium text-white rounded-full btn-premium"
               data-testid="confirm-accept-button"
             >
               <CheckCircle className="h-4 w-4 mr-2" />

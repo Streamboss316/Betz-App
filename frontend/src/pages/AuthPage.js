@@ -123,7 +123,7 @@ export default function AuthPage({ onLogin }) {
               data-testid="login-tab"
               onClick={() => setIsLogin(true)}
               variant={isLogin ? 'default' : 'ghost'}
-              className={`flex-1 rounded-full ${isLogin ? 'bg-primary text-primary-foreground' : ''}`}
+              className={`flex-1 rounded-full ${isLogin ? 'btn-premium text-white' : ''}`}
             >
               Login
             </Button>
@@ -131,7 +131,7 @@ export default function AuthPage({ onLogin }) {
               data-testid="register-tab"
               onClick={() => setIsLogin(false)}
               variant={!isLogin ? 'default' : 'ghost'}
-              className={`flex-1 rounded-full ${!isLogin ? 'bg-primary text-primary-foreground' : ''}`}
+              className={`flex-1 rounded-full ${!isLogin ? 'btn-premium text-white' : ''}`}
             >
               Register
             </Button>
@@ -148,7 +148,7 @@ export default function AuthPage({ onLogin }) {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required={!isLogin}
-                  className="bg-input/50 border-transparent focus:border-primary rounded-lg h-12"
+                  className="bg-input border-border focus:border-primary rounded-lg h-12"
                 />
               </div>
             )}
@@ -163,7 +163,7 @@ export default function AuthPage({ onLogin }) {
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   required={!isLogin}
-                  className="bg-input/50 border-transparent focus:border-primary rounded-lg h-12"
+                  className="bg-input border-border focus:border-primary rounded-lg h-12"
                 />
               </div>
             )}
@@ -178,7 +178,7 @@ export default function AuthPage({ onLogin }) {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
-                className="bg-input/50 border-transparent focus:border-primary rounded-lg h-12"
+                className="bg-input border-border focus:border-primary rounded-lg h-12"
               />
             </div>
 
@@ -191,7 +191,7 @@ export default function AuthPage({ onLogin }) {
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
-                className="bg-input/50 border-transparent focus:border-primary rounded-lg h-12"
+                className="bg-input border-border focus:border-primary rounded-lg h-12"
               />
             </div>
 
@@ -199,7 +199,7 @@ export default function AuthPage({ onLogin }) {
               type="submit"
               data-testid="submit-button"
               disabled={loading}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-premium"
+              className="w-full btn-premium text-white hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-premium"
             >
               {loading ? 'Processing...' : isLogin ? 'Sign In' : 'Create Account'}
               <ArrowRight className="ml-2 h-5 w-5" />

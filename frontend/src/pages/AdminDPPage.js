@@ -115,7 +115,7 @@ export default function AdminDPPage() {
                           <div className="flex items-center gap-2">
                             <Avatar className="h-8 w-8">
                               <AvatarImage src={bet.creator?.avatar} />
-                              <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+                              <AvatarFallback className="btn-premium text-white text-xs">
                                 {getInitials(bet.creator?.name)}
                               </AvatarFallback>
                             </Avatar>
@@ -141,7 +141,7 @@ export default function AdminDPPage() {
                           <div className="flex items-center gap-2">
                             <Avatar className="h-8 w-8">
                               <AvatarImage src={bet.dp?.avatar} />
-                              <AvatarFallback className="bg-accent text-accent-foreground text-xs">
+                              <AvatarFallback className="btn-gold text-xs">
                                 {getInitials(bet.dp?.name)}
                               </AvatarFallback>
                             </Avatar>

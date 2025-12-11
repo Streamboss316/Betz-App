@@ -349,7 +349,7 @@ export default function NotificationsPage({ user }) {
             <Button
               onClick={handleAcceptDP}
               disabled={dpProcessing}
-              className="flex-1 bg-primary text-primary-foreground rounded-full"
+              className="flex-1 btn-premium text-white rounded-full"
               data-testid="accept-dp-button"
             >
               <CheckCircle className="h-4 w-4 mr-2" />

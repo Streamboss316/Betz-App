@@ -385,7 +385,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
               <div className="relative">
                 <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-card">
                   <AvatarImage src={user.avatar} />
-                  <AvatarFallback className="bg-primary text-primary-foreground text-4xl md:text-5xl font-bold">
+                  <AvatarFallback className="btn-premium text-white text-4xl md:text-5xl font-bold">
                     {getInitials(user.name)}
                   </AvatarFallback>
                 </Avatar>
@@ -706,7 +706,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
               data-testid="update-profile-button"
               onClick={handleUpdateProfile}
               disabled={loading}
-              className="w-full bg-primary text-primary-foreground rounded-full h-12 font-bold"
+              className="w-full btn-premium text-white rounded-full h-12 font-bold"
             >
               {loading ? 'Updating...' : 'Update Profile'}
             </Button>
@@ -779,7 +779,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
               data-testid="update-privacy-button"
               onClick={handleUpdatePrivacy}
               disabled={loading}
-              className="w-full bg-primary text-primary-foreground rounded-full h-12 font-bold"
+              className="w-full btn-premium text-white rounded-full h-12 font-bold"
             >
               {loading ? 'Updating...' : 'Save Privacy Settings'}
             </Button>
@@ -807,7 +807,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
                 onClick={() => galleryInputRef.current?.click()}
                 disabled={uploadingMedia}
                 size="sm"
-                className="bg-primary text-primary-foreground rounded-full"
+                className="btn-premium text-white rounded-full"
                 data-testid="upload-media-button"
               >
                 <Upload className="h-4 w-4 mr-2" />

@@ -145,7 +145,7 @@ export default function AdminDemoMode() {
                 <div className="flex items-center gap-4">
                   <Avatar className="h-14 w-14 border-2 border-primary/50">
                     <AvatarImage src={user.avatar} />
-                    <AvatarFallback className="bg-primary text-primary-foreground text-lg font-bold">
+                    <AvatarFallback className="btn-premium text-white text-lg font-bold">
                       {getInitials(user.name)}
                     </AvatarFallback>
                   </Avatar>
@@ -164,7 +164,7 @@ export default function AdminDemoMode() {
                 </div>
                 <Button
                   onClick={() => handleTestAsUser(user.email)}
-                  className="bg-primary text-primary-foreground rounded-full"
+                  className="btn-premium text-white rounded-full"
                   data-testid={`login-as-${user.user_id}`}
                 >
                   <Play className="h-4 w-4 mr-2" />

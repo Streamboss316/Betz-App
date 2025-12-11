@@ -155,7 +155,7 @@ export default function FriendsPage({ user }) {
                       >
                         <Avatar className="h-12 w-12">
                           <AvatarImage src={friend.avatar} />
-                          <AvatarFallback className="bg-primary text-primary-foreground">{getInitials(friend.name)}</AvatarFallback>
+                          <AvatarFallback className="btn-premium text-white">{getInitials(friend.name)}</AvatarFallback>
                         </Avatar>
                         <div>
                           <div className="flex items-center gap-2">
@@ -174,7 +174,7 @@ export default function FriendsPage({ user }) {
                         <Button
                           size="sm"
                           onClick={() => navigate('/place-bet')}
-                          className="bg-primary text-primary-foreground rounded-full"
+                          className="btn-premium text-white rounded-full"
                           data-testid={`bet-friend-${friend.user_id}`}
                         >
                           Bet
@@ -222,7 +222,7 @@ export default function FriendsPage({ user }) {
                         <Button
                           size="icon"
                           onClick={() => handleAcceptRequest(req.user.user_id)}
-                          className="bg-primary text-primary-foreground rounded-full h-10 w-10"
+                          className="btn-premium text-white rounded-full h-10 w-10"
                           data-testid={`accept-request-${req.user.user_id}`}
                         >
                           <Check className="h-5 w-5" />
@@ -284,7 +284,7 @@ export default function FriendsPage({ user }) {
                         className={`rounded-full ${
                           isFriend
                             ? 'bg-muted text-muted-foreground'
-                            : 'bg-primary text-primary-foreground'
+                            : 'btn-premium text-white'
                         }`}
                         data-testid={`add-friend-${result.user_id}`}
                       >

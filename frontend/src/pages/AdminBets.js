@@ -126,7 +126,7 @@ export default function AdminBets() {
                         <div className="flex items-center gap-3 mb-2">
                           <Avatar className="h-10 w-10">
                             <AvatarImage src={bet.creator?.avatar} />
-                            <AvatarFallback className="bg-primary text-primary-foreground">
+                            <AvatarFallback className="btn-premium text-white">
                               {getInitials(bet.creator?.name)}
                             </AvatarFallback>
                           </Avatar>
@@ -174,7 +174,7 @@ export default function AdminBets() {
                             <Button
                               onClick={() => handleForceComplete(bet.bet_id, bet.creator_id)}
                               size="sm"
-                              className="bg-primary text-primary-foreground rounded-full"
+                              className="btn-premium text-white rounded-full"
                               data-testid={`complete-creator-${bet.bet_id}`}
                             >
                               <Trophy className="h-4 w-4 mr-2" />

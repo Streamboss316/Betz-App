@@ -151,7 +151,7 @@ export default function AdminRevenue() {
                 <Button
                   onClick={handleWithdraw}
                   disabled={withdrawing || !withdrawAmount}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-premium"
+                  className="w-full btn-premium text-white hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-premium"
                   data-testid="withdraw-button"
                 >
                   {withdrawing ? (
@@ -175,7 +175,7 @@ export default function AdminRevenue() {
               <p className="text-muted-foreground mb-4">No bank account configured</p>
               <Button
                 onClick={() => navigate('/admin/settings')}
-                className="bg-primary text-primary-foreground rounded-full"
+                className="btn-premium text-white rounded-full"
               >
                 Configure Bank Account
               </Button>

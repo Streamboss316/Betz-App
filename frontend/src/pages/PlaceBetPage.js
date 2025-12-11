@@ -220,7 +220,7 @@ export default function PlaceBetPage({ user }) {
         {/* Step Indicator */}
         <div className="flex items-center justify-center gap-4 mb-8">
           <div className="flex items-center gap-2">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${step === 1 ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${step === 1 ? 'btn-premium text-white' : 'bg-muted text-muted-foreground'}`}>
               1
             </div>
             <span className={`text-sm font-medium ${step === 1 ? 'text-foreground' : 'text-muted-foreground'}`}>
@@ -229,7 +229,7 @@ export default function PlaceBetPage({ user }) {
           </div>
           <div className="w-12 h-0.5 bg-muted"></div>
           <div className="flex items-center gap-2">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${step === 2 ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${step === 2 ? 'btn-premium text-white' : 'bg-muted text-muted-foreground'}`}>
               2
             </div>
             <span className={`text-sm font-medium ${step === 2 ? 'text-foreground' : 'text-muted-foreground'}`}>
@@ -390,7 +390,7 @@ export default function PlaceBetPage({ user }) {
                       setStipulationComplete(true);
                       toast.success('Stipulation completed!');
                     }}
-                    className="w-full bg-primary text-primary-foreground rounded-lg h-12 font-bold"
+                    className="w-full btn-premium text-white rounded-lg h-12 font-bold"
                     data-testid="done-stipulation-button"
                   >
                     Done - Lock In Stipulation
@@ -495,7 +495,7 @@ export default function PlaceBetPage({ user }) {
                       <div className="flex items-center gap-3">
                         <Avatar className="h-12 w-12">
                           <AvatarImage src={selectedDP.avatar} />
-                          <AvatarFallback className="bg-primary text-primary-foreground">{selectedDP.name?.[0] || '?'}</AvatarFallback>
+                          <AvatarFallback className="btn-premium text-white">{selectedDP.name?.[0] || '?'}</AvatarFallback>
                         </Avatar>
                         <div>
                           <p className="font-bold">{selectedDP.name}</p>
@@ -538,7 +538,7 @@ export default function PlaceBetPage({ user }) {
                 setStep(2);
               }}
               disabled={!stipulationComplete || (requiresDP && !selectedDP)}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full btn-premium text-white hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Continue to Select Opponent
             </Button>
@@ -613,7 +613,7 @@ export default function PlaceBetPage({ user }) {
                       <div className="flex items-center gap-3">
                         <Avatar className="h-12 w-12">
                           <AvatarImage src={selectedOpponent.avatar} />
-                          <AvatarFallback className="bg-primary text-primary-foreground">{getInitials(selectedOpponent.name)}</AvatarFallback>
+                          <AvatarFallback className="btn-premium text-white">{getInitials(selectedOpponent.name)}</AvatarFallback>
                         </Avatar>
                         <div>
                           <p className="font-bold">{selectedOpponent.name}</p>
@@ -734,7 +734,7 @@ export default function PlaceBetPage({ user }) {
                 data-testid="send-bet-button"
                 onClick={handleCreateBet}
                 disabled={loading || !selectedOpponent}
-                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 font-bold uppercase btn-premium"
+                className="flex-1 btn-premium text-white hover:bg-primary/90 rounded-full h-14 font-bold uppercase btn-premium"
               >
                 {loading ? 'Sending...' : 'Send Bet Request'}
               </Button>

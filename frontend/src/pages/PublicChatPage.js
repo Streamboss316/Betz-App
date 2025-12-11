@@ -193,7 +193,7 @@ export default function PublicChatPage({ user }) {
                     </div>
                     <Card className={`inline-block p-3 ${
                       isOwnMessage 
-                        ? 'bg-primary text-primary-foreground' 
+                        ? 'btn-premium text-white' 
                         : 'bg-muted'
                     }`}>
                       <p className="text-sm whitespace-pre-wrap break-words">{msg.content}</p>

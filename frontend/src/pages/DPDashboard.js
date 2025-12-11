@@ -130,7 +130,7 @@ export default function DPDashboard({ user }) {
                       <div className="flex items-center gap-3">
                         <Avatar className="h-12 w-12">
                           <AvatarImage src={bet.creator?.avatar} />
-                          <AvatarFallback className="bg-primary text-primary-foreground">
+                          <AvatarFallback className="btn-premium text-white">
                             {getInitials(bet.creator?.name)}
                           </AvatarFallback>
                         </Avatar>
@@ -180,7 +180,7 @@ export default function DPDashboard({ user }) {
                       <Button
                         data-testid={`lock-bet-${bet.bet_id}`}
                         onClick={() => handleLockBet(bet.bet_id)}
-                        className="w-full bg-primary text-primary-foreground rounded-2xl h-12 font-semibold btn-premium"
+                        className="w-full btn-premium text-white rounded-2xl h-12 font-semibold btn-premium"
                       >
                         <Lock className="h-4 w-4 mr-2" />
                         Lock Bet - Ready to Race
@@ -197,7 +197,7 @@ export default function DPDashboard({ user }) {
                         <Button
                           data-testid={`declare-creator-winner-${bet.bet_id}`}
                           onClick={() => handleDeclareWinner(bet.bet_id, bet.creator_id, bet.creator?.name)}
-                          className="bg-primary text-primary-foreground rounded-2xl h-12"
+                          className="btn-premium text-white rounded-2xl h-12"
                         >
                           <CheckCircle className="h-4 w-4 mr-2" />
                           {bet.creator?.name} Wins
