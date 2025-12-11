@@ -121,10 +121,7 @@ export default function FriendsPage({ user }) {
   return (
     <div className="min-h-screen bg-background pt-20 pb-8">
       <header className="sticky top-0 z-40 bg-black/60 backdrop-blur-md border-b border-white/5 h-16 flex items-center px-6">
-        <Button variant="ghost" size="icon" onClick={() => navigate('/')} className="rounded-full" data-testid="back-button">
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <h1 className="text-xl font-bold font-heading ml-4" data-testid="friends-title">Friends</h1>
+        <h1 className="text-xl font-bold font-heading" data-testid="friends-title">Friends</h1>
       </header>
 
       <div className="p-6 max-w-2xl mx-auto">
