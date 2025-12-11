@@ -56,7 +56,7 @@ export default function HomePage({ user, onLogout }) {
       {/* Main Content */}
       <div className="p-6 pb-24 max-w-7xl mx-auto">
         {/* Balance Card */}
-        <Card className="bg-card border-border card-elevated p-8 rounded-2xl mb-6" data-testid="balance-card">
+        <Card className="premium-card p-8 rounded-2xl mb-6" data-testid="balance-card">
           <div className="flex items-center justify-between mb-6">
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">Available Balance</p>
@@ -105,7 +105,7 @@ export default function HomePage({ user, onLogout }) {
         <Button
           data-testid="place-bet-button"
           onClick={() => navigate('/place-bet')}
-          className="w-full gradient-professional text-white hover:opacity-90 rounded-xl h-14 text-base font-semibold btn-professional mb-6"
+          className="w-full btn-premium text-white rounded-xl h-14 text-base font-semibold mb-6"
         >
           <DollarSign className="mr-2 h-5 w-5" />
           Place Bet
