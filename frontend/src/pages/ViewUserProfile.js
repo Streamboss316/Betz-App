@@ -99,24 +99,18 @@ export default function ViewUserProfile() {
             </Badge>
           )}
 
-          {profile.is_private ? (
+          {!profile.are_friends ? (
             <>
-            {/* Basic Info - Always Visible for Private Profiles */}
-            <div className="grid grid-cols-3 gap-5 mt-6">
-              <div className="p-4 bg-muted/30 rounded-xl">
-                <Trophy className="h-6 w-6 text-primary mx-auto mb-2" />
-                <p className="text-2xl font-bold font-mono text-primary" data-testid="profile-win-count">{profile.win_count || 0}</p>
-                <p className="text-xs text-muted-foreground">Wins</p>
-              </div>
-              <div className="p-4 bg-muted/30 rounded-xl">
-                <Trophy className="h-6 w-6 text-destructive mx-auto mb-2" />
-                <p className="text-2xl font-bold font-mono text-destructive" data-testid="profile-loss-count">{profile.loss_count || 0}</p>
-                <p className="text-xs text-muted-foreground">Losses</p>
-              </div>
-              <div className="p-4 bg-muted/30 rounded-xl">
-                <Trophy className="h-6 w-6 text-accent mx-auto mb-2" />
-                <p className="text-2xl font-bold font-mono text-accent" data-testid="profile-win-rate">{winRate}%</p>
-                <p className="text-xs text-muted-foreground">Win Rate</p>
+            {/* Non-Friends View - Limited Info Only */}
+            <div className="mt-6 p-6 bg-muted/20 border border-border rounded-xl">
+              <div className="flex items-start gap-3">
+                <Lock className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold mb-1">Limited Profile View</p>
+                  <p className="text-sm text-muted-foreground">
+                    Add {profile.name} as a friend to view their full profile, including bio, car details, and media gallery.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -124,7 +118,7 @@ export default function ViewUserProfile() {
             <div className="mt-6 space-y-3">
               <Button
                 onClick={() => navigate(`/place-bet?opponent=${profile.user_id}`)}
-                className="w-full btn-premium text-white rounded-full h-12 font-bold"
+                className="w-full btn-premium text-white rounded-xl h-12 font-semibold"
                 data-testid="send-bet-button"
                 disabled={!profile.can_send_bet}
               >
@@ -132,39 +126,9 @@ export default function ViewUserProfile() {
                 Send Bet Request
               </Button>
             </div>
-
-            {/* Privacy Notice */}
-            <div className="mt-6 p-4 bg-destructive/10 border border-destructive/30 rounded-xl">
-              <div className="flex items-start gap-3">
-                <Lock className="h-5 w-5 text-destructive mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-destructive mb-1">Private Profile</p>
-                  <p className="text-sm text-muted-foreground">
-                    This user's profile is set to private. Add them as a friend to view their full profile, bio, car details, and complete media gallery.
-                  </p>
-                </div>
-              </div>
-            </div>
             </>
           ) : (
             <>
-              <div className="grid grid-cols-3 gap-5 mt-6">
-                <div className="p-4 bg-muted/30 rounded-xl">
-                  <Trophy className="h-6 w-6 text-primary mx-auto mb-2" />
-                  <p className="text-2xl font-bold font-mono text-primary" data-testid="profile-win-count">{profile.win_count || 0}</p>
-                  <p className="text-xs text-muted-foreground">Wins</p>
-                </div>
-                <div className="p-4 bg-muted/30 rounded-xl">
-                  <Trophy className="h-6 w-6 text-destructive mx-auto mb-2" />
-                  <p className="text-2xl font-bold font-mono text-destructive" data-testid="profile-loss-count">{profile.loss_count || 0}</p>
-                  <p className="text-xs text-muted-foreground">Losses</p>
-                </div>
-                <div className="p-4 bg-muted/30 rounded-xl">
-                  <Trophy className="h-6 w-6 text-accent mx-auto mb-2" />
-                  <p className="text-2xl font-bold font-mono text-accent" data-testid="profile-win-rate">{winRate}%</p>
-                  <p className="text-xs text-muted-foreground">Win Rate</p>
-                </div>
-              </div>
 
               {/* Location & Social Links */}
               <div className="mt-6 text-center">
