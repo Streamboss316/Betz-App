@@ -261,20 +261,20 @@ export default function PlaceBetPage({ user }) {
               {amount && parseFloat(amount) > 0 && (
                 <div className="mt-4 p-3 bg-muted/30 rounded-lg text-sm">
                   <div className="flex justify-between mb-1">
-                    <span className="text-muted-foreground">Total Pool:</span>
+                    <span className="text-muted-foreground">Total pool</span>
                     <span className="font-mono">${(parseFloat(amount) * 2).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-muted-foreground">Platform Fee (3%):</span>
+                    <span className="text-muted-foreground">Service fee (3%)</span>
                     <span className="font-mono text-destructive">-${(parseFloat(amount) * 2 * 0.03).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-muted-foreground">Punk Out Penalty (10%):</span>
-                    <span className="font-mono text-destructive">${(parseFloat(amount) * 2 * 0.10).toFixed(2)}</span>
+                    <span className="text-muted-foreground">Punk Out</span>
+                    <span className="font-mono text-destructive">${(parseFloat(amount) * 0.10).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between font-semibold border-t border-white/10 pt-2 mt-2">
-                    <span>Winner Receives:</span>
-                    <span className="font-mono text-primary">${(parseFloat(amount) * 2 * 0.97).toFixed(2)}</span>
+                    <span>Winner Receives</span>
+                    <span className="font-mono text-green-600">${(parseFloat(amount) * 2 * 0.97).toFixed(2)}</span>
                   </div>
                 </div>
               )}
