@@ -79,7 +79,7 @@ export default function DPDashboard({ user }) {
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-primary text-2xl font-heading">Loading...</div>
+        <div className="text-primary text-2xl font-heading">Processing...</div>
       </div>
     );
   }

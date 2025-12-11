@@ -223,17 +223,18 @@ export default function BetDetailsPage({ user }) {
   };
 
   const getBetStatus = (status) => {
-    if (status === 'pending') return { text: 'Pending', color: 'bg-yellow-500/20 text-yellow-500' };
-    if (status === 'active') return { text: 'Active', color: 'bg-primary/20 text-primary' };
-    if (status === 'completed') return { text: 'Completed', color: 'bg-blue-500/20 text-blue-500' };
-    if (status === 'disputed') return { text: 'Disputed', color: 'bg-destructive/20 text-destructive' };
+    if (status === 'pending') return { text: 'Pending', color: 'bg-gray-500/20 text-gray-400 border border-gray-500/30' };
+    if (status === 'active') return { text: 'Active', color: 'bg-blue-500/20 text-blue-400 border border-blue-500/30' };
+    if (status === 'completed') return { text: 'Settled', color: 'bg-green-600/20 text-green-500 border border-green-600/30' };
+    if (status === 'disputed') return { text: 'Disputed', color: 'bg-red-600/20 text-red-500 border border-red-600/30' };
+    if (status === 'cancelled') return { text: 'Cancelled', color: 'bg-red-600/20 text-red-500 border border-red-600/30' };
     return { text: status, color: 'bg-muted text-muted-foreground' };
   };
 
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-primary text-2xl font-heading">Loading...</div>
+        <div className="text-muted-foreground text-base">Processing...</div>
       </div>
     );
   }
@@ -241,7 +242,7 @@ export default function BetDetailsPage({ user }) {
   if (!bet) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-destructive text-2xl font-heading">Bet not found</div>
+        <div className="text-muted-foreground text-base">Bet not found</div>
       </div>
     );
   }

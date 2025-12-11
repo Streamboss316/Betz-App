@@ -139,7 +139,7 @@ export default function FriendsPage({ user }) {
 
           <TabsContent value="friends" data-testid="friends-list">
             {loading ? (
-              <p className="text-muted-foreground text-center">Loading...</p>
+              <p className="text-muted-foreground text-center">Processing...</p>
             ) : friends.length === 0 ? (
               <Card className="premium-card p-8 rounded-2xl text-center">
                 <p className="text-muted-foreground">No friends yet. Start adding!</p>
@@ -198,7 +198,7 @@ export default function FriendsPage({ user }) {
 
           <TabsContent value="requests" data-testid="requests-list">
             {loading ? (
-              <p className="text-muted-foreground text-center">Loading...</p>
+              <p className="text-muted-foreground text-center">Processing...</p>
             ) : requests.length === 0 ? (
               <Card className="premium-card p-8 rounded-2xl text-center">
                 <p className="text-muted-foreground">No pending requests</p>

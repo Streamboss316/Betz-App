@@ -107,7 +107,7 @@ export default function HomePage({ user, onLogout }) {
           </div>
           
           {loading ? (
-            <p className="text-muted-foreground">Loading...</p>
+            <p className="text-muted-foreground">Processing...</p>
           ) : bets.length === 0 ? (
             <Card className="premium-card p-8 rounded-2xl text-center">
               <Trophy className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
@@ -147,7 +147,7 @@ export default function HomePage({ user, onLogout }) {
                               }}
                               data-testid={`opponent-name-${opponent?.user_id}`}
                             >
-                              {opponent?.name || 'Loading...'}
+                              {opponent?.name || 'Processing...'}
                             </p>
                             <p className="text-sm text-muted-foreground">{isCreator ? 'Challenger' : 'Challenged you'}</p>
                           </div>

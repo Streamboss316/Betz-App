@@ -190,7 +190,7 @@ export default function MessagesPage({ user }) {
 
         <div className="flex-1 overflow-y-auto p-4 space-y-2" data-testid="friends-list">
           {loading ? (
-            <p className="text-muted-foreground text-center">Loading...</p>
+            <p className="text-muted-foreground text-center">Processing...</p>
           ) : filteredFriends.length === 0 ? (
             <div className="text-center p-8">
               <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-2" />

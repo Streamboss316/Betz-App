@@ -708,7 +708,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
               disabled={loading}
               className="w-full btn-premium text-white rounded-full h-12 font-bold"
             >
-              {loading ? 'Updating...' : 'Update Profile'}
+              {loading ? 'Processing...' : 'Update Profile'}
             </Button>
           </div>
         </Card>
@@ -807,7 +807,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
               disabled={loading}
               className="w-full btn-premium text-white rounded-xl h-12 font-semibold mt-2"
             >
-              {loading ? 'Updating...' : 'Save Privacy Settings'}
+              {loading ? 'Processing...' : 'Save Privacy Settings'}
             </Button>
           </div>
         </Card>

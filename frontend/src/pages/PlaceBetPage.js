@@ -736,7 +736,7 @@ export default function PlaceBetPage({ user }) {
                 disabled={loading || !selectedOpponent}
                 className="flex-1 btn-premium text-white hover:bg-primary/90 rounded-full h-14 font-bold uppercase btn-premium"
               >
-                {loading ? 'Sending...' : 'Send Bet Request'}
+                {loading ? 'Processing...' : 'Send Bet Request'}
               </Button>
             </div>
           </div>

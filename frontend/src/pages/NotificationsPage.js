@@ -166,7 +166,7 @@ export default function NotificationsPage({ user }) {
 
       <div className="p-6 max-w-2xl mx-auto">
         {loading ? (
-          <p className="text-muted-foreground text-center">Loading...</p>
+          <p className="text-muted-foreground text-center">Processing...</p>
         ) : notifications.length === 0 ? (
           <Card className="premium-card p-8 rounded-2xl text-center">
             <BellOff className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
