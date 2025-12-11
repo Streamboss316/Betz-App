@@ -74,7 +74,7 @@ export default function HomePage({ user, onLogout }) {
             </div>
           </div>
           
-          <div className="grid grid-cols-4 gap-5 pt-6 border-t border-border">
+          <div className="grid grid-cols-3 gap-5 pt-6 border-t border-border">
             <div>
               <p className="text-xs font-medium text-muted-foreground mb-1">Wins</p>
               <p className="text-2xl font-mono text-primary" data-testid="win-count">{user.win_count || 0}</p>
@@ -86,17 +86,6 @@ export default function HomePage({ user, onLogout }) {
             <div>
               <p className="text-xs font-medium text-muted-foreground mb-1">Betz ID</p>
               <p className="text-sm font-mono text-accent" data-testid="betz-id">{user.betz_id}</p>
-            </div>
-            <div 
-              className="cursor-pointer hover:bg-muted/50 rounded-lg p-2 transition-all"
-              onClick={() => navigate('/achievements')}
-              data-testid="achievements-button"
-            >
-              <p className="text-xs font-medium text-muted-foreground mb-1">Achievements</p>
-              <div className="flex items-center gap-1">
-                <Trophy className="h-4 w-4 text-accent" />
-                <p className="text-sm font-medium text-accent">View</p>
-              </div>
             </div>
           </div>
         </Card>
