@@ -271,13 +271,11 @@ export default function BetDetailsPage({ user }) {
 
           {/* Punk Out Display */}
           {bet.punk_out_amount > 0 && (
-            <div className="mt-4 p-3 bg-destructive/10 border border-destructive/30 rounded-xl">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-bold text-destructive">PUNK OUT</p>
-                <p className="text-2xl font-black font-mono text-destructive" data-testid="punk-out-amount">
-                  ${bet.punk_out_amount.toFixed(2)}
-                </p>
-              </div>
+            <div className="mt-4 p-4 bg-muted/20 border border-border rounded-xl text-center">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Escrow Amount (Punk Out Penalty)</p>
+              <p className="text-xl font-mono text-foreground" data-testid="punk-out-amount">
+                ${bet.punk_out_amount.toFixed(2)}
+              </p>
             </div>
           )}
 
@@ -400,13 +398,14 @@ export default function BetDetailsPage({ user }) {
         {/* Punk Out */}
         {bet.status === 'accepted' && isCreator && (
           <Card className="premium-card p-6 rounded-2xl" data-testid="punk-out-card">
-            <h3 className="text-lg font-bold mb-3">Punk Out Amount</h3>
-            <p className="text-sm text-muted-foreground mb-3">
+            <h3 className="text-lg font-semibold mb-3">Escrow Amount</h3>
+            <p className="text-sm text-muted-foreground mb-4">
               Set escrow amount (e.g., 10% = ${(bet.amount * 0.1).toFixed(2)})
             </p>
             {bet.punk_out_amount > 0 ? (
-              <div className="bg-primary/10 p-4 rounded-lg">
-                <p className="text-2xl font-bold font-mono text-primary" data-testid="punk-out-amount">
+              <div className="bg-muted/20 p-5 rounded-xl text-center border border-border">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Escrow Set</p>
+                <p className="text-2xl font-mono text-foreground" data-testid="punk-out-amount">
                   ${bet.punk_out_amount.toFixed(2)}
                 </p>
               </div>
