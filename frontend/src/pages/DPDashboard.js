@@ -68,11 +68,11 @@ export default function DPDashboard({ user }) {
   };
 
   const getBetStatus = (status) => {
-    if (status === 'pending') return { text: 'Pending', color: 'bg-yellow-500/20 text-yellow-500', icon: Shield };
+    if (status === 'pending') return { text: 'Pending', color: 'bg-gray-500/20 text-gray-400 border border-gray-500/30', icon: Shield };
     if (status === 'accepted') return { text: 'Ready to Lock', color: 'bg-accent/20 text-accent', icon: Lock };
-    if (status === 'active') return { text: 'Active - Awaiting Result', color: 'bg-primary/20 text-primary', icon: Shield };
+    if (status === 'active') return { text: 'Active - Awaiting Result', color: 'bg-blue-500/20 text-blue-400 border border-blue-500/30', icon: Shield };
     if (status === 'disputed') return { text: 'DISPUTED - Your Decision Needed', color: 'bg-destructive/20 text-destructive', icon: Shield };
-    if (status === 'completed') return { text: 'Completed', color: 'bg-blue-500/20 text-blue-500', icon: CheckCircle };
+    if (status === 'completed') return { text: 'Settled', color: 'bg-green-600/20 text-green-500 border border-green-600/30', icon: CheckCircle };
     return { text: status, color: 'bg-muted text-muted-foreground', icon: Shield };
   };
 

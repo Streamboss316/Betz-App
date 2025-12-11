@@ -42,10 +42,10 @@ export default function AdminDPPage() {
   };
 
   const getBetStatus = (status) => {
-    if (status === 'accepted') return { text: 'Awaiting DP Lock', color: 'bg-yellow-500/20 text-yellow-500' };
-    if (status === 'active') return { text: 'Active', color: 'bg-primary/20 text-primary' };
+    if (status === 'accepted') return { text: 'Awaiting DP Lock', color: 'bg-gray-500/20 text-gray-400 border border-gray-500/30' };
+    if (status === 'active') return { text: 'Active', color: 'bg-blue-500/20 text-blue-400 border border-blue-500/30' };
     if (status === 'disputed') return { text: 'DISPUTED', color: 'bg-destructive/20 text-destructive' };
-    if (status === 'completed') return { text: 'Resolved', color: 'bg-blue-500/20 text-blue-500' };
+    if (status === 'completed') return { text: 'Resolved', color: 'bg-green-600/20 text-green-500 border border-green-600/30' };
     return { text: status, color: 'bg-muted text-muted-foreground' };
   };
 

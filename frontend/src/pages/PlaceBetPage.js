@@ -286,7 +286,7 @@ export default function PlaceBetPage({ user }) {
                 <Shield className="h-5 w-5 text-primary" />
                 <h3 className="font-bold text-lg">Bet Stipulation</h3>
                 {stipulationComplete && (
-                  <span className="ml-auto text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">✓ Complete</span>
+                  <span className="ml-auto text-xs bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded-full">✓ Complete</span>
                 )}
               </div>
 
@@ -430,7 +430,7 @@ export default function PlaceBetPage({ user }) {
                   <Shield className="h-5 w-5 text-destructive" />
                   <h3 className="font-bold text-lg text-destructive">Designated Person (DP) Required</h3>
                   {selectedDP && (
-                    <span className="ml-auto text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">✓ DP Selected</span>
+                    <span className="ml-auto text-xs bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded-full">✓ DP Selected</span>
                   )}
                 </div>
 

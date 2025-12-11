@@ -44,9 +44,9 @@ export default function HomePage({ user, onLogout }) {
   };
 
   const getBetStatus = (bet) => {
-    if (bet.status === 'pending') return { text: 'Pending', color: 'bg-yellow-500/20 text-yellow-500' };
-    if (bet.status === 'active') return { text: 'Active', color: 'bg-primary/20 text-primary' };
-    if (bet.status === 'completed') return { text: 'Completed', color: 'bg-blue-500/20 text-blue-500' };
+    if (bet.status === 'pending') return { text: 'Pending', color: 'bg-gray-500/20 text-gray-400 border border-gray-500/30' };
+    if (bet.status === 'active') return { text: 'Active', color: 'bg-blue-500/20 text-blue-400 border border-blue-500/30' };
+    if (bet.status === 'completed') return { text: 'Settled', color: 'bg-green-600/20 text-green-500 border border-green-600/30' };
     if (bet.status === 'disputed') return { text: 'Disputed', color: 'bg-destructive/20 text-destructive' };
     return { text: bet.status, color: 'bg-muted text-muted-foreground' };
   };

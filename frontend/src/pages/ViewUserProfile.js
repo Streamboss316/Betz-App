@@ -91,7 +91,7 @@ export default function ViewUserProfile() {
           <p className="text-accent font-mono font-semibold text-lg mb-4" data-testid="profile-betz-id">{profile.betz_id}</p>
           
           {profile.are_friends && (
-            <Badge className="bg-primary/20 text-primary mb-4">Friend</Badge>
+            <Badge className="bg-blue-500/20 text-blue-400 border border-blue-500/30 mb-4">Friend</Badge>
           )}
           {profile.trust_score > 0 && !profile.is_private && (
             <Badge className="bg-accent/20 text-accent border border-accent/50 mb-4">

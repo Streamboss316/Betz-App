@@ -143,7 +143,7 @@ export default function PublicChatPage({ user }) {
       <div className="flex-1 flex flex-col">
         <header className="h-16 border-b border-white/5 flex items-center px-6 bg-black/60 backdrop-blur-md">
           <h1 className="text-2xl font-bold font-heading tracking-tight" data-testid="public-chat-title">BETZ CHAT</h1>
-          <Badge className="ml-4 bg-primary/20 text-primary">
+          <Badge className="ml-4 bg-blue-500/20 text-blue-400 border border-blue-500/30">
             <Users className="h-3 w-3 mr-1" />
             {onlineUserIds.size} Online
           </Badge>
