@@ -56,7 +56,7 @@ export default function AdminDashboard({ onLogout }) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pt-20">
       {/* Admin Header */}
       <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-border h-16 flex items-center justify-between px-6">
         <div className="flex items-center gap-3">

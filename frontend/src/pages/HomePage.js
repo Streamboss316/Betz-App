@@ -52,7 +52,7 @@ export default function HomePage({ user, onLogout }) {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-screen bg-background pt-20 pb-20 pt-20">
       <div className="max-w-4xl mx-auto p-6">
         {/* Balance Card */}
         <Card className="premium-card p-8 rounded-2xl mb-6" data-testid="balance-card">

@@ -98,7 +98,7 @@ export default function ReviewPage({ user }) {
   const overallPercentage = Math.round((avgRating / 4) * 100);
 
   return (
-    <div className="min-h-screen bg-background pb-8">
+    <div className="min-h-screen bg-background pt-20 pb-8">
       <header className="sticky top-0 z-40 bg-black/70 backdrop-blur-xl border-b border-border/50 h-16 flex items-center px-6">
         <Button variant="ghost" size="icon" onClick={() => navigate('/')} className="rounded-full" data-testid="back-button">
           <ArrowLeft className="h-6 w-6" />
