@@ -99,35 +99,7 @@ export default function ViewUserProfile() {
             </Badge>
           )}
 
-          {!profile.are_friends ? (
-            <>
-            {/* Non-Friends View - Limited Info Only */}
-            <div className="mt-6 p-6 bg-muted/20 border border-border rounded-xl">
-              <div className="flex items-start gap-3">
-                <Lock className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold mb-1">Limited Profile View</p>
-                  <p className="text-sm text-muted-foreground">
-                    Add {profile.name} as a friend to view their full profile, including bio, car details, and media gallery.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="mt-6 space-y-3">
-              <Button
-                onClick={() => navigate(`/place-bet?opponent=${profile.user_id}`)}
-                className="w-full btn-premium text-white rounded-xl h-12 font-semibold"
-                data-testid="send-bet-button"
-                disabled={!profile.can_send_bet}
-              >
-                <DollarSign className="h-5 w-5 mr-2" />
-                Send Bet Request
-              </Button>
-            </div>
-            </>
-          ) : (
+          {(profile.are_friends && profile.privacy_settings?.profile_public !== false) ? (
             <>
 
               {/* Location & Social Links */}
