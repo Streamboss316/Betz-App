@@ -209,6 +209,7 @@ function App() {
       <Toaster position="top-center" richColors />
       <BrowserRouter>
         <GlobalHeader user={user} />
+        {user && <BottomNav />}
         <Routes>
           <Route path="/auth" element={!user ? <AuthPage onLogin={login} /> : <Navigate to="/" />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
