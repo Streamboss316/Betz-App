@@ -59,8 +59,8 @@ export default function HomePage({ user, onLogout }) {
         <Card className="premium-card p-8 rounded-2xl mb-6" data-testid="balance-card">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">Available Balance</p>
-              <h2 className="text-5xl balance-display text-white" data-testid="balance-amount">
+              <p className="text-xs font-medium tracking-wide text-muted-foreground mb-3">Available balance</p>
+              <h2 className="text-5xl balance-display text-white" data-testid="balance-amount" style={{ fontWeight: 600, letterSpacing: '-0.025em' }}>
                 ${user.balance?.toFixed(2) || '0.00'}
               </h2>
             </div>
