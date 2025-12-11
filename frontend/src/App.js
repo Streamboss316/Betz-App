@@ -31,7 +31,6 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ViewUserProfile from './pages/ViewUserProfile';
 import ReviewPage from './pages/ReviewPage';
 import DPDashboard from './pages/DPDashboard';
-import AchievementsPage from './pages/AchievementsPage';
 import GlobalHeader from './components/GlobalHeader';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
