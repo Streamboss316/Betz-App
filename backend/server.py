@@ -320,6 +320,36 @@ async def register(input_data: RegisterInput):
     
     await db.users.insert_one(user_doc)
     
+    # Check if this user was invited
+    pending_invites = await db.invites.find({
+        "$or": [
+            {"contact": input_data.email, "status": "pending"},
+            {"contact": input_data.phone, "status": "pending"}
+        ]
+    }).to_list(100)
+    
+    # Notify all users who invited this person
+    for invite in pending_invites:
+        # Mark invite as accepted
+        await db.invites.update_one(
+            {"invite_id": invite["invite_id"]},
+            {"$set": {"status": "accepted", "accepted_user_id": user_id}}
+        )
+        
+        # Send notification to inviter
+        inviter_user = await db.users.find_one({"user_id": invite["invited_by"]}, {"_id": 0})
+        if inviter_user:
+            notif_doc = {
+                "notification_id": str(uuid.uuid4()),
+                "user_id": invite["invited_by"],
+                "type": "invite_accepted",
+                "content": f"{input_data.name} joined BETZ! You can now create bets with them.",
+                "related_user_id": user_id,
+                "read": False,
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+            await db.notifications.insert_one(notif_doc)
+    
     user_doc.pop("password_hash")
     user = User(**user_doc)
     access_token = create_access_token({"sub": user_id})
