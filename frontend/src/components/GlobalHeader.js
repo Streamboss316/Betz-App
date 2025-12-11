@@ -117,7 +117,7 @@ export default function GlobalHeader({ user }) {
           onClick={() => navigate('/public-chat')}
           data-testid="global-public-chat-icon"
         >
-          <Users className="h-5 w-5" />
+          <MessageCircle className="h-5 w-5" />
         </Button>
 
         {/* Notifications */}
