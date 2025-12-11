@@ -275,12 +275,12 @@ export default function NotificationsPage({ user }) {
                   <div className="grid grid-cols-2 gap-5">
                     <div>
                       <p className="text-xs text-muted-foreground mb-1">Creator</p>
-                      <p className="font-semibold">{betDetails.creator?.name || 'Unknown'}</p>
+                      <p className="font-semibold">{betDetails.creator?.name || 'Member'}</p>
                       <p className="text-xs text-muted-foreground">{betDetails.creator?.betz_id}</p>
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground mb-1">Opponent</p>
-                      <p className="font-semibold">{betDetails.opponent?.name || 'Unknown'}</p>
+                      <p className="font-semibold">{betDetails.opponent?.name || 'Member'}</p>
                       <p className="text-xs text-muted-foreground">{betDetails.opponent?.betz_id}</p>
                     </div>
                   </div>

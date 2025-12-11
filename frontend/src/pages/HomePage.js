@@ -148,7 +148,7 @@ export default function HomePage({ user, onLogout }) {
                               }}
                               data-testid={`opponent-name-${opponent?.user_id}`}
                             >
-                              {opponent?.name || 'Unknown'}
+                              {opponent?.name || 'Loading...'}
                             </p>
                             <p className="text-sm text-muted-foreground">{isCreator ? 'Challenger' : 'Challenged you'}</p>
                           </div>
