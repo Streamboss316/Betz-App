@@ -59,8 +59,8 @@ export default function HomePage({ user, onLogout }) {
         <Card className="bg-card border-border card-elevated p-8 rounded-2xl mb-6" data-testid="balance-card">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <p className="text-xs font-medium tracking-wide text-muted-foreground mb-2">Available Balance</p>
-              <h2 className="text-5xl font-bold font-mono tracking-tight text-white" data-testid="balance-amount">
+              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">Available Balance</p>
+              <h2 className="text-5xl balance-display text-white" data-testid="balance-amount">
                 ${user.balance?.toFixed(2) || '0.00'}
               </h2>
             </div>
@@ -74,28 +74,28 @@ export default function HomePage({ user, onLogout }) {
             </div>
           </div>
           
-          <div className="grid grid-cols-4 gap-4 pt-6 border-t border-white/10">
+          <div className="grid grid-cols-4 gap-4 pt-6 border-t border-border">
             <div>
               <p className="text-xs font-medium text-muted-foreground mb-1">Wins</p>
-              <p className="text-2xl font-bold text-primary font-mono" data-testid="win-count">{user.win_count || 0}</p>
+              <p className="text-2xl font-mono text-primary" data-testid="win-count">{user.win_count || 0}</p>
             </div>
             <div>
               <p className="text-xs font-medium text-muted-foreground mb-1">Losses</p>
-              <p className="text-2xl font-bold text-destructive font-mono" data-testid="loss-count">{user.loss_count || 0}</p>
+              <p className="text-2xl font-mono text-destructive" data-testid="loss-count">{user.loss_count || 0}</p>
             </div>
             <div>
               <p className="text-xs font-medium text-muted-foreground mb-1">Betz ID</p>
-              <p className="text-sm font-mono text-accent font-semibold" data-testid="betz-id">{user.betz_id}</p>
+              <p className="text-sm font-mono text-accent" data-testid="betz-id">{user.betz_id}</p>
             </div>
             <div 
-              className="cursor-pointer hover:bg-accent/10 rounded-lg p-2 transition-all"
+              className="cursor-pointer hover:bg-muted/50 rounded-lg p-2 transition-all"
               onClick={() => navigate('/achievements')}
               data-testid="achievements-button"
             >
               <p className="text-xs font-medium text-muted-foreground mb-1">Achievements</p>
               <div className="flex items-center gap-1">
                 <Trophy className="h-4 w-4 text-accent" />
-                <p className="text-lg font-bold text-accent font-mono">View</p>
+                <p className="text-sm font-medium text-accent">View</p>
               </div>
             </div>
           </div>
