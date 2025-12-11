@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Button } from './ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 import { Badge } from './ui/badge';
-import { Bell, Users, ArrowLeft } from 'lucide-react';
+import { Bell, Users, ArrowLeft, MessageCircle } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
