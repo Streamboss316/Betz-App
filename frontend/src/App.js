@@ -231,7 +231,6 @@ function App() {
           <Route path="/admin/demo" element={adminToken ? <AdminDemoMode /> : <Navigate to="/admin/login" />} />
           <Route path="/review/:betId" element={user ? <ReviewPage user={user} /> : <Navigate to="/auth" />} />
           <Route path="/dp-dashboard" element={user ? <DPDashboard user={user} /> : <Navigate to="/auth" />} />
-          <Route path="/achievements" element={user ? <AchievementsPage user={user} /> : <Navigate to="/auth" />} />
         </Routes>
       </BrowserRouter>
 
