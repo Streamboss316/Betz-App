@@ -715,71 +715,162 @@ export default function ProfilePage({ user, setUser, onLogout }) {
 
         {/* Privacy Settings */}
         <Card className="premium-card p-6 rounded-2xl" data-testid="privacy-card">
-          <h3 className="text-lg font-bold mb-4 flex items-center">
+          <h3 className="text-lg font-bold mb-5 flex items-center">
             <Shield className="h-5 w-5 mr-2 text-primary" />
             Privacy Settings
           </h3>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
-              <div>
-                <p className="font-semibold">Public Profile</p>
-                <p className="text-sm text-muted-foreground">Non-friends can view your full profile</p>
+          <p className="text-sm text-muted-foreground mb-4">Control what friends can see on your profile</p>
+          <div className="space-y-4">
+            {/* Friends View Full Profile */}
+            <div className="space-y-2">
+              <p className="font-semibold text-sm">Allow friends to view full profile</p>
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setProfilePublic(true)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    profilePublic 
+                      ? 'bg-green-600 hover:bg-green-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="profile-public-yes"
+                >
+                  YES
+                </Button>
+                <Button
+                  onClick={() => setProfilePublic(false)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    !profilePublic 
+                      ? 'bg-red-600 hover:bg-red-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="profile-public-no"
+                >
+                  NO
+                </Button>
               </div>
-              <Switch
-                data-testid="profile-public-switch"
-                checked={profilePublic}
-                onCheckedChange={setProfilePublic}
-              />
             </div>
-            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
-              <div>
-                <p className="font-semibold">Gallery Preview</p>
-                <p className="text-sm text-muted-foreground">Show 3 photos to non-friends</p>
+
+            {/* Gallery Preview */}
+            <div className="space-y-2">
+              <p className="font-semibold text-sm">Show gallery preview (3 photos) to friends</p>
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setShowGalleryPreview(true)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    showGalleryPreview 
+                      ? 'bg-green-600 hover:bg-green-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="gallery-preview-yes"
+                >
+                  YES
+                </Button>
+                <Button
+                  onClick={() => setShowGalleryPreview(false)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    !showGalleryPreview 
+                      ? 'bg-red-600 hover:bg-red-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="gallery-preview-no"
+                >
+                  NO
+                </Button>
               </div>
-              <Switch
-                data-testid="gallery-preview-switch"
-                checked={showGalleryPreview}
-                onCheckedChange={setShowGalleryPreview}
-              />
             </div>
-            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
-              <div>
-                <p className="font-semibold">Show Contact Info</p>
-                <p className="text-sm text-muted-foreground">Display email & phone to non-friends</p>
+
+            {/* Contact Info */}
+            <div className="space-y-2">
+              <p className="font-semibold text-sm">Show contact info (email & phone) to friends</p>
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setShowContact(true)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    showContact 
+                      ? 'bg-green-600 hover:bg-green-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="show-contact-yes"
+                >
+                  YES
+                </Button>
+                <Button
+                  onClick={() => setShowContact(false)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    !showContact 
+                      ? 'bg-red-600 hover:bg-red-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="show-contact-no"
+                >
+                  NO
+                </Button>
               </div>
-              <Switch
-                data-testid="show-contact-switch"
-                checked={showContact}
-                onCheckedChange={setShowContact}
-              />
             </div>
-            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
-              <div>
-                <p className="font-semibold">Show Location</p>
-                <p className="text-sm text-muted-foreground">Display your location to non-friends</p>
+
+            {/* Location */}
+            <div className="space-y-2">
+              <p className="font-semibold text-sm">Show location to friends</p>
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setShowLocation(true)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    showLocation 
+                      ? 'bg-green-600 hover:bg-green-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="show-location-yes"
+                >
+                  YES
+                </Button>
+                <Button
+                  onClick={() => setShowLocation(false)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    !showLocation 
+                      ? 'bg-red-600 hover:bg-red-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="show-location-no"
+                >
+                  NO
+                </Button>
               </div>
-              <Switch
-                data-testid="show-location-switch"
-                checked={showLocation}
-                onCheckedChange={setShowLocation}
-              />
             </div>
-            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
-              <div>
-                <p className="font-semibold">Allow Bet Requests</p>
-                <p className="text-sm text-muted-foreground">Others can send you bet requests</p>
+
+            {/* Bet Requests */}
+            <div className="space-y-2">
+              <p className="font-semibold text-sm">Allow others to send bet requests</p>
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setAllowBetRequests(true)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    allowBetRequests 
+                      ? 'bg-green-600 hover:bg-green-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="allow-bet-requests-yes"
+                >
+                  YES
+                </Button>
+                <Button
+                  onClick={() => setAllowBetRequests(false)}
+                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
+                    !allowBetRequests 
+                      ? 'bg-red-600 hover:bg-red-700 text-white' 
+                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                  }`}
+                  data-testid="allow-bet-requests-no"
+                >
+                  NO
+                </Button>
               </div>
-              <Switch
-                data-testid="allow-bet-requests-switch"
-                checked={allowBetRequests}
-                onCheckedChange={setAllowBetRequests}
-              />
             </div>
+
             <Button
               data-testid="update-privacy-button"
               onClick={handleUpdatePrivacy}
               disabled={loading}
-              className="w-full btn-premium text-white rounded-full h-12 font-bold"
+              className="w-full btn-premium text-white rounded-xl h-12 font-semibold mt-2"
             >
               {loading ? 'Updating...' : 'Save Privacy Settings'}
             </Button>
