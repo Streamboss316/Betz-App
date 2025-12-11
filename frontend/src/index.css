@@ -6,31 +6,48 @@
 
 @layer base {
   :root {
-    --background: 270 40% 8%;
-    --foreground: 0 0% 100%;
-    --card: 270 30% 12%;
-    --card-foreground: 0 0% 100%;
-    --popover: 270 30% 12%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 270 70% 65%;
-    --primary-foreground: 270 10% 10%;
-    --secondary: 45 90% 55%;
-    --secondary-foreground: 45 10% 10%;
-    --muted: 270 20% 20%;
-    --muted-foreground: 0 0% 70%;
-    --accent: 45 90% 55%;
-    --accent-foreground: 45 10% 10%;
-    --destructive: 0 85% 60%;
+    /* Professional Dark Purple Base */
+    --background: 260 30% 8%;
+    --foreground: 0 0% 98%;
+    
+    /* Sophisticated Cards */
+    --card: 260 25% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 260 25% 12%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* Refined Purple - Less saturated, more professional */
+    --primary: 265 50% 55%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Elegant Gold - Muted, sophisticated */
+    --secondary: 45 55% 58%;
+    --secondary-foreground: 260 30% 10%;
+    
+    /* Subtle Muted tones */
+    --muted: 260 15% 18%;
+    --muted-foreground: 0 0% 65%;
+    
+    /* Professional Gold Accent */
+    --accent: 45 60% 60%;
+    --accent-foreground: 260 30% 10%;
+    
+    /* Clean Destructive */
+    --destructive: 0 70% 58%;
     --destructive-foreground: 0 0% 100%;
-    --border: 270 30% 25%;
-    --input: 270 30% 25%;
-    --ring: 270 70% 65%;
-    --radius: 0.75rem;
+    
+    /* Refined Borders */
+    --border: 260 20% 20%;
+    --input: 260 20% 18%;
+    --ring: 265 50% 55%;
+    
+    /* Less rounded - more professional */
+    --radius: 0.5rem;
   }
 }
 
 html {
-  background: #0F0A1F;
+  background: hsl(260, 30%, 8%);
 }
 
 body {
@@ -38,8 +55,10 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #0F0A1F;
-  color: #FFFFFF;
+  background: hsl(260, 30%, 8%);
+  color: hsl(0, 0%, 98%);
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 code {
