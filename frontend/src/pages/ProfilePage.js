@@ -720,150 +720,85 @@ export default function ProfilePage({ user, setUser, onLogout }) {
             Privacy Settings
           </h3>
           <p className="text-sm text-muted-foreground mb-4">Control what friends can see on your profile</p>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Friends View Full Profile */}
-            <div className="space-y-2">
-              <p className="font-semibold text-sm">Allow friends to view full profile</p>
-              <div className="flex gap-3">
-                <Button
-                  onClick={() => setProfilePublic(true)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    profilePublic 
-                      ? 'bg-green-600 hover:bg-green-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="profile-public-yes"
-                >
-                  YES
-                </Button>
-                <Button
-                  onClick={() => setProfilePublic(false)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    !profilePublic 
-                      ? 'bg-red-600 hover:bg-red-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="profile-public-no"
-                >
-                  NO
-                </Button>
-              </div>
+            <div className="flex items-center justify-between py-2">
+              <p className="font-medium text-sm text-foreground">Allow friends to view full profile</p>
+              <button
+                onClick={() => setProfilePublic(!profilePublic)}
+                className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
+                  profilePublic 
+                    ? 'bg-green-600 hover:bg-green-700 text-white' 
+                    : 'bg-red-600 hover:bg-red-700 text-white'
+                }`}
+                data-testid="profile-public-toggle"
+              >
+                {profilePublic ? 'YES' : 'NO'}
+              </button>
             </div>
 
             {/* Gallery Preview */}
-            <div className="space-y-2">
-              <p className="font-semibold text-sm">Show gallery preview (3 photos) to friends</p>
-              <div className="flex gap-3">
-                <Button
-                  onClick={() => setShowGalleryPreview(true)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    showGalleryPreview 
-                      ? 'bg-green-600 hover:bg-green-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="gallery-preview-yes"
-                >
-                  YES
-                </Button>
-                <Button
-                  onClick={() => setShowGalleryPreview(false)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    !showGalleryPreview 
-                      ? 'bg-red-600 hover:bg-red-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="gallery-preview-no"
-                >
-                  NO
-                </Button>
-              </div>
+            <div className="flex items-center justify-between py-2">
+              <p className="font-medium text-sm text-foreground">Show gallery preview (3 photos) to friends</p>
+              <button
+                onClick={() => setShowGalleryPreview(!showGalleryPreview)}
+                className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
+                  showGalleryPreview 
+                    ? 'bg-green-600 hover:bg-green-700 text-white' 
+                    : 'bg-red-600 hover:bg-red-700 text-white'
+                }`}
+                data-testid="gallery-preview-toggle"
+              >
+                {showGalleryPreview ? 'YES' : 'NO'}
+              </button>
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-2">
-              <p className="font-semibold text-sm">Show contact info (email & phone) to friends</p>
-              <div className="flex gap-3">
-                <Button
-                  onClick={() => setShowContact(true)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    showContact 
-                      ? 'bg-green-600 hover:bg-green-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="show-contact-yes"
-                >
-                  YES
-                </Button>
-                <Button
-                  onClick={() => setShowContact(false)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    !showContact 
-                      ? 'bg-red-600 hover:bg-red-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="show-contact-no"
-                >
-                  NO
-                </Button>
-              </div>
+            <div className="flex items-center justify-between py-2">
+              <p className="font-medium text-sm text-foreground">Show contact info (email & phone) to friends</p>
+              <button
+                onClick={() => setShowContact(!showContact)}
+                className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
+                  showContact 
+                    ? 'bg-green-600 hover:bg-green-700 text-white' 
+                    : 'bg-red-600 hover:bg-red-700 text-white'
+                }`}
+                data-testid="show-contact-toggle"
+              >
+                {showContact ? 'YES' : 'NO'}
+              </button>
             </div>
 
             {/* Location */}
-            <div className="space-y-2">
-              <p className="font-semibold text-sm">Show location to friends</p>
-              <div className="flex gap-3">
-                <Button
-                  onClick={() => setShowLocation(true)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    showLocation 
-                      ? 'bg-green-600 hover:bg-green-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="show-location-yes"
-                >
-                  YES
-                </Button>
-                <Button
-                  onClick={() => setShowLocation(false)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    !showLocation 
-                      ? 'bg-red-600 hover:bg-red-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="show-location-no"
-                >
-                  NO
-                </Button>
-              </div>
+            <div className="flex items-center justify-between py-2">
+              <p className="font-medium text-sm text-foreground">Show location to friends</p>
+              <button
+                onClick={() => setShowLocation(!showLocation)}
+                className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
+                  showLocation 
+                    ? 'bg-green-600 hover:bg-green-700 text-white' 
+                    : 'bg-red-600 hover:bg-red-700 text-white'
+                }`}
+                data-testid="show-location-toggle"
+              >
+                {showLocation ? 'YES' : 'NO'}
+              </button>
             </div>
 
             {/* Bet Requests */}
-            <div className="space-y-2">
-              <p className="font-semibold text-sm">Allow others to send bet requests</p>
-              <div className="flex gap-3">
-                <Button
-                  onClick={() => setAllowBetRequests(true)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    allowBetRequests 
-                      ? 'bg-green-600 hover:bg-green-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="allow-bet-requests-yes"
-                >
-                  YES
-                </Button>
-                <Button
-                  onClick={() => setAllowBetRequests(false)}
-                  className={`flex-1 h-12 rounded-lg font-semibold transition-all ${
-                    !allowBetRequests 
-                      ? 'bg-red-600 hover:bg-red-700 text-white' 
-                      : 'bg-muted hover:bg-muted/80 text-muted-foreground'
-                  }`}
-                  data-testid="allow-bet-requests-no"
-                >
-                  NO
-                </Button>
-              </div>
+            <div className="flex items-center justify-between py-2">
+              <p className="font-medium text-sm text-foreground">Allow others to send bet requests</p>
+              <button
+                onClick={() => setAllowBetRequests(!allowBetRequests)}
+                className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
+                  allowBetRequests 
+                    ? 'bg-green-600 hover:bg-green-700 text-white' 
+                    : 'bg-red-600 hover:bg-red-700 text-white'
+                }`}
+                data-testid="allow-bet-requests-toggle"
+              >
+                {allowBetRequests ? 'YES' : 'NO'}
+              </button>
             </div>
 
             <Button
