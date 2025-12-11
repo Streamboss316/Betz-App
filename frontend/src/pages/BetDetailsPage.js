@@ -264,8 +264,8 @@ export default function BetDetailsPage({ user }) {
         {/* Bet Amount & Status */}
         <Card className="premium-card p-6 rounded-2xl" data-testid="bet-summary-card">
           <div className="text-center mb-4">
-            <p className="text-sm text-muted-foreground mb-2">Bet Amount</p>
-            <h2 className="text-5xl font-black font-mono text-primary" data-testid="bet-amount">${bet.amount.toFixed(2)}</h2>
+            <p className="text-5xl font-semibold tracking-tight text-foreground mb-3">Bet Amount</p>
+            <h2 className="text-5xl font-mono text-primary" data-testid="bet-amount">${bet.amount.toFixed(2)}</h2>
             <Badge className={`${status.color} mt-3`} data-testid="bet-status">{status.text}</Badge>
           </div>
 
