@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* Professional Fintech Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -58,7 +60,9 @@ body {
   background: hsl(260, 30%, 8%);
   color: hsl(0, 0%, 98%);
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 code {
@@ -136,15 +140,70 @@ code {
   }
 }
 
-/* Professional typography */
+/* Professional Typography System */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Remove bold/black font weights - use 600 max */
+.font-black {
+  font-weight: 600 !important;
+}
+
+.font-extrabold {
+  font-weight: 600 !important;
+}
+
+.font-bold {
+  font-weight: 600 !important;
+}
+
+/* Professional mono font for numbers */
+.font-mono {
+  font-family: 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Remove heading font completely */
+.font-heading {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.025em !important;
+}
+
+/* Professional number display */
+.balance-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
 }
 
 /* Cleaner inputs */
 input, textarea, select {
   font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 /* Professional focus states */
@@ -153,6 +212,12 @@ input:focus, textarea:focus, select:focus, button:focus {
   ring-color: hsl(265, 50%, 55%);
   ring-width: 2px;
   ring-offset-width: 0px;
+}
+
+/* Professional button text */
+button {
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
     padding-top: inherit;
