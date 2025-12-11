@@ -174,7 +174,7 @@ export default function WalletPage({ user, setUser }) {
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         {/* Balance Card */}
         <Card className="bg-gradient-to-br from-primary/20 to-secondary/20 border-white/10 shadow-2xl p-8 rounded-2xl" data-testid="balance-card">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground/70 mb-2">Available Balance</p>
+          <p className="text-xs tracking-wide text-muted-foreground/70 mb-2">Available balance</p>
           <h2 className="text-5xl font-black font-mono tracking-tight text-foreground mb-6" data-testid="wallet-balance">
             ${user.balance?.toFixed(2) || '0.00'}
           </h2>
