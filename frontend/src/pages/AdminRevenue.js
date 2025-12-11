@@ -127,7 +127,7 @@ export default function AdminRevenue() {
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <div>
                   <Label htmlFor="withdraw-amount">Withdrawal Amount</Label>
                   <div className="relative">

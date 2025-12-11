@@ -381,7 +381,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
           {/* Profile Info Section */}
           <div className="relative px-6 pb-6">
             {/* Avatar overlapping the header */}
-            <div className="flex flex-col md:flex-row md:items-end gap-4 -mt-16 md:-mt-20">
+            <div className="flex flex-col md:flex-row md:items-end gap-5 -mt-16 md:-mt-20">
               <div className="relative">
                 <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-card">
                   <AvatarImage src={user.avatar} />
@@ -474,7 +474,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
             </div>
           
             {/* Stats Grid */}
-            <div className="grid grid-cols-3 gap-4 mt-6">
+            <div className="grid grid-cols-3 gap-5 mt-6">
               <div className="p-4 bg-muted/30 rounded-xl text-center">
                 <Trophy className="h-6 w-6 text-primary mx-auto mb-2" />
                 <p className="text-2xl font-bold font-mono text-primary" data-testid="profile-win-count">{user.win_count}</p>
@@ -534,7 +534,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
             <User className="h-5 w-5 mr-2 text-primary" />
             Edit Profile
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
               <Label htmlFor="name">Full Name</Label>
               <Input

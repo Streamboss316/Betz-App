@@ -218,7 +218,7 @@ export default function PlaceBetPage({ user }) {
 
       <div className="p-6 max-w-2xl mx-auto">
         {/* Step Indicator */}
-        <div className="flex items-center justify-center gap-4 mb-8">
+        <div className="flex items-center justify-center gap-5 mb-8">
           <div className="flex items-center gap-2">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${step === 1 ? 'btn-premium text-white' : 'bg-muted text-muted-foreground'}`}>
               1
@@ -291,7 +291,7 @@ export default function PlaceBetPage({ user }) {
               </div>
 
               {!stipulationComplete ? (
-                <div className="space-y-4">
+                <div className="space-y-5">
                   <div className="bg-accent/10 border border-accent/30 rounded-lg p-3 mb-4">
                     <div className="flex items-start gap-2">
                       <AlertCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
@@ -550,7 +550,7 @@ export default function PlaceBetPage({ user }) {
             {/* Bet Summary */}
             <Card className="bg-gradient-to-br from-primary/10 to-accent/5 border-border p-6 rounded-2xl mb-6">
               <h3 className="text-lg font-bold mb-3">Bet Summary</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-5">
                 <div>
                   <p className="text-xs text-muted-foreground mb-1">Bet Amount</p>
                   <p className="text-2xl font-bold font-mono text-primary">${parseFloat(amount).toFixed(2)}</p>
@@ -624,7 +624,7 @@ export default function PlaceBetPage({ user }) {
                   )}
                 </>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-5">
                   <div className="bg-accent/10 border border-accent/30 rounded-lg p-4 mb-4">
                     <div className="flex items-start gap-2">
                       <AlertCircle className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
@@ -721,7 +721,7 @@ export default function PlaceBetPage({ user }) {
               )}
             </Card>
 
-            <div className="flex gap-4">
+            <div className="flex gap-5">
               <Button
                 data-testid="back-to-amount-button"
                 onClick={() => setStep(1)}

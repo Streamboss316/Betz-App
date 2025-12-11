@@ -137,7 +137,7 @@ export default function AuthPage({ onLogin }) {
             </Button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
               <div>
                 <Label htmlFor="name">Full Name</Label>

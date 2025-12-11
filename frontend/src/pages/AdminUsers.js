@@ -121,11 +121,11 @@ export default function AdminUsers() {
           </div>
         </Card>
 
-        <div className="grid gap-4">
+        <div className="grid gap-5">
           {filteredUsers.map((user) => (
             <Card key={user.user_id} className="premium-card p-6 rounded-2xl" data-testid={`user-${user.user_id}`}>
               <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-5">
                   <Avatar className="h-16 w-16 border-2 border-primary/50">
                     <AvatarImage src={user.avatar} />
                     <AvatarFallback className="btn-premium text-white text-lg font-bold">
@@ -143,7 +143,7 @@ export default function AdminUsers() {
                 )}
               </div>
 
-              <div className="grid grid-cols-4 gap-4 mb-4 p-4 bg-muted/20 rounded-lg">
+              <div className="grid grid-cols-4 gap-5 mb-4 p-4 bg-muted/20 rounded-lg">
                 <div>
                   <p className="text-xs text-muted-foreground mb-1">Balance</p>
                   <p className="text-xl font-bold font-mono text-primary">${user.balance.toFixed(2)}</p>

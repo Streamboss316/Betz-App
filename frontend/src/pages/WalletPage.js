@@ -180,7 +180,7 @@ export default function WalletPage({ user, setUser }) {
           </h2>
 
           {/* Deposit & Withdrawal Action Buttons */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-5">
             <Button
               onClick={() => {
                 setShowDepositMethods(!showDepositMethods);
@@ -213,7 +213,7 @@ export default function WalletPage({ user, setUser }) {
               <CreditCard className="h-5 w-5 mr-2 text-primary" />
               Deposit Funds
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
                 <label className="text-sm text-muted-foreground block mb-2">Amount</label>
                 <div className="relative">
@@ -262,7 +262,7 @@ export default function WalletPage({ user, setUser }) {
               <Wallet className="h-5 w-5 mr-2 text-accent" />
               Withdraw Funds
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
                 <label className="text-sm text-muted-foreground block mb-2">Amount</label>
                 <div className="relative">

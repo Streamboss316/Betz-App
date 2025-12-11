@@ -103,7 +103,7 @@ export default function AdminDemoMode() {
 
       <div className="p-6 max-w-4xl mx-auto">
         <Card className="bg-gradient-to-br from-primary/20 to-accent/20 border-white/10 p-6 rounded-2xl mb-6">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <Users className="h-12 w-12 text-primary" />
             <div>
               <h2 className="text-2xl font-bold">Test Complete Betting Flow</h2>
@@ -137,12 +137,12 @@ export default function AdminDemoMode() {
           </p>
         </Card>
 
-        <div className="grid gap-4">
+        <div className="grid gap-5">
           <h3 className="text-lg font-bold">Select User to Test As:</h3>
           {users.map((user) => (
             <Card key={user.user_id} className="premium-card p-4 rounded-2xl hover:border-primary/50 transition-all" data-testid={`test-user-${user.user_id}`}>
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-5">
                   <Avatar className="h-14 w-14 border-2 border-primary/50">
                     <AvatarImage src={user.avatar} />
                     <AvatarFallback className="btn-premium text-white text-lg font-bold">

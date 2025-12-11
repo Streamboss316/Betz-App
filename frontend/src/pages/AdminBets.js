@@ -106,7 +106,7 @@ export default function AdminBets() {
           </TabsList>
 
           <TabsContent value={activeTab}>
-            <div className="grid gap-4">
+            <div className="grid gap-5">
               {filterBets(activeTab).map((bet) => {
                 const status = getBetStatus(bet.status);
                 return (
@@ -121,7 +121,7 @@ export default function AdminBets() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="grid grid-cols-2 gap-5 mb-4">
                       <div className="p-4 bg-muted/20 rounded-lg">
                         <div className="flex items-center gap-3 mb-2">
                           <Avatar className="h-10 w-10">

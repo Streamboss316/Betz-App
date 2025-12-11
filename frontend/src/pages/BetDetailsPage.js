@@ -281,7 +281,7 @@ export default function BetDetailsPage({ user }) {
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4 mt-6">
+          <div className="grid grid-cols-2 gap-5 mt-6">
             <div className="text-center p-4 bg-muted/30 rounded-xl">
               <Avatar className="h-16 w-16 mx-auto mb-2">
                 <AvatarImage src={bet.creator?.avatar} />
@@ -345,7 +345,7 @@ export default function BetDetailsPage({ user }) {
           <Card className="premium-card p-6 rounded-2xl">
             <AlertCircle className="h-8 w-8 text-yellow-500 mx-auto mb-3" />
             <p className="text-center text-muted-foreground mb-4">You have a pending bet request</p>
-            <div className="flex gap-4">
+            <div className="flex gap-5">
               <Button
                 data-testid="reject-bet-button"
                 onClick={handleReject}
@@ -568,7 +568,7 @@ export default function BetDetailsPage({ user }) {
               </>
             )}
             {bet.punk_out_claimer_id !== user.user_id && (
-              <div className="flex gap-4">
+              <div className="flex gap-5">
                 <Button
                   data-testid="reject-punk-out-button"
                   onClick={handleRejectPunkOut}
@@ -595,7 +595,7 @@ export default function BetDetailsPage({ user }) {
               <Trophy className="h-5 w-5 mr-2 text-accent" />
               Declare Winner
             </h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-5">
               <Button
                 data-testid="declare-creator-winner-button"
                 onClick={() => handleDeclareWinner(bet.creator_id)}

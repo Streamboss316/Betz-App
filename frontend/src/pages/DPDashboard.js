@@ -106,7 +106,7 @@ export default function DPDashboard({ user }) {
             <p className="text-muted-foreground">No DP assignments yet</p>
           </Card>
         ) : (
-          <div className="space-y-4" data-testid="dp-bets-list">
+          <div className="space-y-5" data-testid="dp-bets-list">
             {dpBets.map((bet) => {
               const status = getBetStatus(bet.status);
               const StatusIcon = status.icon;
@@ -125,7 +125,7 @@ export default function DPDashboard({ user }) {
                   </div>
 
                   {/* Participants */}
-                  <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="grid grid-cols-2 gap-5 mb-4">
                     <div className="p-4 bg-muted/20 rounded-lg">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-12 w-12">

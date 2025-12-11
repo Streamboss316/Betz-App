@@ -75,7 +75,7 @@ export default function AdminSettings() {
             <CreditCard className="h-5 w-5 mr-2 text-primary" />
             Platform Fees & Limits
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <Label htmlFor="fee">Platform Fee (%)</Label>
               <Input
@@ -103,7 +103,7 @@ export default function AdminSettings() {
               <p className="text-xs text-muted-foreground mt-1">Penalty for backing out of bet</p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
             <div>
               <Label htmlFor="min">Minimum Bet ($)</Label>
               <Input
@@ -135,7 +135,7 @@ export default function AdminSettings() {
             <Building className="h-5 w-5 mr-2 text-primary" />
             Bank Account Information
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
               <Label htmlFor="holder">Account Holder Name</Label>
               <Input
@@ -147,7 +147,7 @@ export default function AdminSettings() {
                 className="bg-input/50 border-white/10 rounded-lg h-12"
               />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <Label htmlFor="account">Account Number</Label>
                 <Input
@@ -177,7 +177,7 @@ export default function AdminSettings() {
         {/* Stripe Settings */}
         <Card className="premium-card p-6 rounded-2xl" data-testid="stripe-card">
           <h3 className="text-lg font-bold mb-4">Stripe Payment Settings</h3>
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
               <Label htmlFor="pub-key">Publishable Key</Label>
               <Input

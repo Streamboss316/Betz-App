@@ -74,7 +74,7 @@ export default function AdminDPPage() {
 
       <div className="p-6 max-w-7xl mx-auto">
         <Card className="bg-gradient-to-br from-accent/20 to-primary/20 border-white/10 p-6 rounded-2xl mb-6">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <Shield className="h-12 w-12 text-accent" />
             <div>
               <h2 className="text-2xl font-bold">Designated Person Monitor</h2>
@@ -93,7 +93,7 @@ export default function AdminDPPage() {
 
           {['all', 'active', 'disputed', 'completed'].map(tab => (
             <TabsContent key={tab} value={tab}>
-              <div className="grid gap-4">
+              <div className="grid gap-5">
                 {filterBets(tab).map((bet) => {
                   const status = getBetStatus(bet.status);
                   return (

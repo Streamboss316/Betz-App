@@ -53,7 +53,7 @@ export default function AdminLoginPage({ onAdminLogin }) {
         </div>
 
         <Card className="premium-card shadow-2xl p-8 rounded-2xl" data-testid="admin-login-card">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <Label htmlFor="email">Admin Email</Label>
               <Input

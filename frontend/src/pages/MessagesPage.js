@@ -264,7 +264,7 @@ export default function MessagesPage({ user }) {
             </header>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4" data-testid="messages-list">
+            <div className="flex-1 overflow-y-auto p-6 space-y-5" data-testid="messages-list">
               {messages.length === 0 ? (
                 <div className="text-center text-muted-foreground py-8">
                   No messages yet. Start the conversation!

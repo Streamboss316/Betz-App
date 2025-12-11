@@ -91,7 +91,7 @@ export default function ForgotPasswordPage() {
 
         <Card className="premium-card shadow-2xl p-8 rounded-2xl" data-testid="forgot-password-card">
           {step === 1 ? (
-            <form onSubmit={handleForgotPassword} className="space-y-4">
+            <form onSubmit={handleForgotPassword} className="space-y-5">
               <div>
                 <Label htmlFor="email">Email Address</Label>
                 <div className="relative">
@@ -119,7 +119,7 @@ export default function ForgotPasswordPage() {
               </Button>
             </form>
           ) : (
-            <form onSubmit={handleResetPassword} className="space-y-4">
+            <form onSubmit={handleResetPassword} className="space-y-5">
               <div>
                 <Label htmlFor="betz-id">Your Betz ID</Label>
                 <Input

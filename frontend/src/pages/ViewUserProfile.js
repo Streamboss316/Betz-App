@@ -102,7 +102,7 @@ export default function ViewUserProfile() {
           {profile.is_private ? (
             <>
             {/* Basic Info - Always Visible for Private Profiles */}
-            <div className="grid grid-cols-3 gap-4 mt-6">
+            <div className="grid grid-cols-3 gap-5 mt-6">
               <div className="p-4 bg-muted/30 rounded-xl">
                 <Trophy className="h-6 w-6 text-primary mx-auto mb-2" />
                 <p className="text-2xl font-bold font-mono text-primary" data-testid="profile-win-count">{profile.win_count || 0}</p>
@@ -148,7 +148,7 @@ export default function ViewUserProfile() {
             </>
           ) : (
             <>
-              <div className="grid grid-cols-3 gap-4 mt-6">
+              <div className="grid grid-cols-3 gap-5 mt-6">
                 <div className="p-4 bg-muted/30 rounded-xl">
                   <Trophy className="h-6 w-6 text-primary mx-auto mb-2" />
                   <p className="text-2xl font-bold font-mono text-primary" data-testid="profile-win-count">{profile.win_count || 0}</p>

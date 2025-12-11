@@ -54,7 +54,7 @@ export default function HomePage({ user, onLogout }) {
   return (
     <div className="min-h-screen bg-background pt-16">
       {/* Main Content */}
-      <div className="p-6 pb-24 max-w-7xl mx-auto">
+      <div className="p-6 pb-24 space-y-6 max-w-7xl mx-auto">
         {/* Balance Card */}
         <Card className="premium-card p-8 rounded-2xl mb-6" data-testid="balance-card">
           <div className="flex items-center justify-between mb-6">
@@ -74,7 +74,7 @@ export default function HomePage({ user, onLogout }) {
             </div>
           </div>
           
-          <div className="grid grid-cols-4 gap-4 pt-6 border-t border-border">
+          <div className="grid grid-cols-4 gap-5 pt-6 border-t border-border">
             <div>
               <p className="text-xs font-medium text-muted-foreground mb-1">Wins</p>
               <p className="text-2xl font-mono text-primary" data-testid="win-count">{user.win_count || 0}</p>

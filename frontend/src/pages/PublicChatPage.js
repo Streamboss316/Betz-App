@@ -150,7 +150,7 @@ export default function PublicChatPage({ user }) {
         </header>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4" data-testid="chat-messages">
+        <div className="flex-1 overflow-y-auto p-6 space-y-5" data-testid="chat-messages">
           {loading ? (
             <p className="text-muted-foreground text-center">Loading messages...</p>
           ) : messages.length === 0 ? (

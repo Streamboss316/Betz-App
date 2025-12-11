@@ -87,7 +87,7 @@ export default function AchievementsPage({ user }) {
             <p className="text-muted-foreground">Loading achievements...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {allAchievements.map((achievement) => {
               const earned = isEarned(achievement.achievement_id);
               return (
@@ -100,7 +100,7 @@ export default function AchievementsPage({ user }) {
                   }`}
                   data-testid={`achievement-${achievement.achievement_id}`}
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-5">
                     <div className={`text-5xl ${earned ? 'animate-pulse' : 'grayscale opacity-40'}`}>
                       {achievement.icon}
                     </div>

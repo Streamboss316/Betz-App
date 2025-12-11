@@ -242,7 +242,7 @@ export default function NotificationsPage({ user }) {
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-4 py-4">
+          <div className="space-y-5 py-4">
             <Card className="bg-destructive/10 border-destructive/30 p-4 rounded-xl">
               <p className="text-sm leading-relaxed font-semibold">
                 {selectedDPNotif?.content}
@@ -272,7 +272,7 @@ export default function NotificationsPage({ user }) {
                 {/* Racers */}
                 <Card className="premium-card p-4 rounded-xl">
                   <h4 className="font-bold mb-3 text-sm text-muted-foreground">Racers</h4>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-5">
                     <div>
                       <p className="text-xs text-muted-foreground mb-1">Creator</p>
                       <p className="font-semibold">{betDetails.creator?.name || 'Unknown'}</p>
