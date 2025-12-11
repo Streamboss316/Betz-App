@@ -121,7 +121,7 @@ export default function HomePage({ user, onLogout }) {
           {loading ? (
             <p className="text-muted-foreground">Loading...</p>
           ) : bets.length === 0 ? (
-            <Card className="bg-card border-white/10 p-8 rounded-2xl text-center">
+            <Card className="premium-card p-8 rounded-2xl text-center">
               <Trophy className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
               <p className="text-muted-foreground">No bets yet. Start racing!</p>
             </Card>
@@ -134,7 +134,7 @@ export default function HomePage({ user, onLogout }) {
                 
                 return (
                   <Link key={bet.bet_id} to={`/bets/${bet.bet_id}`}>
-                    <Card className="bg-card border-white/10 hover:border-primary/50 p-4 rounded-xl bet-card cursor-pointer" data-testid={`bet-card-${bet.bet_id}`}>
+                    <Card className="premium-card p-4 rounded-xl cursor-pointer transition-smooth" data-testid={`bet-card-${bet.bet_id}`}>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <Avatar 
