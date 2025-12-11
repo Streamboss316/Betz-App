@@ -204,12 +204,39 @@ export default function ViewUserProfile() {
               {/* Send Bet Button */}
               <Button
                 onClick={() => navigate(`/place-bet?opponent=${profile.user_id}`)}
-                className="w-full mt-6 btn-premium text-white rounded-full h-12 font-bold"
+                className="w-full mt-6 btn-premium text-white rounded-xl h-12 font-semibold"
                 data-testid="send-bet-button"
               >
                 <DollarSign className="h-5 w-5 mr-2" />
                 Send Bet Request
               </Button>
+            </>
+          ) : (
+            <>
+            {/* Non-Friends or Private Profile - Limited View */}
+            <div className="mt-6 p-6 bg-muted/20 border border-border rounded-xl">
+              <div className="flex items-start gap-3">
+                <Lock className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold mb-1">Private Profile</p>
+                  <p className="text-sm text-muted-foreground">
+                    {profile.are_friends 
+                      ? `${profile.name} has set their profile to private.`
+                      : `Add ${profile.name} as a friend to view their profile.`
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <Button
+              onClick={() => navigate(`/place-bet?opponent=${profile.user_id}`)}
+              className="w-full mt-6 btn-premium text-white rounded-xl h-12 font-semibold"
+              data-testid="send-bet-button"
+            >
+              <DollarSign className="h-5 w-5 mr-2" />
+              Send Bet Request
+            </Button>
             </>
           )}
         </Card>
