@@ -272,7 +272,7 @@ export default function BetDetailsPage({ user }) {
           {/* Punk Out Display */}
           {bet.punk_out_amount > 0 && (
             <div className="mt-4 p-4 bg-muted/20 border border-border rounded-xl text-center">
-              <p className="text-xs tracking-wide text-muted-foreground mb-2">Punk out</p>
+              <p className="text-xl font-semibold tracking-tight text-foreground mb-2">Punk Out</p>
               <p className="text-xl font-mono text-red-600" data-testid="punk-out-amount">
                 ${bet.punk_out_amount.toFixed(2)}
               </p>
@@ -404,7 +404,7 @@ export default function BetDetailsPage({ user }) {
             </p>
             {bet.punk_out_amount > 0 ? (
               <div className="bg-muted/20 p-5 rounded-xl text-center border border-border">
-                <p className="text-xs tracking-wide text-muted-foreground mb-2">Punk out</p>
+                <p className="text-2xl font-semibold tracking-tight text-foreground mb-2">Punk Out</p>
                 <p className="text-2xl font-mono text-red-600" data-testid="punk-out-amount">
                   ${bet.punk_out_amount.toFixed(2)}
                 </p>
