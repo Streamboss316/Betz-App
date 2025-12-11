@@ -240,7 +240,7 @@ export default function PlaceBetPage({ user }) {
 
         {step === 1 && (
           <div>
-            <Card className="bg-card border-white/10 p-8 rounded-2xl mb-6">
+            <Card className="premium-card p-8 rounded-2xl mb-6">
               <label className="text-sm text-muted-foreground block mb-4">Enter Bet Amount</label>
               <div className="relative">
                 <DollarSign className="absolute left-4 top-1/2 transform -translate-y-1/2 h-12 w-12 text-muted-foreground" />
@@ -281,7 +281,7 @@ export default function PlaceBetPage({ user }) {
             </Card>
 
             {/* Stipulation Card - Structured Form */}
-            <Card className="bg-card border-white/10 p-6 rounded-2xl mb-6">
+            <Card className="premium-card p-6 rounded-2xl mb-6">
               <div className="flex items-center gap-2 mb-4">
                 <Shield className="h-5 w-5 text-primary" />
                 <h3 className="font-bold text-lg">Bet Stipulation</h3>
@@ -490,7 +490,7 @@ export default function PlaceBetPage({ user }) {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    <div className="bg-primary/10 border border-primary/20 p-4 rounded-lg">
+                    <div className="bg-primary/10 border border-border p-4 rounded-lg">
                       <p className="text-xs text-muted-foreground mb-2">Selected DP</p>
                       <div className="flex items-center gap-3">
                         <Avatar className="h-12 w-12">
@@ -538,7 +538,7 @@ export default function PlaceBetPage({ user }) {
                 setStep(2);
               }}
               disabled={!stipulationComplete || (requiresDP && !selectedDP)}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-glow disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Continue to Select Opponent
             </Button>
@@ -548,7 +548,7 @@ export default function PlaceBetPage({ user }) {
         {step === 2 && (
           <div>
             {/* Bet Summary */}
-            <Card className="bg-gradient-to-br from-primary/10 to-accent/5 border-primary/20 p-6 rounded-2xl mb-6">
+            <Card className="bg-gradient-to-br from-primary/10 to-accent/5 border-border p-6 rounded-2xl mb-6">
               <h3 className="text-lg font-bold mb-3">Bet Summary</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -564,7 +564,7 @@ export default function PlaceBetPage({ user }) {
               </div>
             </Card>
 
-            <Card className="bg-card border-white/10 p-6 rounded-2xl mb-6">
+            <Card className="premium-card p-6 rounded-2xl mb-6">
               <h3 className="text-xl font-bold mb-4">Select Your Opponent</h3>
               {/* Toggle between search and invite mode */}
               <div className="flex gap-2 mb-4">
@@ -734,7 +734,7 @@ export default function PlaceBetPage({ user }) {
                 data-testid="send-bet-button"
                 onClick={handleCreateBet}
                 disabled={loading || !selectedOpponent}
-                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 font-bold uppercase btn-glow"
+                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 font-bold uppercase btn-premium"
               >
                 {loading ? 'Sending...' : 'Send Bet Request'}
               </Button>

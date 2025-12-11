@@ -168,7 +168,7 @@ export default function NotificationsPage({ user }) {
         {loading ? (
           <p className="text-muted-foreground text-center">Loading...</p>
         ) : notifications.length === 0 ? (
-          <Card className="bg-card border-white/10 p-8 rounded-2xl text-center">
+          <Card className="premium-card p-8 rounded-2xl text-center">
             <BellOff className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
             <p className="text-muted-foreground">No notifications yet</p>
           </Card>
@@ -183,7 +183,7 @@ export default function NotificationsPage({ user }) {
                   notif.type === 'dp_request' 
                     ? 'bg-destructive/10 border-destructive/50 hover:bg-destructive/20'
                     : notif.read
-                    ? 'bg-card border-white/10'
+                    ? 'premium-card'
                     : 'bg-primary/10 border-primary/50'
                 }`}
               >
@@ -256,7 +256,7 @@ export default function NotificationsPage({ user }) {
             ) : betDetails ? (
               <>
                 {/* Bet Amount */}
-                <Card className="bg-card border-white/10 p-4 rounded-xl">
+                <Card className="premium-card p-4 rounded-xl">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-xs text-muted-foreground mb-1">Bet Amount</p>
@@ -270,7 +270,7 @@ export default function NotificationsPage({ user }) {
                 </Card>
 
                 {/* Racers */}
-                <Card className="bg-card border-white/10 p-4 rounded-xl">
+                <Card className="premium-card p-4 rounded-xl">
                   <h4 className="font-bold mb-3 text-sm text-muted-foreground">Racers</h4>
                   <div className="grid grid-cols-2 gap-4">
                     <div>

@@ -141,13 +141,13 @@ export default function FriendsPage({ user }) {
             {loading ? (
               <p className="text-muted-foreground text-center">Loading...</p>
             ) : friends.length === 0 ? (
-              <Card className="bg-card border-white/10 p-8 rounded-2xl text-center">
+              <Card className="premium-card p-8 rounded-2xl text-center">
                 <p className="text-muted-foreground">No friends yet. Start adding!</p>
               </Card>
             ) : (
               <div className="space-y-3">
                 {friends.map((friend) => (
-                  <Card key={friend.user_id} className="bg-card border-white/10 p-4 rounded-xl" data-testid={`friend-${friend.user_id}`}>
+                  <Card key={friend.user_id} className="premium-card p-4 rounded-xl" data-testid={`friend-${friend.user_id}`}>
                     <div className="flex items-center justify-between">
                       <div 
                         className="flex items-center gap-3 flex-1 cursor-pointer hover:opacity-80 transition-opacity"
@@ -200,13 +200,13 @@ export default function FriendsPage({ user }) {
             {loading ? (
               <p className="text-muted-foreground text-center">Loading...</p>
             ) : requests.length === 0 ? (
-              <Card className="bg-card border-white/10 p-8 rounded-2xl text-center">
+              <Card className="premium-card p-8 rounded-2xl text-center">
                 <p className="text-muted-foreground">No pending requests</p>
               </Card>
             ) : (
               <div className="space-y-3">
                 {requests.map((req) => (
-                  <Card key={req.friendship.friendship_id} className="bg-card border-white/10 p-4 rounded-xl" data-testid={`request-${req.user.user_id}`}>
+                  <Card key={req.friendship.friendship_id} className="premium-card p-4 rounded-xl" data-testid={`request-${req.user.user_id}`}>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-12 w-12">
@@ -245,7 +245,7 @@ export default function FriendsPage({ user }) {
           </TabsContent>
 
           <TabsContent value="add">
-            <Card className="bg-card border-white/10 p-6 rounded-2xl">
+            <Card className="premium-card p-6 rounded-2xl">
               <div className="relative mb-4">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input

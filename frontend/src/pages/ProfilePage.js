@@ -320,7 +320,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
 
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Profile Header with Banner */}
-        <Card className="bg-card border-white/10 rounded-2xl overflow-hidden" data-testid="profile-header-card">
+        <Card className="premium-card rounded-2xl overflow-hidden" data-testid="profile-header-card">
           {/* Header Banner Image */}
           <div className="relative h-48 md:h-64 bg-gradient-to-br from-primary via-primary/70 to-accent overflow-hidden">
             {user.header_image ? (
@@ -529,7 +529,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
         </Card>
 
         {/* Edit Profile */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="edit-profile-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="edit-profile-card">
           <h3 className="text-lg font-bold mb-4 flex items-center">
             <User className="h-5 w-5 mr-2 text-primary" />
             Edit Profile
@@ -714,7 +714,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
         </Card>
 
         {/* Privacy Settings */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="privacy-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="privacy-card">
           <h3 className="text-lg font-bold mb-4 flex items-center">
             <Shield className="h-5 w-5 mr-2 text-primary" />
             Privacy Settings
@@ -787,7 +787,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
         </Card>
 
         {/* Gallery */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="gallery-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="gallery-card">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold flex items-center">
               <Upload className="h-5 w-5 mr-2 text-primary" />
@@ -881,7 +881,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
         </Card>
 
         {/* Logout */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="logout-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="logout-card">
           <h3 className="text-lg font-bold mb-4 flex items-center">
             <LogOut className="h-5 w-5 mr-2 text-destructive" />
             Sign Out

@@ -112,7 +112,7 @@ export default function AdminDemoMode() {
           </div>
         </Card>
 
-        <Card className="bg-card border-white/10 p-6 rounded-2xl mb-6">
+        <Card className="premium-card p-6 rounded-2xl mb-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
               <h3 className="text-lg font-bold mb-2">How to Test Complete Flow:</h3>
@@ -140,7 +140,7 @@ export default function AdminDemoMode() {
         <div className="grid gap-4">
           <h3 className="text-lg font-bold">Select User to Test As:</h3>
           {users.map((user) => (
-            <Card key={user.user_id} className="bg-card border-white/10 p-4 rounded-2xl hover:border-primary/50 transition-all" data-testid={`test-user-${user.user_id}`}>
+            <Card key={user.user_id} className="premium-card p-4 rounded-2xl hover:border-primary/50 transition-all" data-testid={`test-user-${user.user_id}`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <Avatar className="h-14 w-14 border-2 border-primary/50">

@@ -58,7 +58,7 @@ export default function AdminDashboard({ onLogout }) {
   return (
     <div className="min-h-screen bg-background">
       {/* Admin Header */}
-      <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-primary/20 h-16 flex items-center justify-between px-6">
+      <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-border h-16 flex items-center justify-between px-6">
         <div className="flex items-center gap-3">
           <Shield className="h-6 w-6 text-primary" />
           <h1 className="text-xl font-black font-heading tracking-tighter uppercase text-primary" data-testid="admin-title">BETZ ADMIN</h1>
@@ -128,7 +128,7 @@ export default function AdminDashboard({ onLogout }) {
         {/* Admin Actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Link to="/admin/users">
-            <Card className="bg-card border-white/10 p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="manage-users-link">
+            <Card className="premium-card p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="manage-users-link">
               <Users className="h-8 w-8 text-primary mb-3" />
               <h3 className="font-bold text-lg">Manage Users</h3>
               <p className="text-sm text-muted-foreground">View, edit, suspend users</p>
@@ -136,7 +136,7 @@ export default function AdminDashboard({ onLogout }) {
           </Link>
 
           <Link to="/admin/bets">
-            <Card className="bg-card border-white/10 p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="manage-bets-link">
+            <Card className="premium-card p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="manage-bets-link">
               <Activity className="h-8 w-8 text-accent mb-3" />
               <h3 className="font-bold text-lg">Manage Bets</h3>
               <p className="text-sm text-muted-foreground">Monitor and control bets</p>
@@ -144,7 +144,7 @@ export default function AdminDashboard({ onLogout }) {
           </Link>
 
           <Link to="/admin/revenue">
-            <Card className="bg-card border-white/10 p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="view-revenue-link">
+            <Card className="premium-card p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="view-revenue-link">
               <DollarSign className="h-8 w-8 text-primary mb-3" />
               <h3 className="font-bold text-lg">Revenue & Fees</h3>
               <p className="text-sm text-muted-foreground">Platform earnings</p>
@@ -152,7 +152,7 @@ export default function AdminDashboard({ onLogout }) {
           </Link>
 
           <Link to="/admin/settings">
-            <Card className="bg-card border-white/10 p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="settings-link">
+            <Card className="premium-card p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="settings-link">
               <Settings className="h-8 w-8 text-secondary mb-3" />
               <h3 className="font-bold text-lg">Settings</h3>
               <p className="text-sm text-muted-foreground">Bank & payment setup</p>
@@ -160,7 +160,7 @@ export default function AdminDashboard({ onLogout }) {
           </Link>
 
           <Link to="/admin/dp">
-            <Card className="bg-card border-white/10 p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="dp-monitor-link">
+            <Card className="premium-card p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="dp-monitor-link">
               <Eye className="h-8 w-8 text-accent mb-3" />
               <h3 className="font-bold text-lg">DP Monitor</h3>
               <p className="text-sm text-muted-foreground">View Digital Persona decisions</p>
@@ -168,7 +168,7 @@ export default function AdminDashboard({ onLogout }) {
           </Link>
 
           <Link to="/admin/demo">
-            <Card className="bg-card border-white/10 p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="demo-mode-link">
+            <Card className="premium-card p-6 rounded-xl hover:border-primary/50 transition-all cursor-pointer" data-testid="demo-mode-link">
               <TestTube className="h-8 w-8 text-primary mb-3" />
               <h3 className="font-bold text-lg">Demo Mode</h3>
               <p className="text-sm text-muted-foreground">Test as any user</p>

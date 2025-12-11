@@ -101,7 +101,7 @@ export default function DPDashboard({ user }) {
         </Card>
 
         {dpBets.length === 0 ? (
-          <Card className="bg-card border-white/10 p-8 rounded-2xl text-center">
+          <Card className="premium-card p-8 rounded-2xl text-center">
             <Shield className="h-16 w-16 text-muted-foreground mx-auto mb-4 opacity-50" />
             <p className="text-muted-foreground">No DP assignments yet</p>
           </Card>
@@ -112,7 +112,7 @@ export default function DPDashboard({ user }) {
               const StatusIcon = status.icon;
               
               return (
-                <Card key={bet.bet_id} className="bg-card border-white/10 p-6 rounded-2xl" data-testid={`dp-bet-${bet.bet_id}`}>
+                <Card key={bet.bet_id} className="premium-card p-6 rounded-2xl" data-testid={`dp-bet-${bet.bet_id}`}>
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <StatusIcon className="h-6 w-6 text-primary" />
@@ -180,7 +180,7 @@ export default function DPDashboard({ user }) {
                       <Button
                         data-testid={`lock-bet-${bet.bet_id}`}
                         onClick={() => handleLockBet(bet.bet_id)}
-                        className="w-full bg-primary text-primary-foreground rounded-2xl h-12 font-semibold btn-glow"
+                        className="w-full bg-primary text-primary-foreground rounded-2xl h-12 font-semibold btn-premium"
                       >
                         <Lock className="h-4 w-4 mr-2" />
                         Lock Bet - Ready to Race

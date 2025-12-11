@@ -110,7 +110,7 @@ export default function AdminBets() {
               {filterBets(activeTab).map((bet) => {
                 const status = getBetStatus(bet.status);
                 return (
-                  <Card key={bet.bet_id} className="bg-card border-white/10 p-6 rounded-2xl" data-testid={`bet-${bet.bet_id}`}>
+                  <Card key={bet.bet_id} className="premium-card p-6 rounded-2xl" data-testid={`bet-${bet.bet_id}`}>
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <div className="flex items-center gap-3 mb-2">

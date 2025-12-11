@@ -91,7 +91,7 @@ export default function AdminRevenue() {
 
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         {/* Total Revenue Card */}
-        <Card className="bg-gradient-to-br from-primary/20 to-accent/20 border-white/10 shadow-lg p-8 rounded-3xl" data-testid="total-revenue-card">
+        <Card className="bg-gradient-to-br from-primary/20 to-accent/20 border-white/10 shadow-lg p-8 rounded-2xl" data-testid="total-revenue-card">
           <div className="flex items-center justify-between mb-4">
             <div>
               <p className="text-xs font-medium tracking-wide text-muted-foreground mb-2">Total Platform Revenue (3% Fees)</p>
@@ -109,7 +109,7 @@ export default function AdminRevenue() {
         </Card>
 
         {/* Withdrawal Card */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="withdrawal-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="withdrawal-card">
           <h3 className="text-lg font-bold mb-4 flex items-center">
             <Download className="h-5 w-5 mr-2 text-primary" />
             Withdraw to Bank Account
@@ -151,7 +151,7 @@ export default function AdminRevenue() {
                 <Button
                   onClick={handleWithdraw}
                   disabled={withdrawing || !withdrawAmount}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-glow"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-premium"
                   data-testid="withdraw-button"
                 >
                   {withdrawing ? (
@@ -184,7 +184,7 @@ export default function AdminRevenue() {
         </Card>
 
         {/* Revenue Breakdown */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="revenue-breakdown-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="revenue-breakdown-card">
           <h3 className="text-lg font-bold mb-4 flex items-center">
             <TrendingUp className="h-5 w-5 mr-2 text-primary" />
             Revenue Breakdown
@@ -215,7 +215,7 @@ export default function AdminRevenue() {
 
         {/* Daily Revenue Chart */}
         {revenue?.daily_revenue && Object.keys(revenue.daily_revenue).length > 0 && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="daily-revenue-card">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="daily-revenue-card">
             <h3 className="text-lg font-bold mb-4">Daily Revenue</h3>
             <div className="space-y-2">
               {Object.entries(revenue.daily_revenue).slice(-7).map(([date, amount]) => (

@@ -117,7 +117,7 @@ export default function AuthPage({ onLogin }) {
           <p className="text-xs text-accent mt-2">USER LOGIN</p>
         </div>
 
-        <Card className="bg-card border-white/10 shadow-2xl p-8 rounded-2xl" data-testid="auth-card">
+        <Card className="premium-card shadow-2xl p-8 rounded-2xl" data-testid="auth-card">
           <div className="flex gap-2 mb-6">
             <Button
               data-testid="login-tab"
@@ -199,7 +199,7 @@ export default function AuthPage({ onLogin }) {
               type="submit"
               data-testid="submit-button"
               disabled={loading}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-glow"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl h-14 text-base font-semibold btn-premium"
             >
               {loading ? 'Processing...' : isLogin ? 'Sign In' : 'Create Account'}
               <ArrowRight className="ml-2 h-5 w-5" />

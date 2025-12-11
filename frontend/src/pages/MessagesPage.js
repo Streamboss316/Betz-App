@@ -364,7 +364,7 @@ export default function MessagesPage({ user }) {
                   data-testid="send-message-button"
                   onClick={handleSendMessage}
                   size="icon"
-                  className="bg-primary text-primary-foreground rounded-full h-12 w-12 btn-glow"
+                  className="bg-primary text-primary-foreground rounded-full h-12 w-12 btn-premium"
                 >
                   <Send className="h-5 w-5" />
                 </Button>

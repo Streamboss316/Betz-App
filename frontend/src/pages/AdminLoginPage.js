@@ -52,7 +52,7 @@ export default function AdminLoginPage({ onAdminLogin }) {
           <p className="text-xs text-destructive mt-2 font-semibold">⚠️ ADMIN ACCESS ONLY</p>
         </div>
 
-        <Card className="bg-card border-white/10 shadow-2xl p-8 rounded-2xl" data-testid="admin-login-card">
+        <Card className="premium-card shadow-2xl p-8 rounded-2xl" data-testid="admin-login-card">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label htmlFor="email">Admin Email</Label>
@@ -85,7 +85,7 @@ export default function AdminLoginPage({ onAdminLogin }) {
               type="submit"
               data-testid="admin-login-button"
               disabled={loading}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-glow"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium"
             >
               {loading ? 'Logging in...' : 'Access Admin Panel'}
             </Button>

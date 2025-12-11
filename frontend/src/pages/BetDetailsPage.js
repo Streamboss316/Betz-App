@@ -262,7 +262,7 @@ export default function BetDetailsPage({ user }) {
 
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         {/* Bet Amount & Status */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="bet-summary-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="bet-summary-card">
           <div className="text-center mb-4">
             <p className="text-sm text-muted-foreground mb-2">Bet Amount</p>
             <h2 className="text-5xl font-black font-mono text-primary" data-testid="bet-amount">${bet.amount.toFixed(2)}</h2>
@@ -320,7 +320,7 @@ export default function BetDetailsPage({ user }) {
 
         {/* Stipulation Rules */}
         {bet.stipulation && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl">
+          <Card className="premium-card p-6 rounded-2xl">
             <div className="flex items-center gap-2 mb-3">
               <Shield className="h-5 w-5 text-primary" />
               <h3 className="font-bold text-lg">Stipulation Rules</h3>
@@ -342,7 +342,7 @@ export default function BetDetailsPage({ user }) {
 
         {/* Pending Bet Actions */}
         {bet.status === 'pending' && isOpponent && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl">
+          <Card className="premium-card p-6 rounded-2xl">
             <AlertCircle className="h-8 w-8 text-yellow-500 mx-auto mb-3" />
             <p className="text-center text-muted-foreground mb-4">You have a pending bet request</p>
             <div className="flex gap-4">
@@ -357,7 +357,7 @@ export default function BetDetailsPage({ user }) {
               <Button
                 data-testid="accept-bet-button"
                 onClick={handleShowAgreement}
-                className="flex-1 bg-primary text-primary-foreground rounded-full btn-glow"
+                className="flex-1 bg-primary text-primary-foreground rounded-full btn-premium"
               >
                 Review & Accept
               </Button>
@@ -367,7 +367,7 @@ export default function BetDetailsPage({ user }) {
 
         {/* Stipulation */}
         {bet.status === 'accepted' && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="stipulation-card">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="stipulation-card">
             <h3 className="text-lg font-bold mb-3 flex items-center">
               <Shield className="h-5 w-5 mr-2 text-primary" />
               Race Stipulation
@@ -399,7 +399,7 @@ export default function BetDetailsPage({ user }) {
 
         {/* Punk Out */}
         {bet.status === 'accepted' && isCreator && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="punk-out-card">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="punk-out-card">
             <h3 className="text-lg font-bold mb-3">Punk Out Amount</h3>
             <p className="text-sm text-muted-foreground mb-3">
               Set escrow amount (e.g., 10% = ${(bet.amount * 0.1).toFixed(2)})
@@ -434,7 +434,7 @@ export default function BetDetailsPage({ user }) {
 
         {/* DP Selection */}
         {bet.status === 'accepted' && !bet.dp_id && (isCreator || isOpponent) && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="dp-selection-card">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="dp-selection-card">
             <h3 className="text-lg font-bold mb-3">Select Designated Person (DP)</h3>
             <Input
               data-testid="dp-search-input"
@@ -466,7 +466,7 @@ export default function BetDetailsPage({ user }) {
 
         {/* DP Info */}
         {bet.dp && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="dp-info-card">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="dp-info-card">
             <h3 className="text-lg font-bold mb-3">Designated Person</h3>
             <div className="flex items-center gap-3">
               <Avatar className="h-12 w-12">
@@ -482,7 +482,7 @@ export default function BetDetailsPage({ user }) {
               <Button
                 data-testid="lock-bet-button"
                 onClick={handleLockBet}
-                className="w-full mt-4 bg-primary text-primary-foreground rounded-full btn-glow"
+                className="w-full mt-4 bg-primary text-primary-foreground rounded-full btn-premium"
               >
                 Lock Bet
               </Button>
@@ -493,7 +493,7 @@ export default function BetDetailsPage({ user }) {
         {/* Winner Declaration */}
         {/* Claim Punk Out */}
         {bet.status === 'active' && (isCreator || isOpponent) && !bet.punk_out_claim_status && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="claim-punk-out-card">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="claim-punk-out-card">
             <h3 className="text-lg font-bold mb-3">Claim Punk Out</h3>
             <p className="text-sm text-muted-foreground mb-4">
               The other party can accept or reject. If accepted, you get ${bet.punk_out_amount?.toFixed(2)} from the pool. 
@@ -529,7 +529,7 @@ export default function BetDetailsPage({ user }) {
 
         {/* Punk Out Claim Pending */}
         {bet.punk_out_claim_status === 'pending' && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="punk-out-pending-card">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="punk-out-pending-card">
             <h3 className="text-lg font-bold mb-3 text-accent">Punk Out Claim Pending</h3>
             {bet.punk_out_claimer_id === user.user_id ? (
               <p className="text-sm text-muted-foreground mb-4">
@@ -590,7 +590,7 @@ export default function BetDetailsPage({ user }) {
         )}
 
         {bet.status === 'active' && !bet.winner_id && (isCreator || isOpponent || isDP) && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="winner-declaration-card">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="winner-declaration-card">
             <h3 className="text-lg font-bold mb-3 flex items-center">
               <Trophy className="h-5 w-5 mr-2 text-accent" />
               Declare Winner
@@ -644,7 +644,7 @@ export default function BetDetailsPage({ user }) {
             </Card>
 
             {/* Rate Opponent Button */}
-            <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="rate-opponent-card">
+            <Card className="premium-card p-6 rounded-2xl" data-testid="rate-opponent-card">
               <div className="text-center">
                 <Star className="h-12 w-12 text-accent mx-auto mb-3" />
                 <h3 className="text-xl font-bold mb-2">Rate Your Opponent</h3>
@@ -733,7 +733,7 @@ export default function BetDetailsPage({ user }) {
             </Card>
 
             {/* Agreement Checkbox */}
-            <Card className="bg-card border-primary/20 p-4 rounded-xl">
+            <Card className="bg-card border-border p-4 rounded-xl">
               <div className="flex items-start gap-3">
                 <Checkbox
                   id="agree-terms"
@@ -770,7 +770,7 @@ export default function BetDetailsPage({ user }) {
             <Button
               onClick={handleAccept}
               disabled={!agreedToStipulation}
-              className="flex-1 bg-primary text-primary-foreground rounded-full btn-glow"
+              className="flex-1 bg-primary text-primary-foreground rounded-full btn-premium"
               data-testid="confirm-accept-button"
             >
               <CheckCircle className="h-4 w-4 mr-2" />

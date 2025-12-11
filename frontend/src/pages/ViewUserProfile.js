@@ -72,7 +72,7 @@ export default function ViewUserProfile() {
 
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         {/* Profile Header */}
-        <Card className="bg-card border-white/10 p-8 rounded-2xl text-center" data-testid="profile-header-card">
+        <Card className="premium-card p-8 rounded-2xl text-center" data-testid="profile-header-card">
           <Avatar className="h-24 w-24 mx-auto mb-4 border-4 border-primary/50">
             <AvatarImage src={profile.avatar} />
             <AvatarFallback className="bg-primary text-primary-foreground text-3xl font-bold">
@@ -280,7 +280,7 @@ export default function ViewUserProfile() {
 
         {/* Gallery */}
         {!profile.is_private && profile.gallery && profile.gallery.length > 0 && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="gallery-card">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="gallery-card">
             <h3 className="text-lg font-bold mb-4 flex items-center">
               <Upload className="h-5 w-5 mr-2 text-primary" />
               Media Gallery
@@ -313,7 +313,7 @@ export default function ViewUserProfile() {
         )}
 
         {profile.is_private && !profile.are_friends && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl text-center">
+          <Card className="premium-card p-6 rounded-2xl text-center">
             <p className="text-muted-foreground mb-4">Want to see more?</p>
             <Button
               onClick={() => navigate('/friends')}

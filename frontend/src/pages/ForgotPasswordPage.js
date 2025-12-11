@@ -89,7 +89,7 @@ export default function ForgotPasswordPage() {
           </p>
         </div>
 
-        <Card className="bg-card border-white/10 shadow-2xl p-8 rounded-2xl" data-testid="forgot-password-card">
+        <Card className="premium-card shadow-2xl p-8 rounded-2xl" data-testid="forgot-password-card">
           {step === 1 ? (
             <form onSubmit={handleForgotPassword} className="space-y-4">
               <div>
@@ -113,7 +113,7 @@ export default function ForgotPasswordPage() {
                 type="submit"
                 data-testid="send-reset-button"
                 disabled={loading}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-glow"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium"
               >
                 {loading ? 'Processing...' : 'Send Recovery Info'}
               </Button>
@@ -166,7 +166,7 @@ export default function ForgotPasswordPage() {
                 type="submit"
                 data-testid="reset-password-button"
                 disabled={loading}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-glow"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase tracking-wide btn-premium"
               >
                 {loading ? 'Resetting...' : 'Reset Password'}
               </Button>

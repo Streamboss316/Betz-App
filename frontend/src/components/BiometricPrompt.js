@@ -27,7 +27,7 @@ export default function BiometricPrompt({ userEmail, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-6" data-testid="biometric-prompt">
-      <Card className="bg-card border-primary/20 shadow-2xl rounded-3xl max-w-md w-full p-8 relative animate-in fade-in zoom-in duration-300">
+      <Card className="bg-card border-primary/20 shadow-2xl rounded-2xl max-w-md w-full p-8 relative animate-in fade-in zoom-in duration-300">
         <Button
           variant="ghost"
           size="icon"

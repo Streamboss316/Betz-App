@@ -108,7 +108,7 @@ export default function AdminUsers() {
       </header>
 
       <div className="p-6 max-w-7xl mx-auto">
-        <Card className="bg-card border-white/10 p-4 rounded-2xl mb-6">
+        <Card className="premium-card p-4 rounded-2xl mb-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
@@ -123,7 +123,7 @@ export default function AdminUsers() {
 
         <div className="grid gap-4">
           {filteredUsers.map((user) => (
-            <Card key={user.user_id} className="bg-card border-white/10 p-6 rounded-2xl" data-testid={`user-${user.user_id}`}>
+            <Card key={user.user_id} className="premium-card p-6 rounded-2xl" data-testid={`user-${user.user_id}`}>
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4">
                   <Avatar className="h-16 w-16 border-2 border-primary/50">

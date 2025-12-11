@@ -208,7 +208,7 @@ export default function WalletPage({ user, setUser }) {
 
         {/* Deposit Section */}
         {showDepositMethods && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="deposit-section">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="deposit-section">
             <h3 className="text-lg font-bold mb-4 flex items-center">
               <CreditCard className="h-5 w-5 mr-2 text-primary" />
               Deposit Funds
@@ -257,7 +257,7 @@ export default function WalletPage({ user, setUser }) {
 
         {/* Withdrawal Section */}
         {showWithdrawalMethods && (
-          <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="withdrawal-section">
+          <Card className="premium-card p-6 rounded-2xl" data-testid="withdrawal-section">
             <h3 className="text-lg font-bold mb-4 flex items-center">
               <Wallet className="h-5 w-5 mr-2 text-accent" />
               Withdraw Funds
@@ -397,13 +397,13 @@ export default function WalletPage({ user, setUser }) {
         <div>
           <h3 className="text-lg font-bold mb-4" data-testid="transactions-title">Transaction History</h3>
           {transactions.length === 0 ? (
-            <Card className="bg-card border-white/10 p-8 rounded-2xl text-center">
+            <Card className="premium-card p-8 rounded-2xl text-center">
               <p className="text-muted-foreground">No transactions yet</p>
             </Card>
           ) : (
             <div className="space-y-3" data-testid="transactions-list">
               {transactions.map((tx) => (
-                <Card key={tx.session_id} className="bg-card border-white/10 p-4 rounded-xl" data-testid={`transaction-${tx.session_id}`}>
+                <Card key={tx.session_id} className="premium-card p-4 rounded-xl" data-testid={`transaction-${tx.session_id}`}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className={`h-10 w-10 rounded-full flex items-center justify-center ${

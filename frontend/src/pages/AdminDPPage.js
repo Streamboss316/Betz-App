@@ -97,7 +97,7 @@ export default function AdminDPPage() {
                 {filterBets(tab).map((bet) => {
                   const status = getBetStatus(bet.status);
                   return (
-                    <Card key={bet.bet_id} className="bg-card border-white/10 p-6 rounded-2xl" data-testid={`dp-bet-${bet.bet_id}`}>
+                    <Card key={bet.bet_id} className="premium-card p-6 rounded-2xl" data-testid={`dp-bet-${bet.bet_id}`}>
                       <div className="flex items-start justify-between mb-4">
                         <div>
                           <div className="flex items-center gap-3 mb-2">
@@ -152,7 +152,7 @@ export default function AdminDPPage() {
 
                       {/* Stipulation Display */}
                       {bet.stipulation && (
-                        <div className="mb-4 p-4 bg-primary/10 rounded-lg border border-primary/20">
+                        <div className="mb-4 p-4 bg-primary/10 rounded-lg border border-border">
                           <p className="text-xs text-primary font-semibold mb-2">DP Received This Stipulation:</p>
                           <p className="text-sm font-mono">{bet.stipulation}</p>
                         </div>
@@ -167,7 +167,7 @@ export default function AdminDPPage() {
                       )}
 
                       {bet.status === 'active' && (
-                        <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
+                        <div className="p-4 bg-primary/10 rounded-lg border border-border">
                           <p className="text-sm text-primary font-semibold">DP locked bet - Race in progress</p>
                         </div>
                       )}

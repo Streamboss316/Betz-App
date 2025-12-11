@@ -70,7 +70,7 @@ export default function AdminSettings() {
 
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         {/* Platform Fees */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="fees-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="fees-card">
           <h3 className="text-lg font-bold mb-4 flex items-center">
             <CreditCard className="h-5 w-5 mr-2 text-primary" />
             Platform Fees & Limits
@@ -130,7 +130,7 @@ export default function AdminSettings() {
         </Card>
 
         {/* Bank Account */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="bank-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="bank-card">
           <h3 className="text-lg font-bold mb-4 flex items-center">
             <Building className="h-5 w-5 mr-2 text-primary" />
             Bank Account Information
@@ -175,7 +175,7 @@ export default function AdminSettings() {
         </Card>
 
         {/* Stripe Settings */}
-        <Card className="bg-card border-white/10 p-6 rounded-2xl" data-testid="stripe-card">
+        <Card className="premium-card p-6 rounded-2xl" data-testid="stripe-card">
           <h3 className="text-lg font-bold mb-4">Stripe Payment Settings</h3>
           <div className="space-y-4">
             <div>
@@ -214,7 +214,7 @@ export default function AdminSettings() {
           data-testid="save-settings-button"
           onClick={handleSave}
           disabled={saving}
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase btn-glow"
+          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-lg font-bold uppercase btn-premium"
         >
           {saving ? 'Saving...' : (
             <>
