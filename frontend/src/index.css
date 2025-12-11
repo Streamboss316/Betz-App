@@ -1,6 +1,5 @@
-/* Professional Fintech Fonts */
+/* Cash App Style Fonts - System Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -54,13 +53,14 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  /* Cash App Font Stack - SF Pro on Apple, Roboto on Android, Inter fallback */
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Roboto', 'Inter', 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: hsl(260, 30%, 8%);
   color: hsl(0, 0%, 98%);
   font-weight: 400;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.011em;
   font-size: 15px;
   line-height: 1.6;
 }
@@ -159,29 +159,32 @@ code {
   }
 }
 
-/* Professional Typography System */
+/* Cash App Typography System */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.022em;
   line-height: 1.2;
 }
 
 h1 {
   font-size: 32px;
   font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 h2 {
   font-size: 24px;
   font-weight: 600;
+  letter-spacing: -0.022em;
 }
 
 h3 {
   font-size: 18px;
   font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
-/* Remove bold/black font weights - use 600 max */
+/* Cash App style - Medium to Semibold only */
 .font-black {
   font-weight: 600 !important;
 }
@@ -194,27 +197,34 @@ h3 {
   font-weight: 600 !important;
 }
 
-/* Professional mono font for numbers */
+/* Cash App number style */
+.font-semibold {
+  font-weight: 600 !important;
+}
+
+/* Cash App Style - Mono font for numbers */
 .font-mono {
-  font-family: 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Roboto', system-ui, sans-serif !important;
   font-weight: 500 !important;
   letter-spacing: -0.02em !important;
   font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
 }
 
 /* Remove heading font completely */
 .font-heading {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Roboto', system-ui, sans-serif !important;
   font-weight: 600 !important;
-  letter-spacing: -0.025em !important;
+  letter-spacing: -0.022em !important;
 }
 
-/* Professional number display */
+/* Cash App Balance Display - Exact Style */
 .balance-display {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Roboto', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
   font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
   line-height: 1.1;
 }
 
@@ -233,10 +243,10 @@ input:focus, textarea:focus, select:focus, button:focus {
   ring-offset-width: 0px;
 }
 
-/* Professional button text */
+/* Cash App button text */
 button {
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.011em;
 }
 
     padding-top: inherit;
