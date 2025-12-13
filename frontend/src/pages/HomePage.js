@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar';
 import { Badge } from '../components/ui/badge';
-import { DollarSign, Trophy, Home, Users, Wallet, Bell, MessageSquare, LogOut, TrendingUp, Shield, Lock, ShieldCheck, CheckCircle } from 'lucide-react';
+import { DollarSign, Trophy, Users, Wallet, TrendingUp, TrendingDown, Lock, ShieldCheck, ArrowUpRight, ArrowDownLeft, Zap } from 'lucide-react';
 import { toast } from 'sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -14,7 +14,7 @@ const API = `${BACKEND_URL}/api`;
 export default function HomePage({ user, onLogout }) {
   const navigate = useNavigate();
   const [bets, setBets] = useState([]);
-  const [notifications, setNotifications] = useState([]);
+  const [recentActivity, setRecentActivity] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,14 +24,60 @@ export default function HomePage({ user, onLogout }) {
   const loadData = async () => {
     const token = localStorage.getItem('token');
     try {
-      const [betsRes, notifsRes, userRes] = await Promise.all([
+      const [betsRes, transactionsRes] = await Promise.all([
         axios.get(`${API}/bets`, { headers: { Authorization: `Bearer ${token}` }}),
-        axios.get(`${API}/notifications`, { headers: { Authorization: `Bearer ${token}` }}),
-        axios.get(`${API}/auth/me`, { headers: { Authorization: `Bearer ${token}` }})
+        axios.get(`${API}/wallet/transactions`, { headers: { Authorization: `Bearer ${token}` }}).catch(() => ({ data: [] }))
       ]);
       
       setBets(betsRes.data.slice(0, 5));
-      setNotifications(notifsRes.data.filter(n => !n.read).slice(0, 3));
+      
+      // Build activity feed from bets and transactions
+      const activities = [];
+      
+      // Add bet activities
+      betsRes.data.slice(0, 10).forEach(bet => {
+        const isCreator = bet.creator_id === user.user_id;
+        const opponent = isCreator ? bet.opponent : bet.creator;
+        
+        if (bet.status === 'completed') {
+          const isWinner = bet.winner_id === user.user_id;
+          activities.push({
+            id: bet.bet_id,
+            type: isWinner ? 'bet_won' : 'bet_lost',
+            amount: bet.amount,
+            name: opponent?.name || 'Unknown',
+            timestamp: bet.completed_at || bet.created_at,
+            avatar: opponent?.avatar
+          });
+        } else if (bet.status === 'active' || bet.status === 'scheduled') {
+          activities.push({
+            id: bet.bet_id,
+            type: 'bet_active',
+            amount: bet.amount,
+            name: opponent?.name || 'Unknown',
+            timestamp: bet.created_at,
+            avatar: opponent?.avatar
+          });
+        }
+      });
+      
+      // Add transaction activities
+      transactionsRes.data.slice(0, 5).forEach(tx => {
+        if (tx.payment_status === 'paid') {
+          activities.push({
+            id: tx.session_id,
+            type: 'deposit',
+            amount: tx.amount,
+            name: 'Wallet Deposit',
+            timestamp: tx.created_at
+          });
+        }
+      });
+      
+      // Sort by timestamp
+      activities.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      setRecentActivity(activities.slice(0, 6));
+      
       setLoading(false);
     } catch (error) {
       toast.error('Failed to load data');
@@ -40,7 +86,19 @@ export default function HomePage({ user, onLogout }) {
   };
 
   const getInitials = (name) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    return name?.split(' ').map(n => n[0]).join('').toUpperCase() || '?';
+  };
+  
+  const formatTimeAgo = (timestamp) => {
+    const now = new Date();
+    const date = new Date(timestamp);
+    const seconds = Math.floor((now - date) / 1000);
+    
+    if (seconds < 60) return 'Just now';
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+    if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`;
+    return date.toLocaleDateString();
   };
 
   const getBetStatus = (bet) => {
