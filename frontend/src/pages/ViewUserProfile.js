@@ -45,31 +45,31 @@ export default function ViewUserProfile() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-primary text-2xl font-heading">Processing...</div>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
+        <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+        <p className="text-sm text-muted-foreground">Loading profile...</p>
       </div>
     );
   }
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-destructive text-2xl font-heading">Profile not found</div>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4 p-6">
+        <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center">
+          <Users className="h-8 w-8 text-destructive" />
+        </div>
+        <h2 className="text-xl font-bold">Profile Not Found</h2>
+        <p className="text-sm text-muted-foreground text-center">This user may have deleted their account or the link is invalid.</p>
+        <Button onClick={() => navigate(-1)} variant="outline" className="mt-4">
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Go Back
+        </Button>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background pt-20 pb-8">
-      <header className="sticky top-0 z-40 bg-black/70 backdrop-blur-xl border-b border-border/50 h-16 flex items-center px-6">
-        <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="rounded-full" data-testid="back-button">
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <h1 className="text-xl font-bold ml-4" data-testid="profile-title">
-          {profile.is_private ? 'Private Profile' : `${profile.name}'s Profile`}
-        </h1>
-      </header>
-
+    <div className="min-h-screen bg-background pt-20 pb-24">
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         {/* Profile Header */}
         <Card className="premium-card p-8 rounded-2xl text-center" data-testid="profile-header-card">
