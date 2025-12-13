@@ -102,101 +102,14 @@ export default function AuthPage({ onLogin }) {
         background: 'linear-gradient(to bottom, #18181B, #09090B)'
       }}
     >
-      {/* Professional Racing Header - Stylized Design */}
+      {/* Racing Header Background - Two Cars Racing with Smoke */}
       <div className="absolute top-0 left-0 right-0 h-[420px] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/70 to-background z-20"></div>
-        
-        {/* Professional Racing SVG Design */}
-        <svg className="w-full h-full" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            {/* Main gradient background */}
-            <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#1a1a2e"/>
-              <stop offset="50%" stopColor="#16213e"/>
-              <stop offset="100%" stopColor="#0f0f23"/>
-            </linearGradient>
-            
-            {/* Neon glow effect */}
-            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-            
-            {/* Checkered pattern */}
-            <pattern id="checker" width="30" height="30" patternUnits="userSpaceOnUse">
-              <rect width="15" height="15" fill="#ffffff" opacity="0.03"/>
-              <rect x="15" y="15" width="15" height="15" fill="#ffffff" opacity="0.03"/>
-            </pattern>
-            
-            {/* Speed lines gradient */}
-            <linearGradient id="speedGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#a855f7" stopOpacity="0"/>
-              <stop offset="50%" stopColor="#a855f7" stopOpacity="0.6"/>
-              <stop offset="100%" stopColor="#a855f7" stopOpacity="0"/>
-            </linearGradient>
-          </defs>
-          
-          {/* Background */}
-          <rect width="100%" height="100%" fill="url(#bgGrad)"/>
-          <rect width="100%" height="100%" fill="url(#checker)"/>
-          
-          {/* Diagonal racing stripes */}
-          <g opacity="0.15">
-            <rect x="-100" y="280" width="1000" height="8" fill="#a855f7" transform="rotate(-5)"/>
-            <rect x="-100" y="300" width="1000" height="4" fill="#eab308" transform="rotate(-5)"/>
-            <rect x="-100" y="315" width="1000" height="6" fill="#22c55e" transform="rotate(-5)"/>
-          </g>
-          
-          {/* Christmas Tree / Staging Lights - Professional Style */}
-          <g transform="translate(400, 60)">
-            {/* Tree housing */}
-            <rect x="-25" y="-10" width="50" height="180" rx="8" fill="#1a1a1a" stroke="#333" strokeWidth="2"/>
-            
-            {/* Pre-stage lights */}
-            <circle cx="-8" cy="15" r="6" fill="#333"/>
-            <circle cx="8" cy="15" r="6" fill="#333"/>
-            
-            {/* Stage lights */}
-            <circle cx="-8" cy="40" r="6" fill="#333"/>
-            <circle cx="8" cy="40" r="6" fill="#333"/>
-            
-            {/* Countdown ambers - glowing */}
-            <circle cx="0" cy="70" r="10" fill="#fbbf24" filter="url(#glow)" opacity="0.9"/>
-            <circle cx="0" cy="95" r="10" fill="#fbbf24" filter="url(#glow)" opacity="0.7"/>
-            <circle cx="0" cy="120" r="10" fill="#f59e0b" filter="url(#glow)" opacity="0.5"/>
-            
-            {/* Green GO light - bright */}
-            <circle cx="0" cy="150" r="12" fill="#22c55e" filter="url(#glow)"/>
-            <circle cx="0" cy="150" r="8" fill="#4ade80"/>
-          </g>
-          
-          {/* Speed/motion lines */}
-          <g opacity="0.4">
-            <rect x="50" y="320" width="150" height="2" fill="url(#speedGrad)" rx="1"/>
-            <rect x="80" y="335" width="100" height="1.5" fill="url(#speedGrad)" rx="1"/>
-            <rect x="600" y="320" width="150" height="2" fill="url(#speedGrad)" rx="1"/>
-            <rect x="620" y="335" width="100" height="1.5" fill="url(#speedGrad)" rx="1"/>
-          </g>
-          
-          {/* Checkered flag corners */}
-          <g opacity="0.2">
-            <path d="M0 0 L80 0 L0 80 Z" fill="url(#checker)"/>
-            <path d="M800 0 L720 0 L800 80 Z" fill="url(#checker)"/>
-          </g>
-          
-          {/* Subtle tire smoke effect */}
-          <ellipse cx="200" cy="380" rx="120" ry="30" fill="#ffffff" opacity="0.05"/>
-          <ellipse cx="600" cy="380" rx="120" ry="30" fill="#ffffff" opacity="0.05"/>
-          
-          {/* Racing badge */}
-          <g transform="translate(400, 260)">
-            <rect x="-60" y="-15" width="120" height="30" rx="15" fill="#a855f7" opacity="0.2"/>
-            <text x="0" y="6" textAnchor="middle" fill="#a855f7" fontSize="14" fontWeight="bold" fontFamily="system-ui">DRAG RACING</text>
-          </g>
-        </svg>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-background/60 to-background z-10"></div>
+        <img 
+          src="https://images.unsplash.com/photo-1759145781317-5e4823997f6e?w=1600&q=80"
+          alt="Two cars racing with smoke"
+          className="w-full h-full object-cover opacity-75"
+        />
       </div>
 
       <div className="w-full max-w-md relative z-20">
