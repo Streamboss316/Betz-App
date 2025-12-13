@@ -9,12 +9,13 @@ import { toast } from 'sonner';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Demo users for quick switching
-const DEMO_USERS = [
+// Demo users for quick switching (REMOVE IN PRODUCTION)
+// TODO: Remove demo user switching in production deployment
+const DEMO_USERS = process.env.NODE_ENV === 'development' ? [
   { email: 'demo@betz.com', password: 'demo123', name: 'Demo User' },
   { email: 'test@betz.com', password: 'test123', name: 'Test User' },
   { email: 'dp@betz.com', password: 'dp123', name: 'DP User' },
-];
+] : [];
 
 export default function AdminDashboard({ onLogout }) {
   const navigate = useNavigate();
