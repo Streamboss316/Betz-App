@@ -198,7 +198,6 @@ export default function AuthPage({ onLogin }) {
           </g>
         </svg>
       </div>
-      </div>
 
       <div className="w-full max-w-md relative z-20">
         <div className="text-center mb-8 pt-8">
