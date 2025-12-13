@@ -102,13 +102,13 @@ export default function AuthPage({ onLogin }) {
         background: 'linear-gradient(to bottom, #18181B, #09090B)'
       }}
     >
-      {/* Racing Header Background - Classic Camaro Burnout with Massive Smoke */}
+      {/* Racing Header Background - Dodge Challenger SRT Demon Burnout */}
       <div className="absolute top-0 left-0 right-0 h-[450px] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-background/50 to-background z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-background/40 to-background z-10"></div>
         <img 
-          src="https://images.pexels.com/photos/755298/pexels-photo-755298.jpeg?w=1600&q=80"
-          alt="Classic muscle car burnout with smoke"
-          className="w-full h-full object-cover opacity-85"
+          src="https://images.pexels.com/photos/9735074/pexels-photo-9735074.jpeg?w=1600&q=80"
+          alt="Dodge Challenger SRT Demon burnout"
+          className="w-full h-full object-cover opacity-90"
         />
       </div>
 
