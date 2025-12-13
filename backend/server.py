@@ -48,6 +48,24 @@ MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
 async def root():
     return {"message": "BETZ API - Trusted P2P Betting"}
 
+@api_router.get("/health")
+async def health_check():
+    """Health check endpoint for monitoring"""
+    try:
+        # Check database connection
+        await db.command("ping")
+        return {
+            "status": "healthy",
+            "database": "connected",
+            "version": "1.0.0"
+        }
+    except Exception as e:
+        return {
+            "status": "unhealthy",
+            "database": "disconnected",
+            "error": str(e)
+        }
+
 class User(BaseModel):
     model_config = ConfigDict(extra="ignore")
     user_id: str
