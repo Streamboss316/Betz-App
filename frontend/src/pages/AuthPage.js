@@ -102,14 +102,48 @@ export default function AuthPage({ onLogin }) {
         background: 'linear-gradient(to bottom, #18181B, #09090B)'
       }}
     >
-      {/* Racing Header Background - Complete Drag Racing Scene with Staging Lights */}
-      <div className="absolute top-0 left-0 right-0 h-[500px] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background z-10"></div>
-        <img 
-          src="https://customer-assets.emergentagent.com/job_betz-messaging-app/artifacts/gim9lxs9_Snip20251208_7.png"
-          alt="Drag racing with starting tree, gauges, checkered flags and RACING emblem"
-          className="w-full h-full object-contain opacity-65"
-        />
+      {/* Racing Header Background - Professional SVG Design */}
+      <div className="absolute top-0 left-0 right-0 h-[400px] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background z-10"></div>
+        
+        {/* Racing-themed SVG Background */}
+        <svg className="w-full h-full opacity-40" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="raceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#22c55e" stopOpacity="0.3"/>
+              <stop offset="50%" stopColor="#eab308" stopOpacity="0.2"/>
+              <stop offset="100%" stopColor="#ef4444" stopOpacity="0.3"/>
+            </linearGradient>
+            <pattern id="checkered" width="40" height="40" patternUnits="userSpaceOnUse">
+              <rect width="20" height="20" fill="#ffffff" opacity="0.1"/>
+              <rect x="20" y="20" width="20" height="20" fill="#ffffff" opacity="0.1"/>
+            </pattern>
+          </defs>
+          
+          {/* Background gradient */}
+          <rect width="100%" height="100%" fill="url(#raceGradient)"/>
+          
+          {/* Checkered pattern overlay */}
+          <rect width="100%" height="100%" fill="url(#checkered)" opacity="0.3"/>
+          
+          {/* Racing stripes */}
+          <path d="M0 200 Q200 150 400 200 T800 200" stroke="#22c55e" strokeWidth="4" fill="none" opacity="0.5"/>
+          <path d="M0 220 Q200 170 400 220 T800 220" stroke="#eab308" strokeWidth="3" fill="none" opacity="0.4"/>
+          <path d="M0 240 Q200 190 400 240 T800 240" stroke="#ef4444" strokeWidth="2" fill="none" opacity="0.3"/>
+          
+          {/* Traffic light circles (staging tree) */}
+          <g transform="translate(400, 80)">
+            <circle cx="0" cy="0" r="15" fill="#ef4444" opacity="0.8"/>
+            <circle cx="0" cy="40" r="15" fill="#eab308" opacity="0.8"/>
+            <circle cx="0" cy="80" r="15" fill="#22c55e" opacity="0.8"/>
+          </g>
+          
+          {/* Speed lines */}
+          <line x1="50" y1="300" x2="200" y2="280" stroke="#ffffff" strokeWidth="2" opacity="0.2"/>
+          <line x1="100" y1="320" x2="280" y2="295" stroke="#ffffff" strokeWidth="1.5" opacity="0.15"/>
+          <line x1="600" y1="300" x2="750" y2="280" stroke="#ffffff" strokeWidth="2" opacity="0.2"/>
+          <line x1="520" y1="320" x2="700" y2="295" stroke="#ffffff" strokeWidth="1.5" opacity="0.15"/>
+        </svg>
       </div>
 
       <div className="w-full max-w-md relative z-20">
