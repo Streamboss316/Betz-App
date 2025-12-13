@@ -3,21 +3,37 @@ import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Fingerprint, X } from 'lucide-react';
 import { toast } from 'sonner';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 export default function BiometricPrompt({ userEmail, onClose }) {
   const [loading, setLoading] = useState(false);
 
-  const handleEnableBiometric = () => {
+  const handleEnableBiometric = async () => {
     setLoading(true);
     
-    // Simulate biometric setup
-    setTimeout(() => {
+    try {
+      const token = localStorage.getItem('token');
+      
+      // Request a biometric token from the server
+      const res = await axios.post(`${API}/auth/biometric-setup`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      // Store the secure biometric token (not password)
       localStorage.setItem('biometric_enabled', 'true');
       localStorage.setItem('biometric_user_email', userEmail);
+      localStorage.setItem('biometric_auth_token', res.data.biometric_token);
+      
       toast.success('Face ID enabled successfully!');
-      setLoading(false);
       onClose();
-    }, 1500);
+    } catch (error) {
+      toast.error('Failed to enable biometric. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSkip = () => {
