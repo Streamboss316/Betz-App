@@ -164,16 +164,7 @@ export default function MessagesPage({ user }) {
   // Mobile: Show contact list view
   if (!selectedContact) {
     return (
-      <div className="min-h-screen bg-background pb-24">
-        <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/5 h-14 flex items-center px-4">
-          <Button variant="ghost" size="icon" onClick={() => navigate('/')} className="rounded-full h-9 w-9" data-testid="back-button">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div className="ml-3">
-            <h1 className="text-base font-semibold" data-testid="messages-title">Messages</h1>
-          </div>
-        </header>
-
+      <div className="min-h-screen bg-background pt-20 pb-24">
         <div className="p-4 max-w-lg mx-auto space-y-4">
           {/* Search Bar */}
           <div className="relative">
@@ -190,7 +181,10 @@ export default function MessagesPage({ user }) {
 
           {/* Contacts List */}
           {loading ? (
-            <div className="text-center py-8 text-muted-foreground">Loading...</div>
+            <div className="flex flex-col items-center justify-center py-12 gap-3">
+              <div className="w-10 h-10 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+              <p className="text-sm text-muted-foreground">Loading contacts...</p>
+            </div>
           ) : filteredContacts.length === 0 ? (
             <Card className="premium-card p-8 rounded-xl text-center">
               <div className="w-14 h-14 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center">
