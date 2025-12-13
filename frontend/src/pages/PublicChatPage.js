@@ -6,7 +6,7 @@ import { Input } from '../components/ui/input';
 import { Card } from '../components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar';
 import { Badge } from '../components/ui/badge';
-import { ArrowLeft, Send, Users, Circle } from 'lucide-react';
+import { Send, Users, Circle } from 'lucide-react';
 import { toast } from 'sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
