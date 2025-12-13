@@ -520,16 +520,24 @@ export default function BetDetailsPage({ user }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-muted-foreground text-base">Processing...</div>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
+        <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+        <p className="text-sm text-muted-foreground">Loading bet details...</p>
       </div>
     );
   }
 
   if (!bet) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-muted-foreground text-base">Bet not found</div>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4 p-6">
+        <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center">
+          <AlertCircle className="h-8 w-8 text-destructive" />
+        </div>
+        <h2 className="text-xl font-bold">Bet Not Found</h2>
+        <p className="text-sm text-muted-foreground text-center">This bet may have been deleted or the link is invalid.</p>
+        <Button onClick={() => navigate('/')} variant="outline" className="mt-4">
+          Go Home
+        </Button>
       </div>
     );
   }
@@ -540,20 +548,13 @@ export default function BetDetailsPage({ user }) {
   const status = getBetStatus(bet.status);
 
   return (
-    <div className="min-h-screen bg-background pt-20 pb-8">
-      <header className="sticky top-0 z-40 bg-black/60 backdrop-blur-md border-b border-white/5 h-16 flex items-center px-6">
-        <Button variant="ghost" size="icon" onClick={() => navigate('/')} className="rounded-full" data-testid="back-button">
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <h1 className="text-xl font-bold font-heading ml-4" data-testid="bet-details-title">Bet Details</h1>
-      </header>
-
+    <div className="min-h-screen bg-background pt-20 pb-24">
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         {/* Bet Amount & Status */}
         <Card className="premium-card p-6 rounded-2xl" data-testid="bet-summary-card">
           <div className="text-center mb-4">
-            <p className="text-5xl font-semibold tracking-tight text-foreground mb-3">Bet Amount</p>
-            <h2 className="text-5xl font-mono text-primary" data-testid="bet-amount">${bet.amount.toFixed(2)}</h2>
+            <p className="text-sm tracking-widest text-muted-foreground uppercase mb-2">Bet Amount</p>
+            <h2 className="text-5xl font-black font-mono text-primary" data-testid="bet-amount">${bet.amount.toFixed(2)}</h2>
             <div className="flex items-center justify-center gap-2 mt-3">
               <Badge className={`${status.color}`} data-testid="bet-status">{status.text}</Badge>
               {['active', 'scheduled', 'awaiting_confirmation', 'disputed'].includes(bet.status) && (
