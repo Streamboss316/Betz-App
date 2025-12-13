@@ -312,12 +312,8 @@ export default function ProfilePage({ user, setUser, onLogout }) {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-20 pb-8">
-      <header className="sticky top-0 z-40 bg-black/60 backdrop-blur-md border-b border-white/5 h-16 flex items-center px-6">
-        <h1 className="text-xl font-bold font-heading" data-testid="profile-title">Profile</h1>
-      </header>
-
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className="min-h-screen bg-background pt-20 pb-24">
+      <div className="max-w-4xl mx-auto space-y-6 p-4">
         {/* Profile Header with Banner */}
         <Card className="premium-card rounded-2xl overflow-hidden" data-testid="profile-header-card">
           {/* Header Banner Image */}
