@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
-import { ArrowLeft, ArrowUpRight, ArrowDownLeft, Trophy, XCircle, Wallet, TrendingUp, TrendingDown, RefreshCw } from 'lucide-react';
+import { ArrowUpRight, ArrowDownLeft, Trophy, XCircle, Wallet, TrendingUp, TrendingDown, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
