@@ -164,11 +164,7 @@ export default function WalletPage({ user, setUser }) {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-20 pb-8">
-      <header className="sticky top-0 z-40 bg-black/60 backdrop-blur-md border-b border-white/5 h-16 flex items-center px-6">
-        <h1 className="text-xl font-bold font-heading" data-testid="wallet-title">Wallet</h1>
-      </header>
-
+    <div className="min-h-screen bg-background pt-20 pb-24">
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         {/* Balance Card */}
         <Card className="bg-gradient-to-br from-primary/20 to-secondary/20 border-white/10 shadow-2xl p-8 rounded-2xl" data-testid="balance-card">
