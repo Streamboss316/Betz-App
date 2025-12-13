@@ -110,7 +110,6 @@ export default function AuthPage({ onLogin }) {
           alt="Drag racing burnout"
           className="w-full h-full object-cover opacity-70"
         />
-        </svg>
       </div>
 
       <div className="w-full max-w-md relative z-20">
