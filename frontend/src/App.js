@@ -290,7 +290,7 @@ function App() {
                 ⚡ URGENT: DP Request
               </DialogTitle>
               <DialogDescription>
-                You've been selected as a Designated Person - Review immediately!
+                You&apos;ve been selected as a Designated Person - Review immediately!
               </DialogDescription>
             </DialogHeader>
 
