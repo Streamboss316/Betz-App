@@ -6,7 +6,7 @@ import { Card } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar';
 import { Badge } from '../components/ui/badge';
-import { ArrowLeft, Zap, Search, DollarSign, Users, Trophy, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Search, DollarSign, Users, Trophy, Clock, CheckCircle, XCircle, AlertCircle, Zap } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
 import { toast } from 'sonner';
 
