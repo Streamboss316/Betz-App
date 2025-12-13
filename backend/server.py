@@ -408,6 +408,48 @@ async def login(input_data: LoginInput):
 async def get_me(current_user: dict = Depends(get_current_user)):
     return User(**current_user)
 
+# Biometric Authentication Endpoints
+class BiometricLoginInput(BaseModel):
+    email: EmailStr
+    biometric_token: str
+
+@api_router.post("/auth/biometric-setup")
+async def setup_biometric(current_user: dict = Depends(get_current_user)):
+    """Generate a secure biometric token for the current user"""
+    # Create a unique biometric token
+    biometric_token = str(uuid.uuid4()) + "-" + str(uuid.uuid4())
+    
+    # Store the biometric token hash in the database
+    token_hash = hash_password(biometric_token)
+    await db.users.update_one(
+        {"user_id": current_user["user_id"]},
+        {"$set": {"biometric_token_hash": token_hash}}
+    )
+    
+    return {"biometric_token": biometric_token, "success": True}
+
+@api_router.post("/auth/biometric-login", response_model=TokenResponse)
+async def biometric_login(input_data: BiometricLoginInput):
+    """Login using biometric token"""
+    user_doc = await db.users.find_one({"email": input_data.email})
+    if not user_doc:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+    # Verify biometric token
+    stored_hash = user_doc.get("biometric_token_hash")
+    if not stored_hash:
+        raise HTTPException(status_code=401, detail="Biometric not enabled for this account")
+    
+    if not verify_password(input_data.biometric_token, stored_hash):
+        raise HTTPException(status_code=401, detail="Invalid biometric token")
+    
+    user_doc.pop("password_hash", None)
+    user_doc.pop("biometric_token_hash", None)
+    user = User(**user_doc)
+    access_token = create_access_token({"sub": user.user_id})
+    
+    return TokenResponse(access_token=access_token, token_type="bearer", user=user)
+
 class ForgotPasswordInput(BaseModel):
     email: EmailStr
 
