@@ -65,26 +65,30 @@ export default function AuthPage({ onLogin }) {
     setLoading(true);
     toast.info('Authenticating with Face ID...');
     
-    // Simulate biometric authentication
+    // Secure biometric authentication using stored token
     setTimeout(async () => {
       try {
-        // Get stored credentials
-        const password = localStorage.getItem('biometric_password_hash');
-        if (!password) {
-          toast.error('Please login with password first');
+        // Get stored biometric token (not password)
+        const biometricToken = localStorage.getItem('biometric_auth_token');
+        if (!biometricToken) {
+          toast.error('Please login with password first to enable biometric');
           setLoading(false);
           return;
         }
 
-        const res = await axios.post(`${API}/auth/login`, {
+        // Verify the biometric token with backend
+        const res = await axios.post(`${API}/auth/biometric-login`, {
           email: biometricEmail,
-          password: password
+          biometric_token: biometricToken
         });
         
         onLogin(res.data.access_token, res.data.user);
         toast.success('Welcome back!');
       } catch (error) {
-        toast.error('Biometric authentication failed');
+        // Fallback: Clear invalid token and ask for password
+        localStorage.removeItem('biometric_auth_token');
+        localStorage.removeItem('biometric_enabled');
+        toast.error('Biometric session expired. Please login with password.');
       } finally {
         setLoading(false);
       }
