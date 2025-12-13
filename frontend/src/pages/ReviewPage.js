@@ -124,9 +124,7 @@ export default function ReviewPage({ user }) {
 
   return (
     <div className="min-h-screen bg-background pt-20 pb-24">
-      <div className="p-6 max-w-2xl mx-auto">
-        <div className="ml-3 flex items-center gap-2">
-          <ShieldCheck className="h-5 w-5 text-primary" />
+      <div className="p-6 max-w-2xl mx-auto space-y-6">
         {/* User Being Reviewed - Compact Card */}
         <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-white/10 p-4 rounded-xl" data-testid="reviewed-user-card">
           <div className="flex items-center gap-4">
