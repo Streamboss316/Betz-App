@@ -256,7 +256,7 @@ export default function PlaceBetPage({ user }) {
                   {/* Security Badge */}
                   <div className="flex items-center justify-center gap-2 mb-3 pb-3 border-b border-white/10">
                     <ShieldCheck className="h-4 w-4 text-green-500" />
-                    <span className="text-xs text-green-400 font-medium">Both parties' funds will be secured</span>
+                    <span className="text-xs text-green-400 font-medium">Both parties&apos; funds will be secured</span>
                   </div>
                   <div className="flex justify-between mb-1">
                     <span className="text-muted-foreground">Total pool</span>
@@ -415,7 +415,7 @@ export default function PlaceBetPage({ user }) {
                   <AlertCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
                   <p className="text-xs text-muted-foreground leading-relaxed">
                     <strong className="text-accent">About DP:</strong> If there is a dispute, a Designated Person (DP) will mediate. 
-                    After bet is accepted, both parties will agree on a trusted DP. The DP's word is final.
+                    After bet is accepted, both parties will agree on a trusted DP. The DP&apos;s word is final.
                   </p>
                 </div>
               </div>
@@ -627,7 +627,7 @@ export default function PlaceBetPage({ user }) {
                     <div className="flex items-start gap-2">
                       <AlertCircle className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
                       <p className="text-sm text-muted-foreground">
-                        User doesn't have BETZ? Enter their phone number or email to send them an invite link to download the app.
+                        User doesn&apos;t have BETZ? Enter their phone number or email to send them an invite link to download the app.
                       </p>
                     </div>
                   </div>
@@ -678,7 +678,7 @@ export default function PlaceBetPage({ user }) {
                       </Button>
                       
                       <div className="text-xs text-muted-foreground text-center">
-                        We'll check if they're a member. If not, we'll send them an invite to join BETZ.
+                        We&apos;ll check if they&apos;re a member. If not, we&apos;ll send them an invite to join BETZ.
                       </div>
                     </>
                   )}
