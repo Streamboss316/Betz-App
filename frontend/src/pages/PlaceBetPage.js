@@ -160,8 +160,8 @@ export default function PlaceBetPage({ user }) {
   };
 
   const handleCreateBet = async () => {
-    if (!amount || parseFloat(amount) <= 0) {
-      toast.error('Enter a valid amount');
+    if (!amount || parseFloat(amount) < 1) {
+      toast.error('Minimum bet amount is $1');
       return;
     }
 
