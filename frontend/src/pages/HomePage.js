@@ -18,16 +18,13 @@ export default function HomePage({ user, onLogout }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
-    const token = localStorage.getItem('token');
-    try {
-      const [betsRes, transactionsRes] = await Promise.all([
-        axios.get(`${API}/bets`, { headers: { Authorization: `Bearer ${token}` }}),
-        axios.get(`${API}/wallet/transactions`, { headers: { Authorization: `Bearer ${token}` }}).catch(() => ({ data: [] }))
-      ]);
+    const loadData = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const [betsRes, transactionsRes] = await Promise.all([
+          axios.get(`${API}/bets`, { headers: { Authorization: `Bearer ${token}` }}),
+          axios.get(`${API}/wallet/transactions`, { headers: { Authorization: `Bearer ${token}` }}).catch(() => ({ data: [] }))
+        ]);
       
       setBets(betsRes.data.slice(0, 5));
       
