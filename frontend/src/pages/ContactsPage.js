@@ -6,7 +6,7 @@ import { Input } from '../components/ui/input';
 import { Card } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar';
-import { ArrowLeft, Search, UserPlus, Check, X, Star } from 'lucide-react';
+import { Search, UserPlus, Check, X, Star } from 'lucide-react';
 import { Badge } from '../components/ui/badge';
 import { toast } from 'sonner';
 
