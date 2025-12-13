@@ -7,7 +7,7 @@ import { Card } from '../components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar';
 import { Textarea } from '../components/ui/textarea';
 import { Label } from '../components/ui/label';
-import { ArrowLeft, Search, DollarSign, AlertCircle, Shield, Lock, ShieldCheck } from 'lucide-react';
+import { Search, DollarSign, AlertCircle, Shield, Lock, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
