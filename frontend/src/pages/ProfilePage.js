@@ -349,7 +349,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
                   <Trophy className="h-12 w-12 text-accent mb-3 animate-pulse" />
                   <p className="text-lg font-bold text-white/90">Racing Profile</p>
-                  <p className="text-sm text-white/60">Click "Edit Header" to add your image</p>
+                  <p className="text-sm text-white/60">Click &quot;Edit Header&quot; to add your image</p>
                 </div>
               </div>
             )}
@@ -414,7 +414,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
                   )}
                 </h2>
                 {user.display_name && (
-                  <p className="text-primary font-semibold text-lg" data-testid="profile-display-name">"{user.display_name}"</p>
+                  <p className="text-primary font-semibold text-lg" data-testid="profile-display-name">&quot;{user.display_name}&quot;</p>
                 )}
                 {user.racing_team && (
                   <p className="text-sm text-muted-foreground" data-testid="profile-racing-team">
