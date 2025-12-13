@@ -138,27 +138,29 @@ export default function PublicChatPage({ user }) {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-16 pb-24 flex flex-col">
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-5" data-testid="chat-messages">
-        {/* Online Users Badge */}
-        <div className="flex justify-center mb-4">
-          <Badge className="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-4 py-1">
-            <Users className="h-3 w-3 mr-2" />
-            {onlineUserIds.size} Online
-          </Badge>
-        </div>
-        
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-12 gap-3">
-            <div className="w-10 h-10 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
-            <p className="text-sm text-muted-foreground">Loading messages...</p>
+    <div className="min-h-screen bg-background pt-16 pb-24 flex">
+      {/* Chat Messages Area */}
+      <div className="flex-1 flex flex-col">
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-5" data-testid="chat-messages">
+          {/* Online Users Badge */}
+          <div className="flex justify-center mb-4">
+            <Badge className="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-4 py-1">
+              <Users className="h-3 w-3 mr-2" />
+              {onlineUserIds.size} Online
+            </Badge>
           </div>
-        ) : messages.length === 0 ? (
-          <div className="text-center py-12">
-            <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-            <p className="text-muted-foreground">No messages yet</p>
-            <p className="text-sm text-muted-foreground mt-2">Be the first to start the conversation!</p>
+          
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-12 gap-3">
+              <div className="w-10 h-10 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+              <p className="text-sm text-muted-foreground">Loading messages...</p>
+            </div>
+          ) : messages.length === 0 ? (
+            <div className="text-center py-12">
+              <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <p className="text-muted-foreground">No messages yet</p>
+              <p className="text-sm text-muted-foreground mt-2">Be the first to start the conversation!</p>
             </div>
           ) : (
             messages.map((msg) => {
