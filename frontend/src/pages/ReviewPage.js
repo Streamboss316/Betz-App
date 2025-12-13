@@ -102,8 +102,9 @@ export default function ReviewPage({ user }) {
 
   if (loading || !bet) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-primary text-xl">Loading...</div>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
+        <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+        <p className="text-sm text-muted-foreground">Loading review...</p>
       </div>
     );
   }
@@ -122,12 +123,8 @@ export default function ReviewPage({ user }) {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/5 h-14 flex items-center px-4">
-        <Button variant="ghost" size="icon" onClick={() => navigate('/')} className="rounded-full h-9 w-9" data-testid="back-button">
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
+    <div className="min-h-screen bg-background pt-20 pb-24">
+      <div className="p-6 max-w-2xl mx-auto">
         <div className="ml-3 flex items-center gap-2">
           <ShieldCheck className="h-5 w-5 text-primary" />
           <h1 className="text-base font-semibold" data-testid="review-title">Trust Review</h1>
