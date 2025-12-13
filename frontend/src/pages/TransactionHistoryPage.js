@@ -88,24 +88,15 @@ export default function TransactionHistoryPage({ user }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-primary text-xl">Loading...</div>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
+        <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+        <p className="text-sm text-muted-foreground">Loading transactions...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background pb-24">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/5 h-14 flex items-center px-4">
-        <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="rounded-full h-9 w-9" data-testid="back-button">
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-        <div className="ml-3">
-          <h1 className="text-base font-semibold" data-testid="page-title">Transaction History</h1>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-background pt-20 pb-24">
       <div className="p-4 max-w-lg mx-auto space-y-4">
         {/* Summary Card */}
         {summary && (
