@@ -71,17 +71,17 @@ export default function GlobalHeader({ user, onLogout, onShowQR, onShowTutorial 
   const isDemoMode = localStorage.getItem('demo_mode_active') === 'true';
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass-card h-16 flex items-center justify-between px-6">
-      <div className="flex items-center gap-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-white/5 h-16 flex items-center justify-between px-4">
+      <div className="flex items-center gap-3">
         {showBackButton && (
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={handleBack} 
-            className="rounded-full"
+            className="rounded-full h-9 w-9"
             data-testid="global-back-button"
           >
-            <ArrowLeft className="h-6 w-6" />
+            <ArrowLeft className="h-5 w-5" />
           </Button>
         )}
         <div 
@@ -89,13 +89,13 @@ export default function GlobalHeader({ user, onLogout, onShowQR, onShowTutorial 
           onClick={() => navigate('/')}
         >
           <h1 
-            className="text-2xl font-bold tracking-tight text-primary" 
+            className="text-xl font-black tracking-tight text-primary" 
             data-testid="global-header-title"
           >
             BETZ
           </h1>
           {!showBackButton && (
-            <p className="text-[10px] text-accent font-semibold tracking-wide -mt-1">Trusted P2P Betting</p>
+            <p className="text-[9px] text-accent font-semibold tracking-wide -mt-0.5">P2P Betting</p>
           )}
         </div>
         {isDemoMode && (
