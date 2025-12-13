@@ -263,6 +263,74 @@ export default function HomePage({ user, onLogout }) {
             </div>
           )}
         </div>
+
+        {/* Activity Feed - CashApp Style */}
+        {recentActivity.length > 0 && (
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-bold">Recent Activity</h3>
+              <Button variant="ghost" size="sm" onClick={() => navigate('/transactions')} className="text-primary text-xs">View All</Button>
+            </div>
+            
+            <Card className="premium-card rounded-2xl overflow-hidden divide-y divide-white/5" data-testid="activity-feed">
+              {recentActivity.map((activity) => {
+                const isPositive = activity.type === 'bet_won' || activity.type === 'deposit';
+                const isNegative = activity.type === 'bet_lost';
+                
+                return (
+                  <div 
+                    key={activity.id} 
+                    className="flex items-center justify-between p-4 hover:bg-muted/20 transition-colors cursor-pointer"
+                    onClick={() => activity.type !== 'deposit' && navigate(`/bets/${activity.id}`)}
+                    data-testid={`activity-${activity.id}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      {/* Activity Icon */}
+                      <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
+                        isPositive ? 'bg-green-500/20' : 
+                        isNegative ? 'bg-red-500/20' : 
+                        'bg-primary/20'
+                      }`}>
+                        {activity.type === 'bet_won' && <TrendingUp className="h-5 w-5 text-green-500" />}
+                        {activity.type === 'bet_lost' && <TrendingDown className="h-5 w-5 text-red-500" />}
+                        {activity.type === 'bet_active' && <Zap className="h-5 w-5 text-primary" />}
+                        {activity.type === 'deposit' && <ArrowDownLeft className="h-5 w-5 text-green-500" />}
+                      </div>
+                      
+                      {/* Activity Details */}
+                      <div>
+                        <p className="font-semibold text-sm">
+                          {activity.type === 'bet_won' && `Won vs ${activity.name}`}
+                          {activity.type === 'bet_lost' && `Lost vs ${activity.name}`}
+                          {activity.type === 'bet_active' && `Bet with ${activity.name}`}
+                          {activity.type === 'deposit' && 'Added to Wallet'}
+                        </p>
+                        <p className="text-xs text-muted-foreground">{formatTimeAgo(activity.timestamp)}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Amount */}
+                    <div className="text-right">
+                      <p className={`font-bold font-mono ${
+                        isPositive ? 'text-green-500' : 
+                        isNegative ? 'text-red-500' : 
+                        'text-foreground'
+                      }`}>
+                        {isPositive && '+'}
+                        {isNegative && '-'}
+                        ${activity.amount.toFixed(2)}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {activity.type === 'bet_active' && 'Active'}
+                        {activity.type === 'deposit' && 'Completed'}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
