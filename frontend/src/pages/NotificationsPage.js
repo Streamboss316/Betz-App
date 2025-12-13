@@ -156,18 +156,18 @@ export default function NotificationsPage({ user }) {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-20 pb-8">
-      <header className="sticky top-0 z-40 bg-black/60 backdrop-blur-md border-b border-white/5 h-16 flex items-center px-6">
-        <h1 className="text-xl font-bold font-heading" data-testid="notifications-title">Notifications</h1>
-      </header>
-
+    <div className="min-h-screen bg-background pt-20 pb-24">
       <div className="p-6 max-w-2xl mx-auto">
         {loading ? (
-          <p className="text-muted-foreground text-center">Processing...</p>
+          <div className="flex flex-col items-center justify-center py-12 gap-3">
+            <div className="w-10 h-10 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+            <p className="text-sm text-muted-foreground">Loading notifications...</p>
+          </div>
         ) : notifications.length === 0 ? (
           <Card className="premium-card p-8 rounded-2xl text-center">
-            <BellOff className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-            <p className="text-muted-foreground">No notifications yet</p>
+            <BellOff className="h-16 w-16 text-muted-foreground mx-auto mb-4 opacity-50" />
+            <p className="text-lg font-semibold text-foreground">All Caught Up!</p>
+            <p className="text-sm text-muted-foreground mt-1">No new notifications</p>
           </Card>
         ) : (
           <div className="space-y-3" data-testid="notifications-list">
