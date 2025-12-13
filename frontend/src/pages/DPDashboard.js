@@ -78,21 +78,15 @@ export default function DPDashboard({ user }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-primary text-2xl font-heading">Processing...</div>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
+        <div className="w-12 h-12 rounded-full border-4 border-accent/20 border-t-accent animate-spin"></div>
+        <p className="text-sm text-muted-foreground">Loading DP Dashboard...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background pt-20 pb-8">
-      <header className="sticky top-0 z-40 bg-black/70 backdrop-blur-xl border-b border-border/50 h-16 flex items-center px-6">
-        <Button variant="ghost" size="icon" onClick={() => navigate('/')} className="rounded-full" data-testid="back-button">
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <h1 className="text-xl font-bold ml-4" data-testid="dp-dashboard-title">DP Dashboard</h1>
-      </header>
-
+    <div className="min-h-screen bg-background pt-20 pb-24">
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         <Card className="bg-gradient-to-br from-accent/20 to-primary/20 border-white/10 p-6 rounded-2xl text-center">
           <Shield className="h-12 w-12 text-accent mx-auto mb-3" />
