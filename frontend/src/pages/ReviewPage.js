@@ -127,11 +127,6 @@ export default function ReviewPage({ user }) {
       <div className="p-6 max-w-2xl mx-auto">
         <div className="ml-3 flex items-center gap-2">
           <ShieldCheck className="h-5 w-5 text-primary" />
-          <h1 className="text-base font-semibold" data-testid="review-title">Trust Review</h1>
-        </div>
-      </header>
-
-      <div className="p-4 max-w-lg mx-auto space-y-4 pb-8">
         {/* User Being Reviewed - Compact Card */}
         <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-white/10 p-4 rounded-xl" data-testid="reviewed-user-card">
           <div className="flex items-center gap-4">
