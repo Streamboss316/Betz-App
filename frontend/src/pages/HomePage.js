@@ -81,6 +81,9 @@ export default function HomePage({ user, onLogout }) {
       setLoading(false);
     }
   };
+  
+    loadData();
+  }, [user.user_id]);
 
   const getInitials = (name) => {
     return name?.split(' ').map(n => n[0]).join('').toUpperCase() || '?';
