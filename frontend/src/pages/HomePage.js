@@ -206,26 +206,6 @@ export default function HomePage({ user, onLogout }) {
           )}
         </div>
       </div>
-
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-lg border-t border-white/10 h-20 flex items-center justify-around z-50">
-        <Button variant="ghost" className="flex flex-col items-center gap-1 h-16 rounded-xl bg-primary/20" data-testid="nav-home">
-          <Home className="h-5 w-5 text-primary" />
-          <span className="text-xs font-medium text-primary">Home</span>
-        </Button>
-        <Button variant="ghost" className="flex flex-col items-center gap-1 h-16 rounded-xl" onClick={() => navigate('/friends')} data-testid="nav-contacts">
-          <Users className="h-5 w-5" />
-          <span className="text-xs font-medium">Contacts</span>
-        </Button>
-        <Button variant="ghost" className="flex flex-col items-center gap-1 h-16 rounded-xl" onClick={() => navigate('/messages')} data-testid="nav-messages">
-          <MessageSquare className="h-5 w-5" />
-          <span className="text-xs font-medium">Messages</span>
-        </Button>
-        <Button variant="ghost" className="flex flex-col items-center gap-1 h-16 rounded-xl" onClick={() => navigate('/wallet')} data-testid="nav-wallet">
-          <Wallet className="h-5 w-5" />
-          <span className="text-xs font-medium">Wallet</span>
-        </Button>
-      </nav>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Card } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
 import { ArrowLeft, Plus, TrendingUp, TrendingDown, DollarSign, ArrowDownToLine, ArrowUpFromLine, CreditCard, Building, Wallet, ShieldCheck, Lock, History } from 'lucide-react';
 import { toast } from 'sonner';
 
