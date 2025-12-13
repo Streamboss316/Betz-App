@@ -24,21 +24,6 @@ export default function MessagesPage({ user }) {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  useEffect(() => {
-    loadContacts();
-  }, []);
-
-  useEffect(() => {
-    if (selectedContact) {
-      loadMessages(selectedContact.user_id);
-    }
-  }, [selectedContact]);
-
-  useEffect(() => {
-    // Scroll to bottom when messages change
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
   const loadContacts = async () => {
     const token = localStorage.getItem('token');
     try {
@@ -64,6 +49,21 @@ export default function MessagesPage({ user }) {
       console.error('Failed to load messages');
     }
   };
+
+  useEffect(() => {
+    loadContacts();
+  }, []);
+
+  useEffect(() => {
+    if (selectedContact) {
+      loadMessages(selectedContact.user_id);
+    }
+  }, [selectedContact]);
+
+  useEffect(() => {
+    // Scroll to bottom when messages change
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim() || !selectedContact) return;
