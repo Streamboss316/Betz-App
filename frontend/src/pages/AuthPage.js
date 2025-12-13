@@ -205,7 +205,7 @@ export default function AuthPage({ onLogin }) {
             BETZ
           </h1>
           <p className="text-accent text-base font-bold tracking-wide">Trusted P2P Betting</p>
-          <p className="text-muted-foreground text-xs mt-1">Bet Secure. Get Paid.</p>
+          <p className="text-green-500 text-sm mt-1 font-semibold">Bet Secure. Get Paid.</p>
         </div>
 
         <Card className="premium-card shadow-2xl p-6 rounded-2xl border-white/10" data-testid="auth-card">
