@@ -122,19 +122,6 @@ export default function ContactsPage({ user }) {
 
   return (
     <div className="min-h-screen bg-background pt-20 pb-24">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-primary/20 h-16 flex items-center px-6">
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          onClick={() => navigate('/')} 
-          className="rounded-full mr-3"
-          data-testid="contacts-back-button"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-        <h1 className="text-lg font-bold" data-testid="contacts-title">Contacts</h1>
-      </header>
-
       <div className="p-4 max-w-2xl mx-auto">
         <Tabs defaultValue="contacts" className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-6 bg-muted/30 rounded-full p-1">
