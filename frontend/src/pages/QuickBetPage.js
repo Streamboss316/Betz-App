@@ -156,18 +156,7 @@ export default function QuickBetPage({ user }) {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-24">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/5 h-14 flex items-center px-4">
-        <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="rounded-full h-9 w-9" data-testid="back-button">
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-        <div className="ml-3 flex items-center gap-2">
-          <Zap className="h-5 w-5 text-yellow-500" />
-          <h1 className="text-base font-semibold" data-testid="page-title">Quick Bet</h1>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-background pt-20 pb-24">
       <div className="p-4 max-w-lg mx-auto space-y-4">
         {/* Create Quick Bet */}
         <Card className="premium-card p-4 rounded-xl" data-testid="create-quick-bet">
