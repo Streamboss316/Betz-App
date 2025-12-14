@@ -44,6 +44,50 @@ ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp", "image/heic", "i
 ALLOWED_VIDEO_TYPES = {"video/mp4", "video/quicktime", "video/3gpp", "video/x-m4v", "video/mpeg"}
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
 
+# Achievement definitions
+ACHIEVEMENTS = {
+    "first_bet": {"id": "first_bet", "name": "First Bet", "description": "Place your first bet", "icon": "🎯"},
+    "first_win": {"id": "first_win", "name": "First Win", "description": "Win your first bet", "icon": "🏆"},
+    "high_roller": {"id": "high_roller", "name": "High Roller", "description": "Win a bet over $100", "icon": "💰"},
+    "trusted_dp": {"id": "trusted_dp", "name": "Trusted DP", "description": "Serve as DP 5 times", "icon": "⚖️"},
+    "social_butterfly": {"id": "social_butterfly", "name": "Social Butterfly", "description": "Add 10 friends", "icon": "🦋"},
+    "winning_streak": {"id": "winning_streak", "name": "Winning Streak", "description": "Win 5 bets in a row", "icon": "🔥"},
+}
+
+def get_all_achievements():
+    """Get list of all possible achievements"""
+    return list(ACHIEVEMENTS.values())
+
+def get_achievement_details(achievement_id: str):
+    """Get details for a specific achievement"""
+    return ACHIEVEMENTS.get(achievement_id)
+
+def check_user_achievements(user_data: dict) -> list:
+    """Check which achievements a user has earned"""
+    earned = []
+    
+    # First bet
+    if user_data.get("bets_created", 0) >= 1:
+        earned.append("first_bet")
+    
+    # First win
+    if user_data.get("wins", 0) >= 1:
+        earned.append("first_win")
+    
+    # High roller
+    if user_data.get("highest_win", 0) >= 100:
+        earned.append("high_roller")
+    
+    # Trusted DP
+    if user_data.get("dp_count", 0) >= 5:
+        earned.append("trusted_dp")
+    
+    # Social butterfly
+    if user_data.get("friend_count", 0) >= 10:
+        earned.append("social_butterfly")
+    
+    return earned
+
 @api_router.get("/")
 async def root():
     return {"message": "BETZ API - Trusted P2P Betting"}
