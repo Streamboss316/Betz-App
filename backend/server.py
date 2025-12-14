@@ -792,6 +792,10 @@ async def update_privacy(profile_public: bool, activity_public: bool, current_us
 
 @api_router.post("/friends/request")
 async def send_friend_request(friend_id: str, current_user: dict = Depends(get_current_user)):
+    # Prevent self-friend request
+    if friend_id == current_user["user_id"]:
+        raise HTTPException(status_code=400, detail="Cannot send friend request to yourself")
+    
     existing = await db.friendships.find_one({
         "$or": [
             {"user_id": current_user["user_id"], "friend_id": friend_id},
