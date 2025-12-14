@@ -938,6 +938,10 @@ async def create_bet(input_data: CreateBetInput, current_user: dict = Depends(ge
     if not input_data.opponent_id:
         raise HTTPException(status_code=400, detail="Can only create bets with existing members. Send them an invite first.")
     
+    # Prevent betting with yourself
+    if input_data.opponent_id == current_user["user_id"]:
+        raise HTTPException(status_code=400, detail="Cannot create a bet with yourself")
+    
     # Verify opponent exists
     opponent = await db.users.find_one({"user_id": input_data.opponent_id}, {"_id": 0})
     if not opponent:
