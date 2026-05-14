@@ -7,8 +7,7 @@ import BiometricPrompt from '../components/BiometricPrompt';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const BG_IMAGE =
-  'https://customer-assets.emergentagent.com/job_1f6e54f4-508a-4fab-93ea-ea00f0ad236a/artifacts/um9wmfp7_35726fbcf6c1c801061b9fdf9ba8f80aa35f98fc679f0871a7a24818e0f4de6f.avif';
+const BG_IMAGE = '/auth-bg.jpg';
 
 export default function AuthPage({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
