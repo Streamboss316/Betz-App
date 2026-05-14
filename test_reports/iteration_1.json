@@ -1,0 +1,39 @@
+{
+  "summary": "Ran full backend regression on BETZ API (24 pytest cases) targeting the 9 previously-failing endpoints + auth/bets/friends. All 24 tests passed (100%). Verified: profile route ordering (/users/profile, /users/me/achievements not shadowed), messages/send + chat/public/send accept JSON Pydantic bodies and reject empty/self/unknown-receiver, chat/conversations returns last_message correctly (sort bug fixed), admin /login → /stats/users/bets works with admin JWT and properly returns 401/403 with user/no token, bet punk_out_amount = 10% of (amount*2) stored at creation, and accept-punk-out math: claimer receives amount+punk, accepter receives amount-punk, balances persist correctly. Self-bet and self-friend-request both 400.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_betz_backend.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py is 3071 lines - exceeds 700-line guideline. Recommend splitting into modules (auth, bets, messages, chat, friends, profiles, payments) for maintainability.",
+    "ADMIN_EMAIL and ADMIN_PASSWORD_HASH hardcoded in /app/backend/admin_routes.py (lines 13-15). Should be moved to environment variables to avoid leaking credentials in source.",
+    "JWT_SECRET in admin_routes.py defaults to literal 'your-secret-key' if env not set (line 17). Should fail fast on missing JWT_SECRET in production.",
+    "admin_routes.py imports `from server import db` (line 71) creating tight coupling. Consider a shared db module to avoid circular import risk.",
+    "PUT /api/admin/users/{user_id} (lines 146-162) returns success=True even when update_fields is empty (no fields provided) - should validate that at least one field is provided and return 400 otherwise.",
+    "/friends/request takes friend_id as a query parameter (line 838) - inconsistent with the rest of POST endpoints that use JSON Pydantic bodies. Consider standardising on a Pydantic body for friend_id.",
+    "Pydantic EmailStr rejects .test/.example/.invalid reserved TLDs - downstream tests must use a non-reserved TLD. Not a bug, but worth documenting in test_credentials.md."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_betz_backend.py"
+  ],
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "N/A (not requested)"
+  },
+  "test_credentials": "Admin streamboss316@gmail.com / sanaa3030 (works). User accounts are registered fresh per test run with @betztest.com TLD (the @betz.test TLD is rejected by Pydantic EmailStr - reserved domain).",
+  "seed_data_creation": "Each test run registers fresh TEST_-prefixed users (e.g., test_betA_<uuid>@betztest.com). Admin endpoint PUT /api/admin/users/{user_id} is used to fund balances for punk-out bet tests. No cleanup is performed - users are uniquely suffixed so re-runs do not collide.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Comprehensive regression file at /app/backend/tests/test_betz_backend.py covers 24 cases across auth, profiles, messages, public chat, conversations, admin, bets+punk-out math, and friends. Re-run with: pytest /app/backend/tests/test_betz_backend.py -v. Use @betztest.com (not .test) for any synthetic emails. Admin token must be obtained from POST /api/admin/login (NOT /api/auth/login) for /api/admin/* endpoints. Bet punk_out_amount is stored on the bet at creation time (10% of total pot); accept-punk-out reads that stored value.",
+  "rca of the issue": "All 9 previously-failing endpoints verified fixed: (1) /users/profile and /users/me/achievements no longer shadowed by /users/{user_id}/... due to route reordering, (2) /messages/send and /chat/public/send now accept JSON via Pydantic models SendMessageInput/SendPublicMessageInput instead of query params (which is what the frontend sends - was causing 422), (3) /chat/conversations now uses find().sort().limit(1).to_list(1) instead of the invalid find_one(...).sort() chain which was throwing 500, (4) /admin/* 403s were never a bug - the previous tester used a user JWT; admin JWT (role=admin) is accepted. Math on punk_out_amount correctly computes 10% of (amount * 2) at bet creation, and accept-punk-out distributes claimer=bet+punk, accepter=bet-punk."
+}

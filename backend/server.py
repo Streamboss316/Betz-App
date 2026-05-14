@@ -1135,6 +1135,11 @@ async def get_all_achievements_endpoint():
     """Get list of all possible achievements"""
     return get_all_achievements()
 
+@api_router.get("/users/me/achievements")
+async def get_my_achievements(current_user: dict = Depends(get_current_user)):
+    """Get current user's achievements"""
+    return await get_user_achievements(current_user["user_id"], current_user)
+
 @api_router.get("/users/{user_id}/achievements")
 async def get_user_achievements(user_id: str, current_user: dict = Depends(get_current_user)):
     """Get achievements earned by a user"""
@@ -1181,11 +1186,6 @@ async def get_user_achievements(user_id: str, current_user: dict = Depends(get_c
         "total_possible": len(ACHIEVEMENTS),
         "earned_count": len(earned_achievements)
     }
-
-@api_router.get("/users/me/achievements")
-async def get_my_achievements(current_user: dict = Depends(get_current_user)):
-    """Get current user's achievements"""
-    return await get_user_achievements(current_user["user_id"], current_user)
 
 @api_router.get("/bets")
 async def get_bets(status: Optional[str] = None, current_user: dict = Depends(get_current_user)):
@@ -1542,16 +1542,13 @@ async def accept_punk_out(bet_id: str, current_user: dict = Depends(get_current_
     
     claimer_id = bet["punk_out_claimer_id"]
     accepter_id = current_user["user_id"]
-    bet_amount = bet["amount"]  # Each user's bet (e.g., $500 each for $1000 total)
-    
-    # Calculate punk out (10% of each user's bet)
-    punk_out_amount = bet_amount * 0.1  # 10% of $500 = $50... but user wants $100
-    # Actually punk_out_amount should be 10% of total bet or stored value
-    punk_out_amount = bet.get("punk_out_amount", bet_amount * 0.1)
-    
-    # New calculation:
-    # Claimer gets: their bet back + punk out amount = bet_amount + punk_out
-    # Accepter gets: their bet back - punk out amount = bet_amount - punk_out
+    bet_amount = bet["amount"]  # Each user's stake
+
+    # Punk-out penalty = stored value on bet (10% of total pot at creation)
+    punk_out_amount = bet.get("punk_out_amount", bet_amount * 2 * 0.1)
+
+    # Claimer (the one who wanted out) gets: their stake back + punk_out penalty from accepter
+    # Accepter gets: their stake back - punk_out penalty
     claimer_total = bet_amount + punk_out_amount
     accepter_total = bet_amount - punk_out_amount
     
@@ -2402,17 +2399,33 @@ async def get_messages(other_user_id: str, current_user: dict = Depends(get_curr
     
     return messages
 
+class SendMessageInput(BaseModel):
+    receiver_id: str
+    content: str
+
 @api_router.post("/messages/send")
-async def send_message(receiver_id: str, content: str, current_user: dict = Depends(get_current_user)):
+async def send_message(input_data: SendMessageInput, current_user: dict = Depends(get_current_user)):
+    if not input_data.content or not input_data.content.strip():
+        raise HTTPException(status_code=400, detail="Message content cannot be empty")
+
+    # Verify receiver exists
+    receiver = await db.users.find_one({"user_id": input_data.receiver_id}, {"_id": 0, "user_id": 1})
+    if not receiver:
+        raise HTTPException(status_code=404, detail="Receiver not found")
+
+    if input_data.receiver_id == current_user["user_id"]:
+        raise HTTPException(status_code=400, detail="Cannot send a message to yourself")
+
     message_doc = {
         "message_id": str(uuid.uuid4()),
         "sender_id": current_user["user_id"],
-        "receiver_id": receiver_id,
-        "content": content,
+        "receiver_id": input_data.receiver_id,
+        "content": input_data.content.strip(),
         "created_at": datetime.now(timezone.utc).isoformat()
     }
-    
+
     await db.messages.insert_one(message_doc)
+    message_doc.pop("_id", None)
     return Message(**message_doc)
 
 @api_router.delete("/messages/{message_id}")
@@ -2455,27 +2468,36 @@ async def get_public_messages(limit: int = 100, current_user: dict = Depends(get
     
     return messages
 
+class SendPublicMessageInput(BaseModel):
+    content: str
+
 @api_router.post("/chat/public/send")
-async def send_public_message(content: str, current_user: dict = Depends(get_current_user)):
+async def send_public_message(input_data: SendPublicMessageInput, current_user: dict = Depends(get_current_user)):
     """Send message to public chat room"""
+    if not input_data.content or not input_data.content.strip():
+        raise HTTPException(status_code=400, detail="Message content cannot be empty")
+
     message_doc = {
         "message_id": str(uuid.uuid4()),
         "sender_id": current_user["user_id"],
-        "content": content,
+        "content": input_data.content.strip(),
         "room_id": "public",
         "created_at": datetime.now(timezone.utc).isoformat()
     }
-    
+
     await db.public_chat.insert_one(message_doc)
-    
+    message_doc.pop("_id", None)
+
     # Add sender info for return
     message_doc["sender"] = {
         "user_id": current_user["user_id"],
-        "name": current_user["name"],
+        "name": current_user.get("name"),
         "avatar": current_user.get("avatar"),
         "display_name": current_user.get("display_name")
     }
-    
+    message_doc["sender_name"] = current_user.get("name", "Unknown")
+    message_doc["sender_avatar"] = current_user.get("avatar")
+
     return message_doc
 
 @api_router.get("/chat/conversations")
@@ -2491,7 +2513,7 @@ async def get_conversations(current_user: dict = Depends(get_current_user)):
     conversations = []
     for user_id in all_user_ids:
         # Get last message with this user
-        last_message = await db.messages.find_one(
+        last_message_list = await db.messages.find(
             {
                 "$or": [
                     {"sender_id": current_user["user_id"], "receiver_id": user_id},
@@ -2499,7 +2521,8 @@ async def get_conversations(current_user: dict = Depends(get_current_user)):
                 ]
             },
             {"_id": 0}
-        ).sort("created_at", -1)
+        ).sort("created_at", -1).limit(1).to_list(1)
+        last_message = last_message_list[0] if last_message_list else None
         
         # Get user info
         user = await db.users.find_one(
