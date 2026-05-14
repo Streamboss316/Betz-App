@@ -89,13 +89,13 @@ export default function GlobalHeader({ user, onLogout, onShowQR, onShowTutorial 
           onClick={() => navigate('/')}
         >
           <h1 
-            className="text-xl font-black tracking-tight text-primary" 
+            className="font-heading text-2xl tracking-wide brand-text" 
             data-testid="global-header-title"
           >
             BETZ
           </h1>
           {!showBackButton && (
-            <p className="text-[9px] text-accent font-semibold tracking-wide -mt-0.5">P2P Betting</p>
+            <p className="text-[9px] text-[#22c55e] font-bold tracking-[0.2em] uppercase -mt-0.5">Bet Secure. Get Paid.</p>
           )}
         </div>
         {isDemoMode && (

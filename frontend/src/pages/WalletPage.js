@@ -167,15 +167,15 @@ export default function WalletPage({ user, setUser }) {
     <div className="min-h-screen bg-background pt-20 pb-24">
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         {/* Balance Card */}
-        <Card className="bg-gradient-to-br from-primary/20 to-secondary/20 border-white/10 shadow-2xl p-8 rounded-2xl" data-testid="balance-card">
+        <Card className="brand-surface p-8 rounded-2xl" data-testid="balance-card">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-sm tracking-widest text-muted-foreground/80 uppercase">Available Balance</p>
-            <div className="flex items-center gap-1.5 bg-green-500/20 px-3 py-1 rounded-full">
-              <ShieldCheck className="h-4 w-4 text-green-500" />
-              <span className="text-xs text-green-500 font-semibold">Secured</span>
+            <p className="text-[10px] tracking-[0.25em] text-white/50 uppercase font-bold">Available Balance</p>
+            <div className="flex items-center gap-1.5 bg-[#22c55e]/15 border border-[#22c55e]/30 px-3 py-1 rounded-full">
+              <ShieldCheck className="h-4 w-4 text-[#22c55e]" />
+              <span className="text-[10px] text-[#22c55e] font-bold uppercase tracking-widest">Secured</span>
             </div>
           </div>
-          <h2 className="text-6xl font-black font-mono tracking-tight text-foreground mb-4" data-testid="wallet-balance">
+          <h2 className="font-heading text-7xl leading-none tracking-tight brand-text mb-4" data-testid="wallet-balance">
             ${user.balance?.toFixed(2) || '0.00'}
           </h2>
           

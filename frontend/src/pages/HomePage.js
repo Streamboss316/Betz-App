@@ -115,42 +115,42 @@ export default function HomePage({ user, onLogout }) {
   return (
     <div className="min-h-screen bg-background pt-20 pb-24">
       <div className="max-w-4xl mx-auto p-4">
-        {/* Balance Card - Business Focused */}
-        <Card className="bg-gradient-to-br from-primary/20 via-background to-accent/10 border-primary/20 p-6 rounded-2xl mb-5" data-testid="balance-card">
+        {/* Balance Card - Premium brand-surface */}
+        <Card className="brand-surface p-6 rounded-2xl mb-5" data-testid="balance-card">
           <div className="flex items-center justify-between mb-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <p className="text-xs tracking-widest text-muted-foreground/80 uppercase">Available Balance</p>
-                <div className="flex items-center gap-1 bg-green-500/20 px-2 py-0.5 rounded-full">
-                  <ShieldCheck className="h-3 w-3 text-green-500" />
-                  <span className="text-[10px] text-green-500 font-semibold">Secured</span>
+                <p className="text-[10px] tracking-[0.25em] text-white/50 uppercase font-bold">Available Balance</p>
+                <div className="flex items-center gap-1 bg-[#22c55e]/15 border border-[#22c55e]/30 px-2 py-0.5 rounded-full">
+                  <ShieldCheck className="h-3 w-3 text-[#22c55e]" />
+                  <span className="text-[9px] text-[#22c55e] font-bold uppercase tracking-wider">Secured</span>
                 </div>
               </div>
-              <h2 className="text-4xl font-black font-mono tracking-tight text-foreground" data-testid="balance-amount">
+              <h2 className="font-heading text-6xl leading-none tracking-tight brand-text" data-testid="balance-amount">
                 ${user.balance?.toFixed(2) || '0.00'}
               </h2>
             </div>
             <div 
-              className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center cursor-pointer hover:bg-primary/30 transition-all"
+              className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#a855f7]/30 to-[#fbbf24]/20 border border-white/10 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform"
               onClick={() => navigate('/wallet')}
               data-testid="deposit-withdrawal-button"
             >
-              <Wallet className="h-5 w-5 text-primary" />
+              <Wallet className="h-5 w-5 text-white" />
             </div>
           </div>
           
           <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10">
             <div className="text-center">
-              <p className="text-2xl font-bold text-green-500" data-testid="win-count">{user.win_count || 0}</p>
-              <p className="text-xs text-muted-foreground">Wins</p>
+              <p className="font-heading text-3xl text-[#22c55e]" data-testid="win-count">{user.win_count || 0}</p>
+              <p className="text-[10px] text-white/50 uppercase tracking-widest font-bold">Wins</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-red-500" data-testid="loss-count">{user.loss_count || 0}</p>
-              <p className="text-xs text-muted-foreground">Losses</p>
+              <p className="font-heading text-3xl text-red-400" data-testid="loss-count">{user.loss_count || 0}</p>
+              <p className="text-[10px] text-white/50 uppercase tracking-widest font-bold">Losses</p>
             </div>
             <div className="text-center">
-              <p className="text-sm font-mono text-accent truncate" data-testid="betz-id">{user.betz_id}</p>
-              <p className="text-xs text-muted-foreground">Betz ID</p>
+              <p className="text-xs font-mono text-[#fbbf24] truncate" data-testid="betz-id">{user.betz_id}</p>
+              <p className="text-[10px] text-white/50 uppercase tracking-widest font-bold">Betz ID</p>
             </div>
           </div>
         </Card>
@@ -179,8 +179,8 @@ export default function HomePage({ user, onLogout }) {
         {/* Active Bets */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-bold" data-testid="recent-bets-title">Active Bets</h3>
-            <Button variant="ghost" size="sm" onClick={() => navigate('/bets')} className="text-primary text-xs">View All</Button>
+            <h3 className="font-heading text-2xl tracking-wide text-white" data-testid="recent-bets-title">Active Bets</h3>
+            <Button variant="ghost" size="sm" onClick={() => navigate('/bets')} className="text-[#fbbf24] text-[10px] uppercase tracking-widest font-bold">View All</Button>
           </div>
           
           {loading ? (
@@ -244,7 +244,7 @@ export default function HomePage({ user, onLogout }) {
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-2xl font-bold font-mono text-primary">${bet.amount.toFixed(2)}</p>
+                          <p className="font-heading text-3xl brand-text">${bet.amount.toFixed(2)}</p>
                           <div className="flex items-center justify-end gap-1.5 mt-1">
                             {isFundsLocked && (
                               <div className="flex items-center gap-1 bg-blue-500/20 px-1.5 py-0.5 rounded">
@@ -268,8 +268,8 @@ export default function HomePage({ user, onLogout }) {
         {recentActivity.length > 0 && (
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-bold">Recent Activity</h3>
-              <Button variant="ghost" size="sm" onClick={() => navigate('/transactions')} className="text-primary text-xs">View All</Button>
+              <h3 className="font-heading text-2xl tracking-wide text-white">Recent Activity</h3>
+              <Button variant="ghost" size="sm" onClick={() => navigate('/transactions')} className="text-[#fbbf24] text-[10px] uppercase tracking-widest font-bold">View All</Button>
             </div>
             
             <Card className="premium-card rounded-2xl overflow-hidden divide-y divide-white/5" data-testid="activity-feed">

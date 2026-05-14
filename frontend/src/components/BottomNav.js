@@ -30,13 +30,20 @@ export default function BottomNav() {
               <button
                 key={item.path}
                 onClick={() => navigate(item.path)}
-                className="flex flex-col items-center justify-center -mt-6"
+                className="flex flex-col items-center justify-center -mt-7"
                 data-testid="nav-bet"
               >
-                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30 hover:scale-105 transition-transform">
-                  <Icon className="h-7 w-7 text-white" />
+                <div
+                  className="h-16 w-16 rounded-full flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
+                  style={{
+                    background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 35%, #d97706 75%, #f59e0b 100%)',
+                    boxShadow: '0 8px 24px rgba(168,85,247,0.45), 0 4px 18px rgba(251,191,36,0.28), inset 0 1px 0 rgba(255,255,255,0.18)',
+                    border: '2px solid rgba(255,255,255,0.12)',
+                  }}
+                >
+                  <Icon className="h-7 w-7 text-white" strokeWidth={2.5} />
                 </div>
-                <span className="text-[10px] font-semibold text-primary mt-1">Bet</span>
+                <span className="font-heading text-[11px] tracking-[0.15em] brand-text mt-1">BET</span>
               </button>
             );
           }
@@ -47,13 +54,13 @@ export default function BottomNav() {
               onClick={() => navigate(item.path)}
               className={`flex flex-col items-center justify-center gap-0.5 px-3 py-2 rounded-xl transition-all ${
                 active 
-                  ? 'text-primary bg-primary/10' 
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? 'text-white bg-white/5' 
+                  : 'text-white/40 hover:text-white/80'
               }`}
               data-testid={`nav-${item.label.toLowerCase()}`}
             >
-              <Icon className={`h-5 w-5 ${active ? 'stroke-[2.5px]' : ''}`} />
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <Icon className={`h-5 w-5 ${active ? 'stroke-[2.5px]' : ''}`} style={active ? { color: '#fbbf24' } : {}} />
+              <span className={`text-[10px] font-bold uppercase tracking-wider ${active ? 'brand-text' : ''}`}>{item.label}</span>
             </button>
           );
         })}
