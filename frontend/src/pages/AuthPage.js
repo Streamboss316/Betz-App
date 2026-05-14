@@ -8,7 +8,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const BG_IMAGE =
-  'https://images.unsplash.com/photo-1613713568305-8da2fc04f168?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwyfHxkcmFnJTIwcmFjZSUyMGNhciUyMG5pZ2h0fGVufDB8fHx8MTc3ODcyMTMwN3ww&ixlib=rb-4.1.0&q=85';
+  'https://images.unsplash.com/photo-1577953028264-b6a243477b38?w=1800&q=85&auto=format&fit=crop';
 
 export default function AuthPage({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -83,20 +83,63 @@ export default function AuthPage({ onLogin }) {
       <div className="fixed inset-0 z-0">
         <img
           src={BG_IMAGE}
-          alt="Drag race at night"
+          alt="Drag race — two cars at the staging line"
           className="absolute inset-0 h-full w-full object-cover opacity-80"
-          style={{ filter: 'contrast(1.1) saturate(1.05) hue-rotate(-8deg)' }}
+          style={{ filter: 'contrast(1.08) saturate(1.05)' }}
         />
         {/* purple→gold ambient wash */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 25% 20%, rgba(168,85,247,0.18), transparent 55%), radial-gradient(circle at 80% 75%, rgba(251,191,36,0.14), transparent 55%)',
+              'radial-gradient(circle at 25% 20%, rgba(168,85,247,0.20), transparent 55%), radial-gradient(circle at 80% 75%, rgba(251,191,36,0.16), transparent 55%)',
           }}
         />
         {/* dark gradient for legibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/85 via-[#050505]/55 to-[#050505]" />
+
+        {/* === STAGING TREE (CHRISTMAS TREE) — unmistakable drag-race symbol === */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 100 360"
+          className="pointer-events-none absolute left-3 top-1/2 z-[1] h-[70vh] max-h-[640px] w-auto -translate-y-1/2 opacity-90 md:left-10"
+        >
+          {/* mounting pole */}
+          <rect x="46" y="0" width="8" height="360" fill="#1a1a1c" stroke="rgba(255,255,255,0.08)" />
+          {/* PRE-STAGE (small white) */}
+          <circle cx="35" cy="30" r="5" fill="#e7e5e4" opacity="0.95">
+            <animate attributeName="opacity" values="0.4;0.95;0.4" dur="2s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="65" cy="30" r="5" fill="#e7e5e4" opacity="0.95">
+            <animate attributeName="opacity" values="0.95;0.4;0.95" dur="2s" repeatCount="indefinite" />
+          </circle>
+          {/* STAGE (small white) */}
+          <circle cx="35" cy="55" r="5" fill="#fafafa">
+            <animate attributeName="fill" values="#3f3f46;#fafafa;#3f3f46" dur="3s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="65" cy="55" r="5" fill="#fafafa">
+            <animate attributeName="fill" values="#fafafa;#3f3f46;#fafafa" dur="3s" repeatCount="indefinite" />
+          </circle>
+          {/* AMBER 1 */}
+          <circle cx="50" cy="105" r="18" fill="#fbbf24" style={{ filter: 'drop-shadow(0 0 16px #fbbf24)' }}>
+            <animate attributeName="opacity" values="0.25;1;0.25;0.25;0.25" dur="5s" repeatCount="indefinite" />
+          </circle>
+          {/* AMBER 2 */}
+          <circle cx="50" cy="160" r="18" fill="#fbbf24" style={{ filter: 'drop-shadow(0 0 16px #fbbf24)' }}>
+            <animate attributeName="opacity" values="0.25;0.25;1;0.25;0.25" dur="5s" repeatCount="indefinite" />
+          </circle>
+          {/* AMBER 3 */}
+          <circle cx="50" cy="215" r="18" fill="#fbbf24" style={{ filter: 'drop-shadow(0 0 16px #fbbf24)' }}>
+            <animate attributeName="opacity" values="0.25;0.25;0.25;1;0.25" dur="5s" repeatCount="indefinite" />
+          </circle>
+          {/* GREEN — GO! */}
+          <circle cx="50" cy="275" r="18" fill="#22c55e" style={{ filter: 'drop-shadow(0 0 22px #22c55e)' }}>
+            <animate attributeName="opacity" values="0.2;0.2;0.2;0.2;1" dur="5s" repeatCount="indefinite" />
+          </circle>
+          {/* RED — Foul */}
+          <circle cx="50" cy="335" r="14" fill="#ef4444" opacity="0.2" />
+        </svg>
+
         {/* tire-smoke drift */}
         <div className="smoke-trail" style={{ top: '20%' }} />
         <div className="smoke-trail s2" />
