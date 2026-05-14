@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { ArrowRight, Fingerprint, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Fingerprint, Eye, EyeOff, ShieldCheck, Zap } from 'lucide-react';
 import BiometricPrompt from '../components/BiometricPrompt';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -78,39 +78,79 @@ export default function AuthPage({ onLogin }) {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#06070a] font-body text-white">
-      {/* === RESTRAINED BACKGROUND === */}
+      {/* === BACKGROUND === */}
       <div className="fixed inset-0 z-0">
         <img
           src={BG_IMAGE}
           alt=""
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ filter: 'contrast(1.02) saturate(1.05) brightness(0.78)', opacity: 0.75 }}
+          style={{ filter: 'contrast(1.02) saturate(1.05) brightness(0.78)', opacity: 0.78 }}
         />
         {/* gentle dark wash — keeps card legible, lets photo breathe */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#06070a]/65 via-[#06070a]/40 to-[#06070a]/85" />
-        {/* very subtle purple/gold ambient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#06070a]/55 via-[#06070a]/35 to-[#06070a]/85" />
+        {/* purple/gold ambient */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 0%, rgba(168,85,247,0.08), transparent 55%), radial-gradient(circle at 50% 100%, rgba(251,191,36,0.05), transparent 55%)',
+              'radial-gradient(circle at 50% 5%, rgba(168,85,247,0.16), transparent 55%), radial-gradient(circle at 50% 100%, rgba(251,191,36,0.08), transparent 55%)',
           }}
         />
       </div>
 
-      {/* === HEADER — minimal, top-centered === */}
-      <div className="relative z-10 flex flex-col items-center px-6 pt-16 pb-6 md:pt-20 md:pb-8">
-        <h1
-          data-testid="auth-title"
-          className="font-heading text-5xl tracking-[0.02em] md:text-6xl"
-          style={{ letterSpacing: '0.04em' }}
-        >
-          <span className="brand-text">BETZ</span>
-        </h1>
-        <p className="mt-2 text-[11px] font-bold tracking-[0.35em] uppercase text-[#22c55e]">
+      {/* === TOP MARQUEE — race ticker === */}
+      <div className="relative z-10 overflow-hidden border-b border-white/5 bg-black/45 py-2 backdrop-blur-md">
+        <div className="betz-marquee flex whitespace-nowrap text-[10px] font-bold tracking-[0.3em] text-white/45 uppercase">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-8 px-4">
+              <span>● Live P2P Betting</span>
+              <span className="text-[#22c55e]">● Bet Secure. Get Paid.</span>
+              <span>● Trusted Decision Person</span>
+              <span>● 10% Punk-Out Penalty</span>
+              <span className="betz-gradient-text">● 18+ Only</span>
+              <span>● Verified Wins</span>
+              <span>● Fast Cashouts</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* === HEADER — wordmark with glowing halo === */}
+      <div className="relative z-10 flex flex-col items-center px-6 pt-14 pb-6 md:pt-16 md:pb-8">
+        <div className="relative inline-block">
+          <div className="auth-glow absolute -inset-12 -z-10" />
+          <h1
+            data-testid="auth-title"
+            className="font-heading text-6xl tracking-tight md:text-7xl"
+            style={{ letterSpacing: '0.04em' }}
+          >
+            <span className="brand-text">BETZ</span>
+          </h1>
+        </div>
+        <p className="mt-3 font-heading text-base tracking-[0.35em] uppercase text-[#22c55e] md:text-lg">
           Bet Secure. Get Paid.
         </p>
+
+        {/* trust pills */}
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
+          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 backdrop-blur-md">
+            <span className="stage-light h-1.5 w-1.5 rounded-full bg-white/10" />
+            <span className="stage-light delay-1 h-1.5 w-1.5 rounded-full bg-white/10" />
+            <span className="stage-light delay-2 h-1.5 w-1.5 rounded-full bg-white/10" />
+            <span className="ml-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
+              Staging
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 text-[11px] font-medium text-white/75 backdrop-blur-md">
+            <ShieldCheck className="h-3.5 w-3.5 text-[#a855f7]" />
+            <span>Escrowed P2P Wallet</span>
+          </div>
+          <div className="hidden items-center gap-1.5 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 text-[11px] font-medium text-white/75 backdrop-blur-md md:flex">
+            <Zap className="h-3.5 w-3.5 text-[#fbbf24]" />
+            <span>Instant payouts</span>
+          </div>
+        </div>
       </div>
 
       {/* === FORM CARD === */}
