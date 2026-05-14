@@ -1,0 +1,81 @@
+{
+  "theme": "dark",
+  "archetype": "2 (Performance Pro)",
+  "vibe": "High-energy, trustworthy, sleek, cinematic drag-racing",
+  "color_palette": {
+    "background": "#050505",
+    "surface": "#121214",
+    "surface_glass": "rgba(18, 18, 20, 0.7)",
+    "primary": "#00ff41",
+    "primary_hover": "#00cc33",
+    "text_primary": "#ffffff",
+    "text_secondary": "#8e8e93",
+    "border": "rgba(255, 255, 255, 0.08)",
+    "danger": "#ff3b30"
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Bebas Neue, sans-serif",
+      "body": "Outfit, sans-serif"
+    },
+    "hierarchy": {
+      "h1": "text-6xl md:text-7xl font-heading tracking-tight uppercase",
+      "tagline": "text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-[#00ff41]",
+      "labels": "text-xs font-bold tracking-wider text-white/60 uppercase",
+      "body": "text-sm md:text-base font-body text-white/90"
+    }
+  },
+  "layout": {
+    "mobile": "Mobile-first, bottom-docked glassmorphism card covering the lower 60% of screen, hero image takes top 40%.",
+    "desktop": "Split screen or right-aligned floating panel (max-w-md). Image covers full background, left side is empty to show the racing cars.",
+    "spacing": "Generous internal padding (p-8) for the auth card to prevent collision. High density but optical alignment."
+  },
+  "components_and_styling": {
+    "auth_card": {
+      "type": "Glassmorphism (Crystal Variant)",
+      "classes": "bg-[#0a0a0c]/80 backdrop-blur-2xl border border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-t-3xl md:rounded-3xl"
+    },
+    "tabs": {
+      "type": "Segmented Control",
+      "classes": "flex p-1 bg-black/50 rounded-xl border border-white/5 mb-8",
+      "active_tab": "bg-[#222] text-white shadow-sm rounded-lg",
+      "inactive_tab": "text-white/50 hover:text-white/80"
+    },
+    "inputs": {
+      "type": "Tactile / Technical",
+      "classes": "bg-black/40 border border-white/10 rounded-xl h-14 px-4 text-white focus:border-[#00ff41] focus:ring-1 focus:ring-[#00ff41]/30 transition-all placeholder:text-white/30"
+    },
+    "submit_button": {
+      "type": "Kinetic Trigger",
+      "classes": "w-full h-14 bg-[#00ff41] text-black font-heading tracking-wider text-xl uppercase rounded-xl hover:bg-white hover:shadow-[0_0_20px_rgba(0,255,65,0.4)] transition-all duration-300 transform active:scale-[0.98]"
+    },
+    "biometric_button": {
+      "type": "Outline High-Contrast",
+      "classes": "w-full h-14 border-2 border-white/10 bg-transparent text-white font-bold rounded-xl hover:border-[#00ff41] hover:text-[#00ff41] transition-all flex items-center justify-center gap-2"
+    },
+    "legal_links": {
+      "classes": "text-[10px] text-white/40 flex justify-center gap-3 uppercase tracking-widest mt-6"
+    }
+  },
+  "media": {
+    "image_urls": [
+      {
+        "url": "https://images.unsplash.com/photo-1613713568305-8da2fc04f168?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwyfHxkcmFnJTIwcmFjZSUyMGNhciUyMG5pZ2h0fGVufDB8fHx8MTc3ODcyMTMwN3ww&ixlib=rb-4.1.0&q=85",
+        "category": "background",
+        "description": "Drag racing car at night. To be used as full-screen fixed background with a heavy dark gradient overlay at the bottom so the auth form remains legible."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Redesign /app/frontend/src/pages/AuthPage.js completely using the provided design system.",
+    "Do NOT alter the Axios API calls, routing, or state variables like biometricEnabled.",
+    "Import fonts 'Bebas Neue' and 'Outfit' via Google Fonts in index.css.",
+    "Apply a cinematic lighting effect: Add an absolute div with a radial gradient glow (green) behind the wordmark BETZ.",
+    "Ensure 'Bet Secure. Get Paid.' is explicitly styled with text-[#00ff41].",
+    "Keep all data-testid attributes exactly as they were in the original file.",
+    "For the background image, wrap it in a fixed positioned container with z-0, and place a bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent absolute overlay on top of it.",
+    "On mobile, the form container should be rounded-t-[2.5rem] and stick to the bottom. On desktop (md:), it should be a floating rounded-3xl card on the right side.",
+    "Replace Shadcn default inputs with custom styled Tailwind inputs matching the 'Tactile / Technical' specifications above.",
+    "Make the submit button extremely prominent, using the primary green and uppercase Bebas Neue font."
+  ]
+}
