@@ -1,25 +1,19 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
-import { Card } from '../components/ui/card';
 import { toast } from 'sonner';
-import { ArrowRight, Fingerprint } from 'lucide-react';
-import PasswordInput from '../components/PasswordInput';
+import { ArrowRight, Fingerprint, Eye, EyeOff, ShieldCheck, Zap } from 'lucide-react';
 import BiometricPrompt from '../components/BiometricPrompt';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+const BG_IMAGE =
+  'https://images.unsplash.com/photo-1613713568305-8da2fc04f168?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwyfHxkcmFnJTIwcmFjZSUyMGNhciUyMG5pZ2h0fGVufDB8fHx8MTc3ODcyMTMwN3ww&ixlib=rb-4.1.0&q=85';
+
 export default function AuthPage({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: '',
-    phone: ''
-  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({ email: '', password: '', name: '', phone: '' });
   const [loading, setLoading] = useState(false);
   const [showBiometricPrompt, setShowBiometricPrompt] = useState(false);
   const [biometricEnabled, setBiometricEnabled] = useState(false);
@@ -29,30 +23,25 @@ export default function AuthPage({ onLogin }) {
     const enabled = localStorage.getItem('biometric_enabled') === 'true';
     const email = localStorage.getItem('biometric_user_email');
     setBiometricEnabled(enabled);
-    if (email) {
-      setBiometricEmail(email);
-    }
+    if (email) setBiometricEmail(email);
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const endpoint = isLogin ? '/auth/login' : '/auth/register';
-      const payload = isLogin 
+      const payload = isLogin
         ? { email: formData.email, password: formData.password }
         : formData;
-
       const res = await axios.post(`${API}${endpoint}`, payload);
       onLogin(res.data.access_token, res.data.user);
       toast.success(isLogin ? 'Welcome back!' : 'Account created successfully!');
-      
-      // Show biometric prompt for new registrations or first-time logins
-      if (!isLogin || (!localStorage.getItem('biometric_prompt_shown') && !localStorage.getItem('biometric_enabled'))) {
-        setTimeout(() => {
-          setShowBiometricPrompt(true);
-        }, 1000);
+      if (
+        !isLogin ||
+        (!localStorage.getItem('biometric_prompt_shown') && !localStorage.getItem('biometric_enabled'))
+      ) {
+        setTimeout(() => setShowBiometricPrompt(true), 1000);
       }
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Authentication failed');
@@ -64,28 +53,21 @@ export default function AuthPage({ onLogin }) {
   const handleBiometricLogin = async () => {
     setLoading(true);
     toast.info('Authenticating with Face ID...');
-    
-    // Secure biometric authentication using stored token
     setTimeout(async () => {
       try {
-        // Get stored biometric token (not password)
         const biometricToken = localStorage.getItem('biometric_auth_token');
         if (!biometricToken) {
           toast.error('Please login with password first to enable biometric');
           setLoading(false);
           return;
         }
-
-        // Verify the biometric token with backend
         const res = await axios.post(`${API}/auth/biometric-login`, {
           email: biometricEmail,
-          biometric_token: biometricToken
+          biometric_token: biometricToken,
         });
-        
         onLogin(res.data.access_token, res.data.user);
         toast.success('Welcome back!');
       } catch (error) {
-        // Fallback: Clear invalid token and ask for password
         localStorage.removeItem('biometric_auth_token');
         localStorage.removeItem('biometric_enabled');
         toast.error('Biometric session expired. Please login with password.');
@@ -96,186 +78,317 @@ export default function AuthPage({ onLogin }) {
   };
 
   return (
-    <div 
-      className="min-h-screen flex items-center justify-center p-6"
-      style={{
-        background: 'linear-gradient(to bottom, #18181B, #09090B)'
-      }}
-    >
-      {/* Racing Header Background - Two Cars Racing with Smoke */}
-      <div className="absolute top-0 left-0 right-0 h-[420px] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-background/60 to-background z-10"></div>
-        <img 
-          src="https://images.unsplash.com/photo-1759145781317-5e4823997f6e?w=1600&q=80"
-          alt="Two cars racing with smoke"
-          className="w-full h-full object-cover opacity-75"
+    <div className="relative min-h-screen w-full overflow-hidden bg-[#050505] font-body text-white">
+      {/* === FULL-BLEED CINEMATIC BACKGROUND === */}
+      <div className="fixed inset-0 z-0">
+        <img
+          src={BG_IMAGE}
+          alt="Drag race at night"
+          className="absolute inset-0 h-full w-full object-cover opacity-80 md:opacity-90"
+          style={{ filter: 'contrast(1.1) saturate(1.05)' }}
+        />
+        {/* dark gradient for legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/85 to-[#050505]/30 md:bg-gradient-to-r md:from-[#050505] md:via-[#050505]/70 md:to-transparent" />
+        {/* tire-smoke drift */}
+        <div className="smoke-trail" style={{ top: '20%' }} />
+        <div className="smoke-trail s2" />
+        <div className="smoke-trail s3" />
+        {/* scan line */}
+        <div className="scan-line" />
+        {/* faint grid */}
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
         />
       </div>
 
-      <div className="w-full max-w-md relative z-20">
-        <div className="text-center mb-8 pt-8">
-          <h1 className="text-5xl font-black tracking-tight text-primary mb-2 drop-shadow-2xl" data-testid="auth-title">
-            BETZ
-          </h1>
-          <p className="text-accent text-base font-bold tracking-wide">Trusted P2P Betting</p>
-          <p className="text-green-500 text-sm mt-1 font-semibold">Bet Secure. Get Paid.</p>
+      {/* === TOP MARQUEE — race ticker === */}
+      <div className="relative z-10 overflow-hidden border-b border-white/5 bg-black/30 py-2 backdrop-blur-md">
+        <div className="betz-marquee flex whitespace-nowrap text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-8 px-4">
+              <span>● Live P2P Betting</span>
+              <span className="text-[#00ff41]">● Bet Secure. Get Paid.</span>
+              <span>● Trusted Decision Person</span>
+              <span>● 10% Punk-Out Penalty</span>
+              <span className="text-[#00ff41]">● 18+ Only</span>
+              <span>● Verified Wins</span>
+              <span>● Fast Cashouts</span>
+            </div>
+          ))}
         </div>
+      </div>
 
-        <Card className="premium-card shadow-2xl p-6 rounded-2xl border-white/10" data-testid="auth-card">
-          <div className="flex gap-2 mb-6">
-            <Button
-              data-testid="login-tab"
-              onClick={() => setIsLogin(true)}
-              variant={isLogin ? 'default' : 'ghost'}
-              className={`flex-1 rounded-xl h-11 ${isLogin ? 'btn-premium text-white' : 'text-muted-foreground'}`}
+      <div className="speed-strip top-[44px]" />
+
+      {/* === MAIN LAYOUT === */}
+      <div className="relative z-10 flex min-h-[calc(100vh-44px)] flex-col md:flex-row md:items-stretch">
+        {/* LEFT (mobile: hero on top / desktop: full hero column) */}
+        <div className="flex flex-1 flex-col justify-end px-6 pt-10 pb-6 md:justify-center md:px-16 md:pb-0">
+          {/* wordmark with green glow */}
+          <div className="relative inline-block">
+            <div className="auth-glow absolute -inset-10 -z-10" />
+            <h1
+              data-testid="auth-title"
+              className="font-heading text-7xl leading-[0.85] tracking-tight text-white md:text-[120px]"
             >
-              Sign In
-            </Button>
-            <Button
-              data-testid="register-tab"
-              onClick={() => setIsLogin(false)}
-              variant={!isLogin ? 'default' : 'ghost'}
-              className={`flex-1 rounded-xl h-11 ${!isLogin ? 'btn-premium text-white' : 'text-muted-foreground'}`}
-            >
-              Register
-            </Button>
+              BE<span className="text-[#00ff41]">T</span>Z
+            </h1>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
-              <div>
-                <Label htmlFor="name" className="text-xs text-muted-foreground">Full Name</Label>
-                <Input
-                  id="name"
-                  data-testid="name-input"
-                  placeholder="Johnny Racer"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required={!isLogin}
-                  className="bg-muted/30 border-white/10 focus:border-primary rounded-xl h-12 mt-1"
-                />
-              </div>
-            )}
-
-            {!isLogin && (
-              <div>
-                <Label htmlFor="phone" className="text-xs text-muted-foreground">Phone Number</Label>
-                <Input
-                  id="phone"
-                  data-testid="phone-input"
-                  placeholder="+1 (555) 123-4567"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  required={!isLogin}
-                  className="bg-muted/30 border-white/10 focus:border-primary rounded-xl h-12 mt-1"
-                />
-              </div>
-            )}
-
-            <div>
-              <Label htmlFor="email" className="text-xs text-muted-foreground">Email</Label>
-              <Input
-                id="email"
-                data-testid="email-input"
-                type="email"
-                placeholder="racer@betz.app"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-                className="bg-muted/30 border-white/10 focus:border-primary rounded-xl h-12 mt-1"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="password" className="text-xs text-muted-foreground">Password</Label>
-              <PasswordInput
-                id="password"
-                data-testid="password-input"
-                placeholder="••••••••"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                required
-                className="bg-muted/30 border-white/10 focus:border-primary rounded-xl h-12 mt-1"
-              />
-            </div>
-
-            <Button
-              type="submit"
-              data-testid="submit-button"
-              disabled={loading}
-              className="w-full btn-premium text-white hover:bg-primary/90 rounded-xl h-12 text-sm font-bold mt-2"
-            >
-              {loading ? 'Processing...' : isLogin ? 'Sign In' : 'Create Account'}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </form>
-
-          {isLogin && (
-            <div className="text-center mt-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => window.location.href = '/forgot-password'}
-                className="text-primary hover:text-primary/90 text-xs"
-                data-testid="forgot-password-link"
-              >
-                Forgot password?
-              </Button>
-            </div>
-          )}
-
-          {isLogin && biometricEnabled && biometricEmail && (
-            <>
-              <div className="relative my-6">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/10"></div>
-                </div>
-                <div className="relative flex justify-center text-xs">
-                  <span className="bg-card px-2 text-muted-foreground">or</span>
-                </div>
-              </div>
-
-              <Button
-                type="button"
-                onClick={handleBiometricLogin}
-                disabled={loading}
-                variant="outline"
-                className="w-full border-primary/50 hover:bg-primary/10 rounded-2xl h-14"
-                data-testid="biometric-login-button"
-              >
-                <Fingerprint className="mr-2 h-5 w-5 text-primary" />
-                Sign in with Face ID
-              </Button>
-            </>
-          )}
-
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            Must be 18+ to use BETZ
+          {/* tagline */}
+          <p className="mt-3 font-heading text-base tracking-[0.35em] uppercase text-[#00ff41] md:text-xl">
+            Bet Secure. Get Paid.
           </p>
 
-          {/* Legal Links */}
-          <div className="flex justify-center gap-4 mt-4 text-xs text-muted-foreground">
-            <a href="/privacy" className="hover:text-primary transition-colors">Privacy</a>
-            <span>•</span>
-            <a href="/terms" className="hover:text-primary transition-colors">Terms</a>
-            <span>•</span>
-            <a href="/contact" className="hover:text-primary transition-colors">Contact</a>
+          {/* sub-line + staging lights */}
+          <div className="mt-4 flex items-center gap-4 md:mt-6">
+            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 backdrop-blur-md">
+              <span className="stage-light h-2 w-2 rounded-full bg-white/10" />
+              <span className="stage-light delay-1 h-2 w-2 rounded-full bg-white/10" />
+              <span className="stage-light delay-2 h-2 w-2 rounded-full bg-white/10" />
+              <span className="ml-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
+                Staging
+              </span>
+            </div>
+            <div className="hidden items-center gap-1.5 text-xs font-medium text-white/50 md:flex">
+              <ShieldCheck className="h-3.5 w-3.5 text-[#00ff41]" />
+              <span>Escrowed P2P Wallet</span>
+            </div>
           </div>
-          
-          <div className="mt-4 text-center">
-            <a href="/admin/login" className="text-xs text-muted-foreground hover:text-primary">
-              Admin? Login here →
-            </a>
-          </div>
-        </Card>
 
-        {showBiometricPrompt && (
-          <BiometricPrompt
-            userEmail={formData.email}
-            onClose={() => setShowBiometricPrompt(false)}
-          />
-        )}
+          {/* desktop trust badges */}
+          <div className="mt-8 hidden max-w-md flex-wrap gap-3 md:flex">
+            {[
+              { icon: ShieldCheck, label: 'Bank-grade encryption' },
+              { icon: Zap, label: 'Instant payouts' },
+            ].map(({ icon: Icon, label }) => (
+              <div
+                key={label}
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 text-xs text-white/70 backdrop-blur-md"
+              >
+                <Icon className="h-3.5 w-3.5 text-[#00ff41]" />
+                {label}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* RIGHT (form card) */}
+        <div className="relative flex flex-1 items-end justify-center md:items-center md:justify-end md:px-12 md:py-12">
+          <div className="w-full max-w-md md:max-w-[440px]">
+            <div
+              data-testid="auth-card"
+              className="auth-card-shell relative rounded-t-[2rem] px-6 pt-7 pb-8 md:rounded-3xl md:p-9"
+            >
+              {/* top accent line */}
+              <div className="absolute left-1/2 top-0 h-[3px] w-16 -translate-x-1/2 rounded-b-full bg-[#00ff41] shadow-[0_0_12px_#00ff41]" />
+
+              {/* segmented tabs */}
+              <div className="mb-7 flex gap-1 rounded-xl border border-white/5 bg-black/50 p-1">
+                <button
+                  type="button"
+                  data-testid="login-tab"
+                  onClick={() => setIsLogin(true)}
+                  className={`auth-tab ${isLogin ? 'auth-tab-active' : 'auth-tab-inactive'}`}
+                >
+                  Sign In
+                </button>
+                <button
+                  type="button"
+                  data-testid="register-tab"
+                  onClick={() => setIsLogin(false)}
+                  className={`auth-tab ${!isLogin ? 'auth-tab-active' : 'auth-tab-inactive'}`}
+                >
+                  Register
+                </button>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {!isLogin && (
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/50"
+                    >
+                      Driver Name
+                    </label>
+                    <input
+                      id="name"
+                      data-testid="name-input"
+                      className="auth-input"
+                      placeholder="Johnny Racer"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required={!isLogin}
+                    />
+                  </div>
+                )}
+
+                {!isLogin && (
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/50"
+                    >
+                      Phone
+                    </label>
+                    <input
+                      id="phone"
+                      data-testid="phone-input"
+                      className="auth-input"
+                      placeholder="+1 (555) 123-4567"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      required={!isLogin}
+                    />
+                  </div>
+                )}
+
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/50"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    data-testid="email-input"
+                    className="auth-input"
+                    placeholder="racer@betz.app"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <div className="mb-1.5 flex items-center justify-between">
+                    <label
+                      htmlFor="password"
+                      className="block text-[10px] font-bold uppercase tracking-[0.18em] text-white/50"
+                    >
+                      Password
+                    </label>
+                    {isLogin && (
+                      <a
+                        href="/forgot-password"
+                        data-testid="forgot-password-link"
+                        className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#00ff41] hover:text-white transition-colors"
+                      >
+                        Forgot?
+                      </a>
+                    )}
+                  </div>
+                  <div className="relative">
+                    <input
+                      id="password"
+                      data-testid="password-input"
+                      type={showPassword ? 'text' : 'password'}
+                      className="auth-input pr-12"
+                      placeholder="••••••••"
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      data-testid="password-input-toggle-visibility"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-2 text-white/50 hover:text-[#00ff41] transition-colors"
+                      aria-label="toggle password visibility"
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  data-testid="submit-button"
+                  disabled={loading}
+                  className="auth-cta mt-2"
+                >
+                  {loading ? (
+                    <span className="font-body text-sm tracking-normal">Processing...</span>
+                  ) : (
+                    <>
+                      {isLogin ? 'Launch' : 'Stage Up'}
+                      <ArrowRight className="h-5 w-5" />
+                    </>
+                  )}
+                </button>
+              </form>
+
+              {isLogin && biometricEnabled && biometricEmail && (
+                <>
+                  <div className="relative my-6">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-white/10" />
+                    </div>
+                    <div className="relative flex justify-center">
+                      <span className="bg-[#0a0a0c] px-3 text-[10px] font-bold uppercase tracking-[0.25em] text-white/40">
+                        or
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleBiometricLogin}
+                    disabled={loading}
+                    data-testid="biometric-login-button"
+                    className="auth-secondary-btn"
+                  >
+                    <Fingerprint className="h-5 w-5 text-[#00ff41]" />
+                    Sign in with Face ID
+                  </button>
+                </>
+              )}
+
+              <p className="mt-7 text-center text-[10px] font-bold uppercase tracking-[0.25em] text-white/40">
+                Must be 18+ to use BETZ
+              </p>
+
+              <div className="mt-3 flex justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-white/35">
+                <a href="/privacy" className="hover:text-[#00ff41] transition-colors">
+                  Privacy
+                </a>
+                <span>•</span>
+                <a href="/terms" className="hover:text-[#00ff41] transition-colors">
+                  Terms
+                </a>
+                <span>•</span>
+                <a href="/contact" className="hover:text-[#00ff41] transition-colors">
+                  Contact
+                </a>
+              </div>
+
+              <div className="mt-4 text-center">
+                <a
+                  href="/admin/login"
+                  className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/35 hover:text-[#00ff41] transition-colors"
+                >
+                  Admin? Login here →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {showBiometricPrompt && (
+        <BiometricPrompt
+          userEmail={formData.email}
+          onClose={() => setShowBiometricPrompt(false)}
+        />
+      )}
     </div>
   );
 }
