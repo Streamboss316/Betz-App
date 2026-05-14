@@ -1,0 +1,35 @@
+{
+  "summary": "Backend regression + new endpoint coverage for BETZ P2 hardening (admin impersonation, demo-users, PUT /admin/users empty-body validation, /friends/request JSON body). All 38 pytest cases passing (24 prior regression + 14 new). Backend boots cleanly with JWT_SECRET in env (fail-fast path verified at code level).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_betz_backend.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "admin_routes.py:180 — DEMO_USER_EMAILS hardcoded. Consider sourcing from env or DB tag (e.g. user.is_demo flag) so ops can add demo accounts without code change.",
+    "admin_routes.py:206 — Impersonation user JWT TTL is 12h. Logged token is indistinguishable from a real login; consider adding `impersonated_by` claim and audit log entry for traceability.",
+    "admin_routes.py:151-169 — PUT /admin/users: `result.matched_count == 0` returns 404 AFTER validating non-empty body, which is correct order. But a successful no-op update (same value) still returns 200 — acceptable.",
+    "server.py:837-883 — /friends/request now validates self, existence, and duplicates. Good. Minor: notif `content` uses `current_user['name']` without null-guard; if name absent in DB, will KeyError. Low risk since register requires name.",
+    "server.py — file is 3080 lines; should be split into routers (auth, bets, friends, messages, chat, admin) per the >700-line guideline.",
+    "admin_routes.py:441 — /admin/demo/reset wipes ALL users including admin-created/real users. Powerful destructive endpoint — confirm intentional or restrict further."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_betz_backend.py"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "not tested (backend-only request)"},
+  "test_credentials": "Admin: streamboss316@gmail.com / sanaa3030. Demo users seeded via /app/backend/seed_demo_users.py (creates demo@betz.com & test@betz.com only; dp@ and speed@ remain whitelisted-but-unseeded — by design returns 404 on impersonate).",
+  "seed_data_creation": "Ran /app/backend/seed_demo_users.py — ensures demo@betz.com and test@betz.com exist. Test users created per test with @betztest.com TLD (cleanup via TEST_ prefix in name).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "test_betz_backend.py now has 38 tests across 9 classes. New classes: TestAdminImpersonate (8 tests covering 401/403/404/200 + user-token rejection + verifying issued JWT is a user JWT not admin), TestAdminUpdateUser (3 tests: empty-body 400, unknown user 404, valid update persists). TestFriends rewritten for JSON body. Note: seed_demo_users.py currently only seeds demo@ and test@; whitelist also includes dp@/speed@ which intentionally return 404 — if seed script is expanded, update test_impersonate_whitelisted_but_unseeded_404 (currently accepts 200 or 404).",
+  "test_results": {"total": 38, "passed": 38, "failed": 0, "new_tests_added": 14}
+}

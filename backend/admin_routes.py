@@ -9,12 +9,17 @@ import bcrypt
 
 admin_router = APIRouter(prefix="/api/admin")
 
-# Admin credentials - in production, store securely
-ADMIN_EMAIL = "streamboss316@gmail.com"
-# Pre-generated hash for password: sanaa3030
-ADMIN_PASSWORD_HASH = "$2b$12$GBoeQgBEpvKXwkXGKv5dX.nuUuwHb0HGpDj8ozXds0dsHiCCDCgMm"
+# Admin credentials — sourced from env. Defaults preserve existing behaviour for local dev.
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'streamboss316@gmail.com')
+# Pre-generated bcrypt hash. If ADMIN_PASSWORD_HASH is set in env it takes precedence.
+ADMIN_PASSWORD_HASH = os.environ.get(
+    'ADMIN_PASSWORD_HASH',
+    "$2b$12$GBoeQgBEpvKXwkXGKv5dX.nuUuwHb0HGpDj8ozXds0dsHiCCDCgMm",
+)
 
-JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key')
+JWT_SECRET = os.environ.get('JWT_SECRET')
+if not JWT_SECRET:
+    raise RuntimeError("JWT_SECRET must be set in environment for admin auth")
 ALGORITHM = "HS256"
 
 def verify_password(password: str, hashed: str) -> bool:
@@ -150,15 +155,17 @@ async def update_user(user_id: str, update_data: UserUpdateInput, admin: dict = 
         update_fields["balance"] = update_data.balance
     if update_data.suspended is not None:
         update_fields["suspended"] = update_data.suspended
-    
-    if update_fields:
-        result = await db.users.update_one(
-            {"user_id": user_id},
-            {"$set": update_fields}
-        )
-        if result.modified_count == 0:
-            raise HTTPException(status_code=404, detail="User not found")
-    
+
+    if not update_fields:
+        raise HTTPException(status_code=400, detail="No fields provided to update")
+
+    result = await db.users.update_one(
+        {"user_id": user_id},
+        {"$set": update_fields}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+
     return {"success": True}
 
 @admin_router.delete("/users/{user_id}")
@@ -167,6 +174,37 @@ async def delete_user(user_id: str, admin: dict = Depends(verify_admin_token)):
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
     return {"success": True}
+
+
+# Demo users that admins may impersonate (whitelist by email). Real DB users only.
+DEMO_USER_EMAILS = ['demo@betz.com', 'test@betz.com', 'dp@betz.com', 'speed@betz.com']
+
+class ImpersonateInput(BaseModel):
+    email: EmailStr
+
+@admin_router.get("/demo-users")
+async def list_demo_users(admin: dict = Depends(verify_admin_token)):
+    """List demo accounts an admin can impersonate (admin-only)."""
+    users = await db.users.find(
+        {"email": {"$in": DEMO_USER_EMAILS}},
+        {"_id": 0, "user_id": 1, "email": 1, "name": 1, "balance": 1},
+    ).to_list(50)
+    return users
+
+@admin_router.post("/impersonate")
+async def impersonate_user(input_data: ImpersonateInput, admin: dict = Depends(verify_admin_token)):
+    """Issue a regular-user JWT for an allowed demo email — no password required.
+    Admin-only. Only emails on the demo whitelist are allowed."""
+    if input_data.email not in DEMO_USER_EMAILS:
+        raise HTTPException(status_code=403, detail="Email not on demo impersonation whitelist")
+
+    user = await db.users.find_one({"email": input_data.email}, {"_id": 0, "password_hash": 0})
+    if not user:
+        raise HTTPException(status_code=404, detail="Demo user not found in DB. Seed demo users first.")
+
+    expire = datetime.now(timezone.utc) + timedelta(hours=12)
+    token = jwt.encode({"sub": user["user_id"], "exp": expire}, JWT_SECRET, algorithm=ALGORITHM)
+    return {"access_token": token, "token_type": "bearer", "user": user}
 
 @admin_router.get("/bets")
 async def get_all_bets(status: Optional[str] = None, admin: dict = Depends(verify_admin_token)):

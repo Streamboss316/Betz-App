@@ -834,19 +834,28 @@ async def update_privacy(profile_public: bool, activity_public: bool, current_us
     )
     return {"success": True}
 
+class FriendRequestInput(BaseModel):
+    friend_id: str
+
 @api_router.post("/friends/request")
-async def send_friend_request(friend_id: str, current_user: dict = Depends(get_current_user)):
+async def send_friend_request(input_data: FriendRequestInput, current_user: dict = Depends(get_current_user)):
+    friend_id = input_data.friend_id
     # Prevent self-friend request
     if friend_id == current_user["user_id"]:
         raise HTTPException(status_code=400, detail="Cannot send friend request to yourself")
-    
+
+    # Verify target user exists
+    target = await db.users.find_one({"user_id": friend_id}, {"_id": 0, "user_id": 1})
+    if not target:
+        raise HTTPException(status_code=404, detail="User not found")
+
     existing = await db.friendships.find_one({
         "$or": [
             {"user_id": current_user["user_id"], "friend_id": friend_id},
             {"user_id": friend_id, "friend_id": current_user["user_id"]}
         ]
     })
-    
+
     if existing:
         raise HTTPException(status_code=400, detail="Friendship already exists")
     

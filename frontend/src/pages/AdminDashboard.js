@@ -9,13 +9,8 @@ import { toast } from 'sonner';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Demo users for quick switching (REMOVE IN PRODUCTION)
-// TODO: Remove demo user switching in production deployment
-const DEMO_USERS = process.env.NODE_ENV === 'development' ? [
-  { email: 'demo@betz.com', password: 'demo123', name: 'Demo User' },
-  { email: 'test@betz.com', password: 'test123', name: 'Test User' },
-  { email: 'dp@betz.com', password: 'dp123', name: 'DP User' },
-] : [];
+// Demo users are now fetched from the backend via admin-only /api/admin/demo-users.
+// Switching uses /api/admin/impersonate which returns a user JWT — no plaintext passwords.
 
 export default function AdminDashboard({ onLogout }) {
   const navigate = useNavigate();
@@ -24,23 +19,35 @@ export default function AdminDashboard({ onLogout }) {
   const [showUserSwitcher, setShowUserSwitcher] = useState(false);
   const [switchingUser, setSwitchingUser] = useState(false);
   const [currentDemoUser, setCurrentDemoUser] = useState(null);
+  const [demoUsers, setDemoUsers] = useState([]);
 
   useEffect(() => {
     loadStats();
+    loadDemoUsers();
     // Check if there's a current demo user logged in
     const token = localStorage.getItem('token');
-    if (token) {
+    const adminToken = localStorage.getItem('admin_token');
+    if (token && adminToken) {
       axios.get(`${API}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` }
       }).then(res => {
-        const user = res.data;
-        const demoUser = DEMO_USERS.find(u => u.email === user.email);
-        if (demoUser) {
-          setCurrentDemoUser(demoUser);
-        }
+        setCurrentDemoUser(res.data);
       }).catch(() => {});
     }
   }, []);
+
+  const loadDemoUsers = async () => {
+    const adminToken = localStorage.getItem('admin_token');
+    if (!adminToken) return;
+    try {
+      const res = await axios.get(`${API}/admin/demo-users`, {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      });
+      setDemoUsers(res.data);
+    } catch (error) {
+      // Silent — demo users are optional
+    }
+  };
 
   const loadStats = async () => {
     const token = localStorage.getItem('admin_token');
@@ -66,18 +73,19 @@ export default function AdminDashboard({ onLogout }) {
 
   const handleSwitchUser = async (demoUser) => {
     setSwitchingUser(true);
+    const adminToken = localStorage.getItem('admin_token');
     try {
-      const res = await axios.post(`${API}/auth/login`, {
-        email: demoUser.email,
-        password: demoUser.password
-      });
-      
+      const res = await axios.post(
+        `${API}/admin/impersonate`,
+        { email: demoUser.email },
+        { headers: { Authorization: `Bearer ${adminToken}` } }
+      );
       localStorage.setItem('token', res.data.access_token);
-      setCurrentDemoUser(demoUser);
+      setCurrentDemoUser(res.data.user);
       setShowUserSwitcher(false);
       toast.success(`Switched to ${demoUser.name}`);
     } catch (error) {
-      toast.error('Failed to switch user');
+      toast.error(error.response?.data?.detail || 'Failed to switch user');
     } finally {
       setSwitchingUser(false);
     }
@@ -143,7 +151,12 @@ export default function AdminDashboard({ onLogout }) {
                 <div className="p-2 border-b border-white/10">
                   <p className="text-xs text-muted-foreground px-2">Switch Demo Account</p>
                 </div>
-                {DEMO_USERS.map((demoUser) => (
+                {demoUsers.length === 0 && (
+                  <p className="px-3 py-4 text-xs text-muted-foreground">
+                    No demo users in DB. Seed `demo@betz.com`, `test@betz.com`, `dp@betz.com` to enable switching.
+                  </p>
+                )}
+                {demoUsers.map((demoUser) => (
                   <button
                     key={demoUser.email}
                     onClick={() => handleSwitchUser(demoUser)}

@@ -34,33 +34,24 @@ export default function AdminDemoMode() {
   };
 
   const handleTestAsUser = async (userEmail) => {
-    const token = localStorage.getItem('admin_token');
-    
+    const adminToken = localStorage.getItem('admin_token');
+
     try {
-      // Determine password based on email
-      const passwordMap = {
-        'demo@betz.com': 'demo123',
-        'test@betz.com': 'test123',
-        'speed@betz.com': 'speed123'
-      };
-      const password = passwordMap[userEmail] || 'demo123';
-      
-      const res = await axios.post(`${API}/auth/login`, {
-        email: userEmail,
-        password: password
-      });
-      
-      // Save user token
+      // Use admin-only impersonation endpoint — no plaintext passwords needed.
+      const res = await axios.post(
+        `${API}/admin/impersonate`,
+        { email: userEmail },
+        { headers: { Authorization: `Bearer ${adminToken}` } }
+      );
+
       localStorage.setItem('token', res.data.access_token);
       localStorage.setItem('demo_mode_active', 'true');
-      localStorage.setItem('admin_return_token', token);
-      
+      localStorage.setItem('admin_return_token', adminToken);
+
       toast.success(`Testing as ${res.data.user.name}`);
-      
-      // Redirect to user app
       window.location.href = '/';
     } catch (error) {
-      toast.error('Failed to login as user');
+      toast.error(error.response?.data?.detail || 'Failed to impersonate user');
     }
   };
 

@@ -65,8 +65,7 @@ export default function ContactsPage({ user }) {
   const handleSendRequest = async (contactId) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.post(`${API}/friends/request`, null, {
-        params: { friend_id: contactId },
+      await axios.post(`${API}/friends/request`, { friend_id: contactId }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Contact request sent');

@@ -353,13 +353,199 @@ class TestBetsAndPunkOut:
         assert bal_u2_post - bal_u2_pre == pytest.approx(amount - punk_amount)
 
 
-# ---------- Friends ----------
+# ---------- Friends (JSON body) ----------
 
 class TestFriends:
     def test_self_friend_request_blocked(self, session, user_a):
         r = session.post(
             f"{API}/friends/request",
-            params={"friend_id": user_a["user_id"]},
+            json={"friend_id": user_a["user_id"]},
             headers=user_a["headers"],
         )
         assert r.status_code == 400
+
+    def test_friend_request_unknown_user_404(self, session, user_a):
+        r = session.post(
+            f"{API}/friends/request",
+            json={"friend_id": "nonexistent-user-id-xyz"},
+            headers=user_a["headers"],
+        )
+        assert r.status_code == 404
+
+    def test_friend_request_success_then_duplicate_400(self, session):
+        u1 = _register_user(session, "frA")
+        u2 = _register_user(session, "frB")
+        # First request succeeds
+        r1 = session.post(
+            f"{API}/friends/request",
+            json={"friend_id": u2["user_id"]},
+            headers=u1["headers"],
+        )
+        assert r1.status_code == 200, f"friend request failed: {r1.text}"
+        body = r1.json()
+        assert body.get("success") is True
+        # Duplicate request rejected
+        r2 = session.post(
+            f"{API}/friends/request",
+            json={"friend_id": u2["user_id"]},
+            headers=u1["headers"],
+        )
+        assert r2.status_code == 400
+
+    def test_friend_accept_flow(self, session):
+        u1 = _register_user(session, "faA")
+        u2 = _register_user(session, "faB")
+        r = session.post(
+            f"{API}/friends/request",
+            json={"friend_id": u2["user_id"]},
+            headers=u1["headers"],
+        )
+        assert r.status_code == 200
+        # u2 lists incoming requests
+        reqs = session.get(f"{API}/friends/requests", headers=u2["headers"])
+        assert reqs.status_code == 200
+        items = reqs.json()
+        # Response is list of {"friendship": {...}, "user": {...}}
+        match = [
+            x for x in items
+            if x.get("friendship", {}).get("user_id") == u1["user_id"]
+        ]
+        assert match, f"Expected incoming friend req from u1: {items}"
+        # u2 accepts — endpoint path uses requester's user_id (u1)
+        ra = session.put(
+            f"{API}/friends/{u1['user_id']}/accept",
+            headers=u2["headers"],
+        )
+        assert ra.status_code == 200
+
+
+# ---------- Admin: impersonation & demo-users (NEW) ----------
+
+class TestAdminImpersonate:
+    def test_demo_users_no_token_401(self, session):
+        r = session.get(f"{API}/admin/demo-users")
+        assert r.status_code == 401
+
+    def test_demo_users_user_token_rejected(self, session, user_a):
+        r = session.get(f"{API}/admin/demo-users", headers=user_a["headers"])
+        # user JWT lacks role=admin → 401/403
+        assert r.status_code in (401, 403)
+
+    def test_demo_users_admin_returns_list(self, session, admin_token):
+        r = session.get(
+            f"{API}/admin/demo-users",
+            headers={"Authorization": f"Bearer {admin_token}"},
+        )
+        assert r.status_code == 200, f"demo-users failed: {r.text}"
+        data = r.json()
+        assert isinstance(data, list)
+        # At least demo@betz.com is seeded
+        emails = {u["email"] for u in data}
+        assert "demo@betz.com" in emails, f"demo@betz.com missing: {emails}"
+        # Whitelist subset only
+        whitelist = {"demo@betz.com", "test@betz.com", "dp@betz.com", "speed@betz.com"}
+        assert emails.issubset(whitelist)
+        # Verify shape (no password_hash, no _id)
+        for u in data:
+            assert "password_hash" not in u
+            assert "_id" not in u
+            assert "user_id" in u and "email" in u
+
+    def test_impersonate_no_token_401(self, session):
+        r = session.post(
+            f"{API}/admin/impersonate",
+            json={"email": "demo@betz.com"},
+        )
+        assert r.status_code == 401
+
+    def test_impersonate_user_token_rejected(self, session, user_a):
+        r = session.post(
+            f"{API}/admin/impersonate",
+            json={"email": "demo@betz.com"},
+            headers=user_a["headers"],
+        )
+        assert r.status_code in (401, 403)
+
+    def test_impersonate_non_whitelisted_403(self, session, admin_token, user_a):
+        # user_a is a registered real user but not on demo whitelist
+        r = session.post(
+            f"{API}/admin/impersonate",
+            json={"email": user_a["email"]},
+            headers={"Authorization": f"Bearer {admin_token}",
+                     "Content-Type": "application/json"},
+        )
+        assert r.status_code == 403, f"expected 403, got {r.status_code}: {r.text}"
+
+    def test_impersonate_whitelisted_but_unseeded_404(self, session, admin_token):
+        # speed@betz.com is whitelisted but seed_demo_users.py does NOT create it
+        r = session.post(
+            f"{API}/admin/impersonate",
+            json={"email": "speed@betz.com"},
+            headers={"Authorization": f"Bearer {admin_token}",
+                     "Content-Type": "application/json"},
+        )
+        # Either seeded (200) or not (404). Accept both, but assert no leak otherwise.
+        assert r.status_code in (200, 404), f"unexpected: {r.status_code} {r.text}"
+
+    def test_impersonate_happy_path_returns_user_jwt(self, session, admin_token):
+        r = session.post(
+            f"{API}/admin/impersonate",
+            json={"email": "demo@betz.com"},
+            headers={"Authorization": f"Bearer {admin_token}",
+                     "Content-Type": "application/json"},
+        )
+        assert r.status_code == 200, f"impersonate failed: {r.text}"
+        body = r.json()
+        assert "access_token" in body and isinstance(body["access_token"], str)
+        assert body.get("token_type") == "bearer"
+        assert "user" in body
+        assert body["user"]["email"] == "demo@betz.com"
+        assert "password_hash" not in body["user"]
+        # Verify token is a regular USER token (no role=admin) by hitting /auth/me
+        user_headers = {
+            "Authorization": f"Bearer {body['access_token']}",
+            "Content-Type": "application/json",
+        }
+        me = session.get(f"{API}/auth/me", headers=user_headers)
+        assert me.status_code == 200, f"/auth/me with impersonate token failed: {me.text}"
+        assert me.json()["email"] == "demo@betz.com"
+        # And the user token MUST NOT grant admin access
+        admin_check = session.get(f"{API}/admin/stats", headers=user_headers)
+        assert admin_check.status_code in (401, 403)
+
+
+# ---------- Admin: PUT /users empty body validation (NEW) ----------
+
+class TestAdminUpdateUser:
+    def test_put_user_empty_body_returns_400(self, session, admin_token, user_a):
+        r = session.put(
+            f"{API}/admin/users/{user_a['user_id']}",
+            json={},
+            headers={"Authorization": f"Bearer {admin_token}",
+                     "Content-Type": "application/json"},
+        )
+        assert r.status_code == 400, f"expected 400 on empty body, got {r.status_code}: {r.text}"
+
+    def test_put_user_unknown_returns_404(self, session, admin_token):
+        r = session.put(
+            f"{API}/admin/users/nonexistent-user-id-xyz",
+            json={"balance": 123.0},
+            headers={"Authorization": f"Bearer {admin_token}",
+                     "Content-Type": "application/json"},
+        )
+        assert r.status_code == 404, f"expected 404, got {r.status_code}: {r.text}"
+
+    def test_put_user_valid_balance_update_persists(self, session, admin_token):
+        u = _register_user(session, "putval")
+        new_balance = 1234.56
+        r = session.put(
+            f"{API}/admin/users/{u['user_id']}",
+            json={"balance": new_balance},
+            headers={"Authorization": f"Bearer {admin_token}",
+                     "Content-Type": "application/json"},
+        )
+        assert r.status_code == 200, f"update failed: {r.text}"
+        # Verify persisted by GET /auth/me
+        me = session.get(f"{API}/auth/me", headers=u["headers"])
+        assert me.status_code == 200
+        assert me.json()["balance"] == pytest.approx(new_balance)
