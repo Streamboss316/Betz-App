@@ -8,7 +8,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const BG_IMAGE =
-  'https://images.unsplash.com/photo-1577953028264-b6a243477b38?w=1800&q=85&auto=format&fit=crop';
+  'https://images.unsplash.com/photo-1654052329553-acaef54a2b4b?w=1800&q=85&auto=format&fit=crop';
 
 export default function AuthPage({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
