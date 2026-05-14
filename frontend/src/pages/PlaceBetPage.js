@@ -324,7 +324,7 @@ export default function PlaceBetPage({ user }) {
                       data-testid="rules-input"
                       value={stipulationForm.rules}
                       onChange={(e) => setStipulationForm({...stipulationForm, rules: e.target.value})}
-                      placeholder="e.g., Track Rules: Must follow NHRA guidelines&#10;or&#10;Street Rules: No police interference, start from roll, etc."
+                      placeholder="e.g., Track Rules: Must follow sanctioned track guidelines&#10;or&#10;Street Rules: No police interference, start from roll, etc."
                       className="bg-input/50 border-white/10 rounded-lg min-h-[80px] resize-none"
                       rows="3"
                     />

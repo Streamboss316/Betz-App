@@ -8,7 +8,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const BG_IMAGE =
-  'https://images.unsplash.com/photo-1654052329553-acaef54a2b4b?w=1800&q=85&auto=format&fit=crop';
+  'https://customer-assets.emergentagent.com/job_1f6e54f4-508a-4fab-93ea-ea00f0ad236a/artifacts/um9wmfp7_35726fbcf6c1c801061b9fdf9ba8f80aa35f98fc679f0871a7a24818e0f4de6f.avif';
 
 export default function AuthPage({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -86,36 +86,18 @@ export default function AuthPage({ onLogin }) {
           alt=""
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ filter: 'grayscale(35%) contrast(0.95) brightness(0.55)', opacity: 0.45 }}
+          style={{ filter: 'contrast(1.02) saturate(1.05) brightness(0.78)', opacity: 0.75 }}
         />
-        {/* deep dark wash */}
-        <div className="absolute inset-0 bg-[#06070a]/80" />
+        {/* gentle dark wash — keeps card legible, lets photo breathe */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#06070a]/65 via-[#06070a]/40 to-[#06070a]/85" />
         {/* very subtle purple/gold ambient */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 0%, rgba(168,85,247,0.10), transparent 55%), radial-gradient(circle at 50% 100%, rgba(251,191,36,0.06), transparent 55%)',
+              'radial-gradient(circle at 50% 0%, rgba(168,85,247,0.08), transparent 55%), radial-gradient(circle at 50% 100%, rgba(251,191,36,0.05), transparent 55%)',
           }}
         />
-
-        {/* === STAGING TREE — tiny monochrome watermark, far left, ~25% opacity === */}
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 100 360"
-          className="pointer-events-none absolute left-4 bottom-8 z-[1] hidden h-[50vh] max-h-[420px] w-auto md:block"
-          style={{ opacity: 0.12 }}
-        >
-          <rect x="48" y="0" width="4" height="360" fill="#ffffff" />
-          <circle cx="38" cy="30" r="3" fill="#ffffff" />
-          <circle cx="62" cy="30" r="3" fill="#ffffff" />
-          <circle cx="38" cy="55" r="3" fill="#ffffff" />
-          <circle cx="62" cy="55" r="3" fill="#ffffff" />
-          <circle cx="50" cy="105" r="12" fill="#ffffff" />
-          <circle cx="50" cy="155" r="12" fill="#ffffff" />
-          <circle cx="50" cy="205" r="12" fill="#ffffff" />
-          <circle cx="50" cy="265" r="14" fill="#ffffff" />
-        </svg>
       </div>
 
       {/* === HEADER — minimal, top-centered === */}
